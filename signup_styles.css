@@ -1,0 +1,19 @@
+h1{
+    text-align: center;
+}
+label{
+    display:block;
+    text-align: center;
+}
+input{
+    display:block;
+    margin:auto;
+}
+button{
+    display:block;
+    margin:auto;
+}
+small {
+    display: block;
+    text-align: center;
+}
