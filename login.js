@@ -6,18 +6,17 @@ button.addEventListener("click", LogInCheck);
 var loggedInUsers = [{username: "tony", password: "wu"}, {username: "zgalbs", password: "yur"}];
 
 function LogInCheck(){
+    let loggedIn = false;
     if (username.value == "" || password.value == ""){
         alert("Please enter something")
     }
-    else{
+    else {
         for (var i = 0; i < loggedInUsers.length; i++){
             if (loggedInUsers[i].username == username.value && loggedInUsers[i].password == password.value){
-                alert("Logged In!")
-            }
-            else{
-                alert("Invalid Login!")
+                loggedIn = true;
             }
         }
+        loggedIn ? alert("Logged in!") : alert("Invalid login!");
     }
 }
 
