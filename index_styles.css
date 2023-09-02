@@ -1,3 +1,14 @@
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+footer {
+    text-align: center;
+    margin-top: auto;
+}
+
 h1{
     text-align: center;
 }
@@ -13,3 +24,16 @@ h1{
     text-align: center;
 }
 
+#navigationBar {
+    margin: 50px 50px 25px 100px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around; 
+}
+
+#navBarButtons {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+}
