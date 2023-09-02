@@ -9,14 +9,37 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head>
 <body>
-    <div id="navigationBar">
-      <h1>Summer College Website Pinewood</h1>
-      <div id="navBarButtons">
+    
+    <!--Navbar-->
+    <section id="titleSection" class="coloredSection">
+      <div class="container-fluid">
+        <!--Navbar-->
+        <nav class="navbar navbar-expand-md">
+          <a class="navbar-brand" href="">Pinewood School <br> Summer College Counciling Database </a>
+          <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <ul class="navbar-nav ml-auto">
+              <li class="nav-item">
+                <a class="btn btn-outline-warning" id="nav-link" href="login.html">Sign In</a>
+                <!-- <a class="nav-link" href="login.html">Log In</a> -->
+              </li>
+              <li class="nav-item">
+                <a class="btn btn-outline-warning" id="nav-link" href="signup.html">Sign Up</a>
+              </li>
+              </li>
+            </ul>
+          </div>
+        </nav>
+      </div>
+    </section> 
+
+    <!-- <nav class="navbar navbar-expand-md navbar-dark">
+      <a class="navbar-brand" href="">Summer College Website Pinewood</a>
+      <div id="navBarButtons nav-item">
         <a target="_self" href="login.html" id="login" >Log In</a>
         <br><br>
         <a target="_self" href="signup.html" id="signup">Sign Up</a>
       </div>
-    </div>
+    </nav> -->
     <script src="index.js"></script>
     <script type="module">
         // Import the functions you need from the SDKs you need
@@ -42,9 +65,12 @@
         const analytics = getAnalytics(app);
       </script>
 
+    <div class="container-fluid">
       <footer>
         <p>@2023 Tech Club</p>
       </footer>
+    </div>
+      
       
 </body>
 </html>

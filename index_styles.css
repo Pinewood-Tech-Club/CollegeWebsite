@@ -9,9 +9,24 @@ footer {
     margin-top: auto;
 }
 
-h1{
-    text-align: center;
+.navbar-brand{
+    color: white;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 6.5rem;
+    font-weight: bold;
 }
+
+.nav-item {
+    padding: 0 18px;
+}
+
+.coloredSection {
+    /* background: #1A5D1A; */
+    background: linear-gradient(114deg, #1A5D1A 66%, #fbab1a 66%);
+    color: white;
+}
+
+
 #login{
     color:blue;
     display:block;
@@ -24,16 +39,11 @@ h1{
     text-align: center;
 }
 
-#navigationBar {
-    margin: 50px 50px 25px 100px;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around; 
-}
+.container-fluid {
+    padding: 7% 15%;
+  }
 
-#navBarButtons {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 10px;
+#nav-link {
+    font-weight: bold;
+    color: #1A5D1A;
 }
