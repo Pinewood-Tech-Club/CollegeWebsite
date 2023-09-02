@@ -3,7 +3,7 @@ var password = document.getElementById("password_input");
 var button = document.getElementById("login");
 button.addEventListener("click", LogInCheck);
 
-var loggedInUsers = [{username: "tony", password: "wu"}];
+var loggedInUsers = [{username: "tony", password: "wu"}, {username: "zgalbs", password: "yur"}];
 
 function LogInCheck(){
     if (username.value == "" || password.value == ""){
