@@ -47,3 +47,7 @@ footer {
     font-weight: bold;
     color: #1A5D1A;
 }
+#copyright {
+    position: absolute;
+    bottom: 0;
+}
