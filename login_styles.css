@@ -3,8 +3,15 @@ body {
     background-size: contain;
 }
 #mainContainer {
-    display: grid;
-    grid-template-rows: 1fr;
+    display: flex;
+    align-items: center;
+    border-style: solid;
+    height: 100%;
+}
+#otherContainer {
+    align-self: center;
+    border-style: solid;
+    width: 20vw;
 }
 #loginContainer {
     place-self: center;

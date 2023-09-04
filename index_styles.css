@@ -56,3 +56,7 @@ ul#add-camps {
 li {
     margin-bottom: 10px;
 }
+#copyright {
+    position: absolute;
+    bottom: 0;
+}
