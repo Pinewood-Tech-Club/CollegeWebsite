@@ -13,7 +13,11 @@
     <section id="titleSection" class="coloredSection">
       <div class="container-fluid">
         <nav class="navbar navbar-expand-md">
-          <p class="navbar-brand">Pinewood School <br> Summer College Counciling Database </p>
+          <a class="navbar-brand">
+            <img src="Logo.png" width="60">
+          </a>
+          <a class="navbar-brand">Pinewood School <br> Summer College Counciling Database </a>
+          
           <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <ul class="navbar-nav ml-auto">
               <li class="nav-item">
@@ -28,38 +32,57 @@
         </nav>
       </div>
     </section> 
-    <!--Navbar-->
-    <script src="index.js"></script>
-    <script type="module">
+    <div class="fluid-container"> 
+      <!-- Database -->
+      <ul id="add-camps">
+
+      </ul>
+    </div>
+    
+    
+    <!-- Footer -->
+    <footer class="page-footer font-small ml-auto">
+      <div class="footer-copyright ml-auto py-3">@2023 Pinewood Technology Club</div>
+    </footer>
+
+    <!-- script type="module">
       // Import the functions you need from the SDKs you need
       import { initializeApp } from "https://www.gstatic.com/firebasejs/10.3.1/firebase-app.js";
       import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.3.1/firebase-analytics.js";
+      import { getFirestore, collection, getDocs } from 'https://www.gstatic.com/firebasejs/10.3.1/firebase-firestore.js';
       // TODO: Add SDKs for Firebase products that you want to use
       // https://firebase.google.com/docs/web/setup#available-libraries
-
+    
       // Your web app's Firebase configuration
       // For Firebase JS SDK v7.20.0 and later, measurementId is optional
       const firebaseConfig = {
         apiKey: "AIzaSyDAMD1hMJYS7upXHipLG_HlPxhtDwkRVK8",
         authDomain: "college-counseling-database.firebaseapp.com",
+        databaseURL: "https://college-counseling-database-default-rtdb.firebaseio.com",
         projectId: "college-counseling-database",
         storageBucket: "college-counseling-database.appspot.com",
         messagingSenderId: "1085147306385",
         appId: "1:1085147306385:web:080af2eb2caea2e44ee230",
         measurementId: "G-MGN0MY84XX"
       };
-
+    
       // Initialize Firebase
       const app = initializeApp(firebaseConfig);
       const analytics = getAnalytics(app);
-    </script>
+      const db = getFirestore(app);
+    </script -->
 
-    <div class="container-fluid">
-      <footer>
-        <p>@2023 Tech Club</p>
-      </footer>
-    </div>
-      
-      
+    <!-- Link to Firebase -->
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/7.5.0/firebase-app.js"></script>
+
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+         https://firebase.google.com/docs/web/setup#available-libraries -->
+    <script src="https://www.gstatic.com/firebasejs/7.5.0/firebase-analytics.js"></script>
+
+    <script src="https://www.gstatic.com/firebasejs/7.5.0/firebase-firestore.js"></script>
+
+    <!-- Link to firebase.js -->
+    <script src="firebase.js" charset="utf-8"></script>
 </body>
 </html>

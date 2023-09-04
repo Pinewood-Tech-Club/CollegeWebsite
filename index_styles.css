@@ -12,7 +12,7 @@ footer {
 .navbar-brand{
     color: white;
     font-family: 'Open Sans', sans-serif;
-    font-size: 6.5rem;
+    /* font-size: 3.5rem; */
     font-weight: bold;
 }
 
@@ -46,4 +46,13 @@ footer {
 #nav-link {
     font-weight: bold;
     color: #1A5D1A;
+}
+
+ul#add-camps {
+    margin-top: 25px;
+    list-style-type: none;
+}
+
+li {
+    margin-bottom: 10px;
 }
