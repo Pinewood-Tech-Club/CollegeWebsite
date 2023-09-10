@@ -44,7 +44,7 @@ getSummerCamps().then(results => {
 
     element = document.getElementById("add-camps");
     li = document.createElement("li");
-    li.innerHTML = "<strong> Name: </strong>" + results[i].name + "<strong> Organization: </strong>" + results[i].organization + "<strong> Link: </strong>" + results[i].link + "<strong> tags: </strong>" + results[i].tags + "<strong> Participated: </strong>" + results[i].participated.length.toString() + "<strong> Comments: </strong>" + results[i].comments + "<strong> status: </strong>" + results[i].status;
+    li.innerHTML = "<strong> Name: </strong>" + results[i].name + "<br><br> <strong> Organization: </strong>" + results[i].organization + "<br><br> <strong> Link: </strong>" + results[i].link + "<br><br> <strong> tags: </strong>" + results[i].tags + "<br><br> <strong> Participated: </strong>" + results[i].participated.length.toString() + "<br><br> <strong> Comments: </strong>" + results[i].comments + "<br><br> <strong> status: </strong>" + results[i].status + "<br><br><br>";
     element.appendChild(li);
   }
 });
@@ -55,7 +55,7 @@ function setUpFirebaseDatabase() {
     name: "summer program 1", 
     organization:"Pinewood", 
     link: "wiki.nl",
-    tags: ["stem", "stem2", "california"],
+    tags: ["stem ", "stem2 ", "california "],
     participated:["Micky/Sophomore", "Mini/Senior"], 
     comments:["comment1", "comment2"],
     status: "active"
@@ -71,7 +71,7 @@ function setUpFirebaseDatabase() {
     name: "summer program 2", 
     organization:"Pinewood", 
     link: "wiki.nl",
-    tags: ["language", "fun", "california"],
+    tags: ["language ", "fun ", "california "],
     participated:["Jane/Junior", "Doe/Senior"], 
     comments:["comment1", "comment2"],
     status: "active"
