@@ -10,6 +10,7 @@ footer {
     color: white;
     font-size: small;
     background: linear-gradient(114deg, #1A5D1A 66%, #fbab1a 66%);
+    vertical-align: bottom;
 }
 
 .navbar-brand{
