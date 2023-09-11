@@ -51,14 +51,19 @@ footer {
     color: #1A5D1A;
 }
 
-.wrapper {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 10px;
-    grid-auto-rows: minmax(100px, auto);
+ul#add-camps {
+    margin-top: 25px;
+    list-style-type: none;
 }
-.one {
-    grid-column: 1 / 3;
-    grid-row: 1;
-  }
-  
+
+li {
+    margin-bottom: 10px;
+}
+#copyright {
+    position: absolute;
+    bottom: 0;
+}
+
+.bigContainer {
+    height: 1000px;
+}

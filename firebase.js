@@ -34,11 +34,17 @@ function getSummerCamps() {
 
 getSummerCamps().then(results => {
 
+  element = document.getElementById("add-camps");
+
+  while (element.hasChildNodes()) {
+    element.firstChild.remove()
+  };
+
   for (var i = 0; i < results.length; i++) {
 
     element = document.getElementById("add-camps");
     li = document.createElement("li");
-    li.innerHTML = "<strong> Name: </strong>" + results[i].name + "<strong> Organization: </strong>" + results[i].organization + "<strong> Link: </strong>" + results[i].link + "<strong> tags: </strong>" + results[i].tags + "<strong> Participated: </strong>" + results[i].participated.length.toString() + "<strong> Comments: </strong>" + results[i].comments + "<strong> status: </strong>" + results[i].status;
+    li.innerHTML = "<strong> Name: </strong>" + results[i].name + "<br><br> <strong> Organization: </strong>" + results[i].organization + "<br><br> <strong> Link: </strong>" + results[i].link + "<br><br> <strong> tags: </strong>" + results[i].tags + "<br><br> <strong> Participated: </strong>" + results[i].participated.length.toString() + "<br><br> <strong> Comments: </strong>" + results[i].comments + "<br><br> <strong> status: </strong>" + results[i].status + "<br><br><br>";
     element.appendChild(li);
   }
 });
@@ -49,9 +55,9 @@ function setUpFirebaseDatabase() {
     name: "summer program 1", 
     organization:"Pinewood", 
     link: "wiki.nl",
-    tags: ["stem", "stem2", "california"],
+    tags: ["stem ", "stem2 ", "california "],
     participated:["Micky/Sophomore", "Mini/Senior"], 
-    comments:["yee-haw", "shlay"],
+    comments:["comment1", "comment2"],
     status: "active"
   })
   .then(function() {
@@ -65,9 +71,9 @@ function setUpFirebaseDatabase() {
     name: "summer program 2", 
     organization:"Pinewood", 
     link: "wiki.nl",
-    tags: ["language", "fun", "california"],
+    tags: ["language ", "fun ", "california "],
     participated:["Jane/Junior", "Doe/Senior"], 
-    comments:["very fun!", "epic"],
+    comments:["comment1", "comment2"],
     status: "active"
   })
   .then(function() {
@@ -78,5 +84,47 @@ function setUpFirebaseDatabase() {
   });
 }
 
-// setUpFirebaseDatabase(); //only need to run once to set up firebase, do not rerun unless changed :)
+//setUpFirebaseDatabase(); //only need to run once to set up firebase, do not rerun unless changed :)
+
+function getSummerCampTag(tag) {
+  var dbRef = db.collection("college-counseling-database");
+  var dbQuery = dbRef;
+
+  if (tag!="") {
+    dbQuery = dbRef.where("tags", "array-contains", tag);
+  }
+
+  var dbPromise = dbQuery.get();
+  return dbPromise.then(function(querySnapshot) {
+    var results = [];
+    querySnapshot.forEach(function(doc) {
+      results.push(doc.data());
+    });
+    console.log(results)
+    return Promise.all(results);
+  })
+  .catch(function(error) {
+    console.log("error getting documents: ", error);
+  });
+}
+
+function showTag(tag) {
+  console.log(tag)
+  getSummerCampTag(tag).then(results => {
+    console.log("in")
+      element = document.getElementById("add-camps");
+
+    while (element.hasChildNodes()) {
+      element.firstChild.remove()
+    };
+
+    for (var i = 0; i < results.length; i++) {
+
+      element = document.getElementById("add-camps");
+      li = document.createElement("li");
+      li.innerHTML = "<strong> Name: </strong>" + results[i].name + "<strong> Organization: </strong>" + results[i].organization + "<strong> Link: </strong>" + results[i].link + "<strong> tags: </strong>" + results[i].tags + "<strong> Participated: </strong>" + results[i].participated.length.toString() + "<strong> Comments: </strong>" + results[i].comments + "<strong> status: </strong>" + results[i].status;
+      element.appendChild(li);
+    }
+  });
+}
 
