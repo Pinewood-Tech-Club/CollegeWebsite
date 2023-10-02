@@ -41,11 +41,36 @@ getSummerCamps().then(results => {
   };
 
   for (var i = 0; i < results.length; i++) {
+    element = document.getElementById("add-camps"); //where database will be added
 
-    element = document.getElementById("add-camps");
-    li = document.createElement("li");
-    li.innerHTML = "<strong> Name: </strong>" + results[i].name + "<br><br> <strong> Organization: </strong>" + results[i].organization + "<br><br> <strong> Link: </strong>" + results[i].link + "<br><br> <strong> tags: </strong>" + results[i].tags + "<br><br> <strong> Participated: </strong>" + results[i].participated.length.toString() + "<br><br> <strong> Comments: </strong>" + results[i].comments + "<br><br> <strong> status: </strong>" + results[i].status + "<br><br><br>";
-    element.appendChild(li);
+    div1 = document.createElement("div"); //creating col div
+    div1.classList.add("col"); // adding "col" class to div
+
+    div2 = document.createElement("div"); //creating col div
+    div2.classList.add("col"); // adding "col" class to div
+
+    div3 = document.createElement("div"); //creating col div
+    div3.classList.add("col"); // adding "col" class to div
+
+    a = document.createElement("a"); // creating a for name
+    a.classList.add("p-3")
+
+    org = document.createElement("div"); // creating div for organization name
+    org.classList.add("p-3")
+
+    part = document.createElement("div"); // creating div for # of participants
+    part.classList.add("p-3")
+
+    //getting data 
+    a.innerHTML = results[i].name; 
+    org.innerHTML = results[i].organization;
+    part.innerHTML = results[i].participated;
+
+    //append HTML 
+    div1.appendChild(a);
+    div2.appendChild(org);
+    div3.appendChild(part);
+    element.append(div1, div2, div3);
   }
 });
 
@@ -86,7 +111,7 @@ function setUpFirebaseDatabase() {
 
 //setUpFirebaseDatabase(); //only need to run once to set up firebase, do not rerun unless changed :)
 
-function getSummerCampTag(tag) {
+function getSummerCampTag(tag) { 
   var dbRef = db.collection("college-counseling-database");
   var dbQuery = dbRef;
 
