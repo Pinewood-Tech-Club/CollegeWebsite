@@ -7,12 +7,16 @@ body {
 footer {
     text-align: center;
     margin-top: auto;
+    color: white;
+    font-size: small;
+    background: linear-gradient(114deg, #1A5D1A 66%, #fbab1a 66%);
+    vertical-align: bottom;
 }
 
 .navbar-brand{
     color: white;
     font-family: 'Open Sans', sans-serif;
-    /* font-size: 3.5rem; */
+    font-size: 6.5rem;
     font-weight: bold;
 }
 
@@ -20,9 +24,9 @@ footer {
     padding: 0 18px;
 }
 
-.coloredSection {
+.colouredSection {
     /* background: #1A5D1A; */
-    background: linear-gradient(120deg, #1A5D1A 66%, #fbab1a 66%);
+    background: linear-gradient(114deg, #1A5D1A 66%, #fbab1a 66%);
     color: white;
 }
 
@@ -60,6 +64,7 @@ li {
     position: absolute;
     bottom: 0;
 }
+
 .bigContainer {
     height: 1000px;
 }
