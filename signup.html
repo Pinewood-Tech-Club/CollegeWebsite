@@ -10,24 +10,28 @@
 <body>
     <h1>Create Your Account</h1>
     <hr>
-    <label>Full Name</label>
-    <input id="full-name">
 
-    <label>Username:</label>
-    <input id="username_input">
-    <small>username available</small>
-
-    <label>Password:</label>
-    <input id="password_input">
-
-    <form action="#">
-        <label for="accountType">Choose Account Type</label>
+    <form id="signup-form">
+    
+        <label>Email:</label>
+        <input id="email">
+    
+        <label>Password:</label>
+        <input id="password_input">
+        
+        <label for="accountType">Choose Account Type</label> 
         <select id="accountType">
             <option value="student">Student</option>
             <option value="admin">Admin</option>
         </select>
+
+        <br><br>
+        <button id="login">Sign Up!</button>
     </form>
-    <br><br>
-    <button id="login">Sign Up!</button>
+    <label id="verified">Successfully signed in!</label>
+    <script src="https://www.gstatic.com/firebasejs/7.5.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.5.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.5.0/firebase-firestore.js"></script>
+    <script src="signup.js"></script>
 </body>
 </html>
