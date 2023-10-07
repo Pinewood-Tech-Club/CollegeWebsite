@@ -23,3 +23,7 @@ small {
 #accountType {
     margin-top: 20px;
 }
+
+#verified{
+    color: green;
+}
