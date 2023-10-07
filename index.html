@@ -35,14 +35,22 @@
       </div>
     </section> 
     <section id="tagsBar"class="navbar sticky-top navbar-light bg-light"> 
-      <button class="btn btn-outline-dark tag" onclick="showTag('stem')">Academic</button>
-      <button class="btn btn-outline-dark tag" onclick="showTag('fun')">Travel</button>
-      <button class="btn btn-outline-dark tag" onclick="showTag('california')">Volunteer</button>
-      <button class="btn btn-outline-dark tag" onclick="showTag('')">Clear</button>
+      <div class="tagDiv">
+        <button class="btn btn-outline-dark tag" onclick="showTag('stem')">Academic</button>
+      </div>
+      <div class="tagDiv">
+        <button class="btn btn-outline-dark tag" onclick="showTag('fun')">Travel</button>
+      </div>
+      <div class="tagDiv">
+        <button class="btn btn-outline-dark tag" onclick="showTag('california')">Volunteer</button>
+      </div>
+      <div class="tagDiv">
+        <button class="btn btn-outline-dark tag" onclick="showTag('')">Clear</button>
+      </div>
     </section>
 
-    <div class="container px-4 text-center">
-      <div class="row gx-5 row-cols-3 row-cols-lg-5 g-2 g-lg-3">
+    <div class="container px-3 text-center" id="headerRow">
+      <div class="row gx-3 row-cols-3 g-3">
         <div class="col">
          <p class="p-3" >Summer Camp Name</p>
         </div>
@@ -54,8 +62,8 @@
         </div>
       </div>
     </div>
-    <div class="container px-4 text-center"> 
-      <div class="row gx-5 row-cols-3 row-cols-lg-5 g-2 g-lg-3" id="add-camps">
+    <div class="container px-3 text-center"> 
+      <div class="row gx-3 row-cols-3 g-3" id="add-camps">
           <!-- Data -->
       </div>
     </div>
