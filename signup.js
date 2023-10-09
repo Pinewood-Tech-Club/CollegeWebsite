@@ -36,19 +36,9 @@ signupForm.addEventListener('submit', (e) => {
 
   // sign up the user
   auth.createUserWithEmailAndPassword(email, password).then(cred => {
-    // close the signup modal & reset form
-    const modal = document.querySelector('#modal-signup');
-    signupForm.reset();
     signuplabel.style.visibility = "visible";
-    sleep(2000).then(() => { window.location.href = "index.html" });
+    signupForm.reset();
+    sleep(1000).then(() => { window.location.href = "index.html"; });
   });
 });
 
-// logout
-/*const logout = document.querySelector('#logout');
-logout.addEventListener('click', (e) => {
-  e.preventDefault();
-  auth.signOut().then(() => {
-    console.log('user signed out');
-  })
-});*/

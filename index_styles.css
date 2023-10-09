@@ -14,7 +14,7 @@ footer {
 }
 
 .navbar-brand{
-    color: white;
+    color: rgb(255, 255, 255);
     font-family: 'Open Sans', sans-serif;
     font-size: 6.5rem;
     font-weight: bold;
@@ -27,20 +27,15 @@ footer {
 .colouredSection {
     /* background: #1A5D1A; */
     background: linear-gradient(114deg, #1A5D1A 66%, #fbab1a 66%);
-    color: white;
+    color: rgb(255, 255, 255);
 }
 
-
-#login{
-    color:blue;
-    display:block;
-    text-align: center;
+.modal-body{
+    color: rgb(0, 0, 0);
 }
 
-#signup{
-    color:blue;
-    display:block;
-    text-align: center;
+.modal-title{
+    color: rgb(0, 0, 0);
 }
 
 .container-fluid {
@@ -48,6 +43,11 @@ footer {
   }
 
 #nav-link {
+    font-weight: bold;
+    color: #1A5D1A;
+}
+
+#signout-button {
     font-weight: bold;
     color: #1A5D1A;
 }

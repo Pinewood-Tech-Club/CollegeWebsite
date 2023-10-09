@@ -23,12 +23,34 @@
           <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <ul class="navbar-nav ml-auto">
               <li class="nav-item">
-                <a class="btn btn-outline-warning" id="nav-link" href="login.html">Sign In</a>
+                <button class="btn btn-outline-warning" data-bs-toggle="modal" data-bs-target="#signin-modal" id="nav-link">
+                  Sign In
+                </button>
+                <div class="modal fade" id="signin-modal" tabindex="-1" aria-labelledby="modal-title" aria-hidden="true">
+                  <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="modal-title">Sign in</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      </div>
+                      <div class="modal-body">
+                        <form id="signin-form">
+                          <p>Email</p>
+                          <input id="email_input">
+                          <br><br>
+                          <p>Password</p>
+                          <input id="password_input">
+                          <br><br>
+                          <button id="login">Log In!</button>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
               </li>
               <li class="nav-item">
                 <a class="btn btn-outline-warning" id="nav-link" href="signup.html">Sign Up</a>
               </li>
-              </li>
+              <button class="btn btn-outline-warning" id="signout-button">Sign Out</button>
             </ul>
           </div>
         </nav>
@@ -77,7 +99,11 @@
 
     <script src="https://www.gstatic.com/firebasejs/7.5.0/firebase-firestore.js"></script>
 
+    <script src="https://www.gstatic.com/firebasejs/7.5.0/firebase-auth.js"></script>
+
     <!-- Link to firebase.js -->
     <script src="firebase.js" charset="utf-8"></script>
+    <!-- Link to Signout.js-->
+    <script src="auth.js" charset="utf-8"></script>
 </body>
 </html>
