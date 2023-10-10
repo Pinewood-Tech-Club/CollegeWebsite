@@ -46,9 +46,33 @@
                       </div>
                     </div>
                   </div>
+                </div>  
               </li>
               <li class="nav-item">
-                <a class="btn btn-outline-warning" id="nav-link" href="signup.html">Sign Up</a>
+                <button class="btn btn-outline-warning" data-bs-toggle="modal" data-bs-target="#signout-modal" id="nav-link">Sign Up</button>
+
+                <div class="modal fade" id="signout-modal" tabindex="-1" aria-labelledby="modal-title" aria-hidden="true">
+                  <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="modal-title">Sign up</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      </div>
+                      <div class="modal-body">
+                        <form id="signup-form">
+                          <p>Email</p>
+                          <input id="email_input">
+                          <br><br>
+                          <p>Password</p>
+                          <input id="password_input">
+                          <br><br>
+                          <button id="login">Log In!</button>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                </div>  
+          
               </li>
               <button class="btn btn-outline-warning" id="signout-button">Sign Out</button>
             </ul>
@@ -100,8 +124,26 @@
     <script src="https://www.gstatic.com/firebasejs/7.5.0/firebase-firestore.js"></script>
 
     <script src="https://www.gstatic.com/firebasejs/7.5.0/firebase-auth.js"></script>
+    
+    <script>
+      var firebaseConfig = {
+        apiKey: "AIzaSyDAMD1hMJYS7upXHipLG_HlPxhtDwkRVK8",
+        authDomain: "college-counseling-database.firebaseapp.com",
+        databaseURL: "https://college-counseling-database-default-rtdb.firebaseio.com",
+        projectId: "college-counseling-database",
+        storageBucket: "college-counseling-database.appspot.com",
+        messagingSenderId: "1085147306385",
+        appId: "1:1085147306385:web:080af2eb2caea2e44ee230",
+        measurementId: "G-MGN0MY84XX"
+      };
+      
+      // Initialize Firebase
+      firebase.initializeApp(firebaseConfig);
 
-    <!-- Link to firebase.js -->
+      const auth = firebase.auth();
+      const db = firebase.firestore();
+    </script>
+
     <script src="firebase.js" charset="utf-8"></script>
     <!-- Link to Signout.js-->
     <script src="auth.js" charset="utf-8"></script>

@@ -1,9 +1,5 @@
-//make auth and firestore references
-const auth = firebase.auth();
-const db = firebase.firestore();
-
-auth.onAuthStateChanged(user =>{
-    console.log(user);
+auth.onAuthStateChanged(user => {
+    console.log(user ? 'user signed in' : 'user signed out');
 })
 
 function sleep(ms) {
@@ -17,8 +13,28 @@ signinform.addEventListener('submit', (e) => {
     const password = signinform['password_input'].value;
     
     auth.signInWithEmailAndPassword(email, password).then(cred => {
-        alert(1);
         signinform.reset();
-        sleep(1000).then(() => { window.location.href = "index.html"; });
+        window.location.href = "index.html";
     })
 })
+
+const signupForm = document.querySelector('#signup-form');
+signupForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    
+    // get user info
+    const email = signupForm['email_input'].value;
+    const password = signupForm['password_input'].value;
+
+    // sign up the user
+    auth.createUserWithEmailAndPassword(email, password).then(cred => {
+        signupForm.reset();
+        window.location.href = "index.html";
+    });
+});
+
+const signout = document.querySelector('#signout-button');
+signout.addEventListener('click', (e) => {
+  e.preventDefault();
+  window.location.href = "index.html";
+}); 

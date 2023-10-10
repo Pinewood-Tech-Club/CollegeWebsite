@@ -1,18 +1,4 @@
-var firebaseConfig = {
-  apiKey: "AIzaSyDAMD1hMJYS7upXHipLG_HlPxhtDwkRVK8",
-  authDomain: "college-counseling-database.firebaseapp.com",
-  databaseURL: "https://college-counseling-database-default-rtdb.firebaseio.com",
-  projectId: "college-counseling-database",
-  storageBucket: "college-counseling-database.appspot.com",
-  messagingSenderId: "1085147306385",
-  appId: "1:1085147306385:web:080af2eb2caea2e44ee230",
-  measurementId: "G-MGN0MY84XX"
-};
-
-// Initialize Firebase
-firebase.initializeApp(firebaseConfig);
 firebase.analytics();
- db = firebase.firestore();
 
 function getSummerCamps() {
   var dbRef = db.collection("college-counseling-database");
