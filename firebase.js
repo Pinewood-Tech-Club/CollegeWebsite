@@ -12,7 +12,8 @@ var firebaseConfig = {
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 firebase.analytics();
- db = firebase.firestore();
+
+db = firebase.firestore();
 
 function getSummerCamps() {
   var dbRef = db.collection("college-counseling-database");
@@ -60,6 +61,8 @@ getSummerCamps().then(results => {
 function formatData(i) {
   element = document.getElementById("add-camps"); //where database will be added
 
+  page = document.createElement("document");
+
   div1 = document.createElement("div"); //creating col div
   div1.classList.add("col"); // adding "col" class to div
 
@@ -76,12 +79,16 @@ function formatData(i) {
   a.classList.add("summerCampButton")
 
   org = document.createElement("div"); // creating div for organization name
-  org.classList.add("p-3")
+  org.classList.add("p-3");
 
   part = document.createElement("div"); // creating div for # of participants
-  part.classList.add("p-3")
+  part.classList.add("p-3");
 
   return [element, div1, div2, div3, a, org, part];
+};
+
+function createModal() {
+
 }
 
 function setUpFirebaseDatabase() {
@@ -118,7 +125,6 @@ function setUpFirebaseDatabase() {
       console.error("Error writing document: ", error);
   });
 }
-
 //setUpFirebaseDatabase(); //only need to run once to set up firebase, do not rerun unless changed :)
 
 function getSummerCampTag(tag) { 
