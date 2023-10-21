@@ -71,3 +71,7 @@ li {
 .summerCampButton {
     width: 100%;
 }
+
+#tagsBar {
+    justify-content: space-around;
+}
