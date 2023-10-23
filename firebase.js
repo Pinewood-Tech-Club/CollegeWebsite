@@ -1,5 +1,5 @@
 firebase.analytics();
- db = firebase.firestore();
+//db = firebase.firestore();
 
 function getSummerCamps() {
   var dbRef = db.collection("college-counseling-database");
@@ -28,7 +28,7 @@ getSummerCamps().then(results => {
   };
 
   for (var i = 0; i < results.length; i++) {
-    [element, div1, div2, div3, a, org, part] = formatData(i)
+    [element, div1, div2, div3, a, org, part] = formatData(i);
 
     //getting data 
     a.innerHTML = results[i].name; 
