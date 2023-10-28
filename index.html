@@ -23,6 +23,7 @@
           <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <ul class="navbar-nav ml-auto">
               <li class="nav-item">
+                
                 <button class="btn btn-outline-warning" data-bs-toggle="modal" data-bs-target="#signin-modal" id="nav-link">
                   Sign In
                 </button>
@@ -33,13 +34,14 @@
                         <h5 class="modal-title" id="modal-title">Sign in</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                       </div>
+                      
                       <div class="modal-body">
                         <form id="signin-form">
                           <p>Email</p>
                           <input id="email_input">
                           <br><br>
                           <p>Password</p>
-                          <input id="password_input">
+                          <input type="password" id="password_input">
                           <br><br>
                           <button id="login">Log In!</button>
                         </form>
@@ -58,12 +60,12 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                       </div>
                       <div class="modal-body">
-                        <form id="signup-form">
+                        <form id="signup-form"> <!-- for billy -->
                           <p>Email</p>
                           <input id="email_input">
                           <br><br>
                           <p>Password</p>
-                          <input id="password_input">
+                          <input type="password" id="password_input">
                           <br><br>
                           <button id="login">Log In!</button>
                         </form>
