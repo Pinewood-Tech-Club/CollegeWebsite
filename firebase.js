@@ -74,10 +74,6 @@ function formatData(i) {
   return [element, div1, div2, div3, a, org, part];
 };
 
-function createModal() {
-
-}
-
 function setUpFirebaseDatabase() {
   // add collection for Summer Program 1
   db.collection("college-counseling-database").doc("id1").set({
