@@ -45,11 +45,13 @@ footer {
 #nav-link {
     font-weight: bold;
     color: #1A5D1A;
+    background-color: #fbab1a;
 }
 
 #signout-button {
     font-weight: bold;
     color: #1A5D1A;
+    background-color: #fbab1a;
 }
 
 ul#add-camps {
