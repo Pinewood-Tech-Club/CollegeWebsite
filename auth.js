@@ -1,5 +1,34 @@
 auth.onAuthStateChanged(user => {
     console.log(user ? 'user signed in' : 'user signed out');
+
+    var signinbutton = null;
+    var signoutbutton = document.querySelector('#signout-button');
+    var signupbutton = null;
+    var buttons = document.querySelectorAll("#nav-link");
+    //alert(buttons.length);
+    for (var i = 0; i < buttons.length; i++) {
+        var s = buttons[i].innerHTML.trim()
+        //alert(s)
+        if (s == "Sign In"){
+            signinbutton = buttons[i];
+        }
+        if (s == "Sign Up"){
+            signupbutton = buttons[i];
+        }
+    }
+
+    if (user == null){
+
+        signoutbutton.hidden = true;
+        signinbutton.hidden = false;
+        signupbutton.hidden = false;
+        
+    }
+    else{
+        signoutbutton.hidden = false;
+        signinbutton.hidden = true;
+        signupbutton.hidden = true;
+    }
 })
 
 function sleep(ms) {
@@ -36,5 +65,7 @@ signupForm.addEventListener('submit', (e) => {
 const signout = document.querySelector('#signout-button');
 signout.addEventListener('click', (e) => {
   e.preventDefault();
-  window.location.href = "index.html";
+  auth.signOut().then(function(){
+    window.location.href = "index.html";
+  });
 }); 
