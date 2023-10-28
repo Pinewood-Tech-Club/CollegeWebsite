@@ -44,7 +44,17 @@ signinform.addEventListener('submit', (e) => {
     auth.signInWithEmailAndPassword(email, password).then(cred => {
         signinform.reset();
         window.location.href = "index.html";
-    })
+    }).catch(error => {
+        // Handle Errors here.
+        var errorCode = error.code;
+        var errorMessage = error.message;
+    
+        if (errorCode === 'auth/invalid-email') {
+            alert("Invalid email");
+        } else {
+            alert("We don't got that email bro");
+        }
+    });
 })
 
 const signupForm = document.querySelector('#signup-form');
