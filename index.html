@@ -112,12 +112,46 @@
       </div>
     </div>
     <div class="container px-3 text-center"> 
+
       <div class="row gx-3 row-cols-3 g-3" id="add-camps">
           <!-- Data -->
       </div>
     </div>
 
+    <section id="bottom">
+      <div class="accordion" id="accordionExample">
+        <div class="accordion-item" id="addContentButton">
+          <h2 class="accordion-header">
+            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+              Add Content
+            </button>
+          </h2>
+          <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+              <div class="input-group mb-3">
+                <input type="text" class="form-control" placeholder="Name of Summer Camp" aria-label="Username" aria-describedby="basic-addon1">
+              </div>
+              <div class="input-group mb-3">
+                <input type="text" class="form-control" placeholder="Organization" aria-label="Username" aria-describedby="basic-addon1">
+              </div>
+              <div class="input-group mb-3">
+                <input type="text" class="form-control" placeholder="link" aria-label="Username" aria-describedby="basic-addon1">
+              </div>
+              <div class="input-group">
+                <span class="input-group-text">Tags</span>
+                <input type="text" aria-label="First name" class="form-control">
+                <input type="text" aria-label="Last name" class="form-control">
+                <input type="text" aria-label="Last name" class="form-control">
+              </div>
+              <button class="btn btn-outline-dark" id="submitNewContent">
+                Submit
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
 
+    </section>
 
     <!-- Footer -->
     <footer class="footer">
