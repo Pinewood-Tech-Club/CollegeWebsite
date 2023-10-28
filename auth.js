@@ -45,11 +45,7 @@ signinform.addEventListener('submit', (e) => {
         signinform.reset();
         window.location.href = "index.html";
     }).catch(error => {
-        // Handle Errors here.
-        var errorCode = error.code;
-        var errorMessage = error.message;
-    
-        if (errorCode === 'auth/invalid-email') {
+        if (error.code === 'auth/invalid-email') {
             alert("Invalid email");
         } else {
             alert("We don't got that email bro");
