@@ -46,12 +46,14 @@ footer {
     font-weight: bold;
     color: #1A5D1A;
     background-color: #fbab1a;
+    display: none;
 }
 
 #signout-button {
     font-weight: bold;
     color: #1A5D1A;
     background-color: #fbab1a;
+    display: none;
 }
 
 ul#add-camps {
