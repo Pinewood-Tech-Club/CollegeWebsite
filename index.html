@@ -88,18 +88,37 @@
       <h3>Summer Camp Database</h3>
       <p class="p-3">Please sign in or create an account to view content</p>
     </section>
-    <section id="tagsBar"class="contentContainer navbar sticky-top navbar-light bg-light"> 
-      <div class="tagDiv">
-        <button class="btn btn-outline-dark tag" onclick="showTag('stem')">Academic</button>
-      </div>
-      <div class="tagDiv">
-        <button class="btn btn-outline-dark tag" onclick="showTag('fun')">Travel</button>
-      </div>
-      <div class="tagDiv">
-        <button class="btn btn-outline-dark tag" onclick="showTag('california')">Volunteer</button>
-      </div>
-      <div class="tagDiv">
-        <button class="btn btn-outline-dark tag" onclick="showTag('')">Clear</button>
+
+    <section id="tagsBar" class="contentContainer navbar sticky-top navbar-light bg-light"> 
+      <div class="container text-center" >
+        <div class="row gx-3 g-3 row-cols-3 row-cols-lg-5" id="tagsBarRow">
+          <div class="col">
+            <button class="btn btn-outline-dark tag" onclick="showTag('stem')">Academic</button>
+          </div>
+          <div class="col">
+            <button class="btn btn-outline-dark tag" onclick="showTag('fun')">Travel</button>
+          </div>
+          <div class="col">
+            <button class="btn btn-outline-dark tag" onclick="showTag('california')">Volunteer</button>
+          </div>
+          <div class="col">
+            <button class="btn btn-outline-dark tag" onclick="showTag('')">Clear</button>
+          </div>
+          <div class="col dropdown">
+            <button class="btn btn-outline-dark dropdown-toggle tag" data-bs-toggle="dropdown" role="button" aria-expanded="false">More</button>
+            <div class="dropdown-menu">
+              <div class="dropdown-item">
+                <button class="btn btn-outline-dark tag">something</button>
+              </div>
+              <div class="dropdown-item">
+                <button class="btn btn-outline-dark tag">something else</button>
+              </div>
+              <div class="dropdown-item">
+                <button class="btn btn-outline-dark tag">guys are you proud</button>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
 

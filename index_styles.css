@@ -78,6 +78,11 @@ li {
 
 #tagsBar {
     justify-content: space-around;
+    width: 100%;
+}
+
+#tagsBarRow {
+    width: 100%;
 }
 
 #addContentButton {
