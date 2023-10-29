@@ -83,7 +83,12 @@
         </nav>
       </div>
     </section> 
-    <section id="tagsBar"class="navbar sticky-top navbar-light bg-light"> 
+    <section class="text-center" id="signedOutContent">
+      <h2>Welcome to Pinewood College Counseling's</h2>
+      <h3>Summer Camp Database</h3>
+      <p class="p-3">Please sign in or create an account to view content</p>
+    </section>
+    <section id="tagsBar"class="contentContainer navbar sticky-top navbar-light bg-light"> 
       <div class="tagDiv">
         <button class="btn btn-outline-dark tag" onclick="showTag('stem')">Academic</button>
       </div>
@@ -98,7 +103,7 @@
       </div>
     </section>
 
-    <div class="container px-3 text-center" id="headerRow">
+    <div class="container px-3 text-center contentContainer" id="headerRow">
       <div class="row gx-3 row-cols-3 g-3">
         <div class="col">
          <p class="p-3" >Summer Camp Name</p>
@@ -111,14 +116,13 @@
         </div>
       </div>
     </div>
-    <div class="container px-3 text-center"> 
-
+    <div class="container px-3 text-center contentContainer"> 
       <div class="row gx-3 row-cols-3 g-3" id="add-camps">
           <!-- Data -->
       </div>
     </div>
 
-    <section id="bottom">
+    <div class="sticky-bottom contentContainer">
       <div class="accordion" id="accordionExample">
         <div class="accordion-item" id="addContentButton">
           <h2 class="accordion-header">
@@ -150,8 +154,7 @@
           </div>
         </div>
       </div>
-
-    </section>
+    </div>
 
     <!-- Footer -->
     <footer class="footer">

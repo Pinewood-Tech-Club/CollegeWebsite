@@ -88,8 +88,6 @@ li {
     margin-top: 1rem;
 }
 
-#bottom {
-    position: absolute;
-    bottom: 40px;
-    width: 100%;
+#signedOutContent {
+    margin: 4rem;
 }

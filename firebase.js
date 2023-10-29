@@ -34,7 +34,7 @@ getSummerCamps().then(results => {
     //getting data 
     a.innerHTML = results[i].name; 
     org.innerHTML = results[i].organization;
-    part.innerHTML = results[i].participated;
+    part.innerHTML = results[i].participated.length;
 
     //append HTML 
     div1.appendChild(a);
