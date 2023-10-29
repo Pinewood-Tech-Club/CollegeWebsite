@@ -38,12 +38,12 @@
                       <div class="modal-body">
                         <form id="signin-form">
                           <p>Email</p>
-                          <input id="email_input">
+                          <input id="emailInputSignIn">
                           <br><br>
                           <p>Password</p>
-                          <input type="password" id="password_input">
+                          <input type="password" id="passwordInputSignIn">
                           <br><br>
-                          <button id="login">Log In!</button>
+                          <button class="btn btn-outline-dark" id="signIn">Sign in!</button>
                         </form>
                       </div>
                     </div>
@@ -62,12 +62,12 @@
                       <div class="modal-body">
                         <form id="signup-form"> <!-- for billy -->
                           <p>Email</p>
-                          <input id="email_input">
+                          <input id="emailInputSignUp">
                           <br><br>
                           <p>Password</p>
-                          <input type="password" id="password_input">
+                          <input type="password" id="passwordInputSignUp">
                           <br><br>
-                          <button id="login">Log In!</button>
+                          <button class="btn btn-outline-dark" id="signUp">Sign up!</button>
                         </form>
                       </div>
                     </div>
@@ -131,12 +131,46 @@
     </div>
     <hr>
     <div class="container px-3 text-center"> 
+
       <div class="row gx-3 row-cols-3 g-3" id="add-camps">
           <!-- Data -->
       </div>
     </div>
 
+    <section id="bottom">
+      <div class="accordion" id="accordionExample">
+        <div class="accordion-item" id="addContentButton">
+          <h2 class="accordion-header">
+            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+              Add Content
+            </button>
+          </h2>
+          <div id="collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+              <div class="input-group mb-3">
+                <input id="nameOf"  type="text" class="form-control" placeholder="Name of Summer Camp" aria-label="Username" aria-describedby="basic-addon1">
+              </div>
+              <div class="input-group mb-3">
+                <input id="org" type="text" class="form-control" placeholder="Organization" aria-label="Username" aria-describedby="basic-addon1">
+              </div>
+              <div class="input-group mb-3">
+                <input id="link" type="text" class="form-control" placeholder="link" aria-label="Username" aria-describedby="basic-addon1">
+              </div>
+              <div class="input-group">
+                <span class="input-group-text">Tags</span>
+                <input type="text" aria-label="First name" class="form-control">
+                <input type="text" aria-label="Last name" class="form-control">
+                <input type="text" aria-label="Last name" class="form-control">
+              </div>
+              <button class="btn btn-outline-dark" id="submitNewContent">
+                Submit
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
 
+    </section>
 
     <!-- Footer -->
     <footer class="footer">

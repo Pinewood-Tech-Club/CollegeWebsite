@@ -46,12 +46,14 @@ footer {
     font-weight: bold;
     color: #1A5D1A;
     background-color: #fbab1a;
+    display: none;
 }
 
 #signout-button {
     font-weight: bold;
     color: #1A5D1A;
     background-color: #fbab1a;
+    display: none;
 }
 
 ul#add-camps {
@@ -80,5 +82,19 @@ li {
 }
 
 #tagsBarRow {
+    width: 100%;
+}
+
+#addContentButton {
+    margin: 2rem .5rem;
+}
+
+#submitNewContent {
+    margin-top: 1rem;
+}
+
+#bottom {
+    position: absolute;
+    bottom: 40px;
     width: 100%;
 }

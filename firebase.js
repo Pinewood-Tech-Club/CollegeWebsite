@@ -1,5 +1,5 @@
 firebase.analytics();
-// db = firebase.firestore();
+//db = firebase.firestore();
 
 // This function gets the data from the firebase database and returns array 'results' which has all the data.
 function getSummerCamps() {
@@ -73,10 +73,6 @@ function formatData(i) {
 
   return [element, div1, div2, div3, a, org, part];
 };
-
-function createModal() {
-
-}
 
 function setUpFirebaseDatabase() {
   // add collection for Summer Program 1
@@ -160,5 +156,30 @@ function showTag(tag) {
       div3.appendChild(part);
       element.append(div1, div2, div3);
     }
+  });
+}
+let submitButton = document.getElementById("submitNewContent");
+submitButton.onclick = function() {
+  createFromAddContent();
+}
+function createFromAddContent() {
+  let nameOfSummerCamp = document.getElementById("nameOf");
+  let organization = document.getElementById("org");
+  let link = document.getElementById("link");
+
+  db.collection("college-counseling-database").add({
+    name: nameOfSummerCamp.value, 
+    organization: organization.value, 
+    link: link.value,
+    tags: ["stem ", "stem2 ", "california "],
+    participated:["Micky/Sophomore", "Mini/Senior"], 
+    comments:["comment1", "comment2"],
+    status: "active"
+  })
+  .then(function() {
+    console.log("Document successfully written!");
+  })
+  .catch(function(error) {
+      console.error("Error writing document: ", error);
   });
 }

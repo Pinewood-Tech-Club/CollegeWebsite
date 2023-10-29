@@ -17,17 +17,17 @@ auth.onAuthStateChanged(user => {
         }
     }
 
-    if (user == null){
+    if (user){
 
-        signoutbutton.hidden = true;
-        signinbutton.hidden = false;
-        signupbutton.hidden = false;
+        signoutbutton.style.display = "flex";
+        signinbutton.style.display = "none";
+        signupbutton.style.display = "none";
         
     }
     else{
-        signoutbutton.hidden = false;
-        signinbutton.hidden = true;
-        signupbutton.hidden = true;
+        signoutbutton.style.display = "none";
+        signinbutton.style.display = "flex";
+        signupbutton.style.display = "flex";
     }
 })
 
@@ -38,13 +38,19 @@ function sleep(ms) {
 const signinform = document.querySelector('#signin-form')
 signinform.addEventListener('submit', (e) => {
     e.preventDefault();
-    const email = signinform['email_input'].value;
-    const password = signinform['password_input'].value;
+    const email = signinform['emailInputSignIn'].value;
+    const password = signinform['passwordInputSignIn'].value;
     
     auth.signInWithEmailAndPassword(email, password).then(cred => {
         signinform.reset();
         window.location.href = "index.html";
-    })
+    }).catch(error => {
+        if (error.code === 'auth/invalid-email') {
+            alert("Invalid email");
+        } else {
+            alert("We don't got that email bro");
+        }
+    });
 })
 
 const signupForm = document.querySelector('#signup-form');
@@ -52,8 +58,8 @@ signupForm.addEventListener('submit', (e) => {
     e.preventDefault();
     
     // get user info
-    const email = signupForm['email_input'].value;
-    const password = signupForm['password_input'].value;
+    const email = signupForm['emailInputSignUp'].value;
+    const password = signupForm['passwordInputSignUp'].value;
 
     // sign up the user
     auth.createUserWithEmailAndPassword(email, password).then(cred => {
