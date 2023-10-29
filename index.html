@@ -85,7 +85,7 @@
     </section> 
     <section id="tagsBar" class="navbar sticky-top navbar-light bg-light"> 
       <div class="container text-center" >
-        <div class="row gx-3 g-3 row-cols-3 row-cols-lg-4" id="tagsBarRow">
+        <div class="row gx-3 g-3 row-cols-3 row-cols-lg-5" id="tagsBarRow">
           <div class="col">
             <button class="btn btn-outline-dark tag" onclick="showTag('stem')">Academic</button>
           </div>
@@ -97,6 +97,20 @@
           </div>
           <div class="col">
             <button class="btn btn-outline-dark tag" onclick="showTag('')">Clear</button>
+          </div>
+          <div class="col dropdown">
+            <button class="btn btn-outline-dark dropdown-toggle tag" data-bs-toggle="dropdown" role="button" aria-expanded="false">More</button>
+            <div class="dropdown-menu">
+              <div class="dropdown-item">
+                <button class="btn btn-outline-dark tag">something</button>
+              </div>
+              <div class="dropdown-item">
+                <button class="btn btn-outline-dark tag">something else</button>
+              </div>
+              <div class="dropdown-item">
+                <button class="btn btn-outline-dark tag">guys are you proud</button>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -115,6 +129,7 @@
         </div>
       </div>
     </div>
+    <hr>
     <div class="container px-3 text-center"> 
       <div class="row gx-3 row-cols-3 g-3" id="add-camps">
           <!-- Data -->
