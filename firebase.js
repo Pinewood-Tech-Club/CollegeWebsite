@@ -158,3 +158,28 @@ function showTag(tag) {
     }
   });
 }
+let submitButton = document.getElementById("submitNewContent");
+submitButton.onclick = function() {
+  createFromAddContent();
+}
+function createFromAddContent() {
+  let nameOfSummerCamp = document.getElementById("nameOf");
+  let organization = document.getElementById("org");
+  let link = document.getElementById("link");
+
+  db.collection("college-counseling-database").add({
+    name: nameOfSummerCamp.value, 
+    organization: organization.value, 
+    link: link.value,
+    tags: ["stem ", "stem2 ", "california "],
+    participated:["Micky/Sophomore", "Mini/Senior"], 
+    comments:["comment1", "comment2"],
+    status: "active"
+  })
+  .then(function() {
+    console.log("Document successfully written!");
+  })
+  .catch(function(error) {
+      console.error("Error writing document: ", error);
+  });
+}
