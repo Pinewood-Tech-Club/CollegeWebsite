@@ -96,3 +96,8 @@ li {
 #signedOutContent {
     margin: 4rem;
 }
+.sticky-bottom {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}
