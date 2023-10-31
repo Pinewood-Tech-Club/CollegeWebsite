@@ -51,8 +51,10 @@ signinform.addEventListener('submit', (e) => {
     }).catch(error => {
         if (error.code === 'auth/invalid-email') {
             alert("Invalid email");
-        } else {
+        } else if (error.code === 'auth/user-not-found') {
             alert("We don't got that email bro");
+        } else if (error.code === 'auth/wrong-password') {
+            alert("Wrong password!")
         }
     });
 })
