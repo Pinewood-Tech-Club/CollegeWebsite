@@ -85,7 +85,9 @@ function content(i) {
     console.log(i);
     modalHeader = document.getElementById("modal-header");
 
-    //clearElement("modal-header");
+    while (modalHeader.hasChildNodes()) {
+      modalHeader.firstChild.remove()
+    };
 
     //<h1 class="modal-title fs-5" id="summerCampMoreModalLabel"></h1>
 
@@ -206,11 +208,7 @@ function createFromAddContent() {
     name: nameOfSummerCamp.value, 
     organization: organization.value, 
     link: link.value,
-<<<<<<< HEAD
-    tags: ["stem", "stem2", "california"],
-=======
     tags: [children[1].value, children[2].value, children[3].value],
->>>>>>> 94f82314df9eb4bbd882219c6a6b1b87d513fb19
     participated:["Micky/Sophomore", "Mini/Senior"], 
     comments:["comment1", "comment2"],
     status: "active"
