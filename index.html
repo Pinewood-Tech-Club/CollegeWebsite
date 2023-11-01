@@ -96,10 +96,10 @@
             <button class="btn btn-outline-dark tag" onclick="showTag('stem')">Academic</button>
           </div>
           <div class="col">
-            <button class="btn btn-outline-dark tag" onclick="showTag('fun')">Travel</button>
+            <button class="btn btn-outline-dark tag" onclick="showTag('fun')">Fun</button>
           </div>
           <div class="col">
-            <button class="btn btn-outline-dark tag" onclick="showTag('california')">Volunteer</button>
+            <button class="btn btn-outline-dark tag" onclick="showTag('california')">California</button>
           </div>
           <div class="col">
             <button class="btn btn-outline-dark tag" onclick="showTag('')">Clear</button>
@@ -141,6 +141,49 @@
       </div>
     </div>
 
+    <!-- Content Modal -->
+    <div class="modal fade" id="summerCampMoreModal" tabindex="-1" aria-labelledby="summerCampMoreLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <div id="modal-header"></div>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <!-- <div data-bs-spy="scroll" data-bs-target="#navbar-example2" data-bs-root-margin="0px 0px -40%" data-bs-smooth-scroll="true" class="scrollspy bg-body-tertiary p-3 rounded-2" tabindex="0"> -->
+              <h4>General Description</h4>
+              <p id="addGeneralDescription">Coming soon</p>
+              <h4>Website Link</h4>
+              <p id="addWebLink">...</p>
+              <h4>Tags</h4>
+              <p id="addTagsModal">
+                <span class="badge bg-secondary">STEM</span>
+                <span class="badge bg-secondary">California</span>
+                <span class="badge bg-secondary">Chemistry</span>
+              </p>
+              <div class="oneLineDiv" id="participantDiv">
+                <h4 id="scrollspyHeading4">Pinewood Participants</h4>
+                <button class="btn btn-sm btn-outline-success">I Participated </button>
+              </div>
+              <p id="addParticipants">...</p>
+
+              <div class="oneLineDiv" id="commentsDiv">
+                <h4 class="col" id="scrollspyHeading5">Comments</h4>
+                <button class="col btn btn-outline-dark btn-sm" id="addCommentButton">+</button>
+              </div>
+              <p id="addComments">...</p>
+              
+            <!-- </div> -->
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-outline-dark" data-bs-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-outline-dark">Save changes</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sticky Bottom Add Content Accordion -->
     <div class="sticky-bottom contentContainer">
       <div class="accordion" id="accordionExample">
         <div class="accordion-item" id="addContentButton">

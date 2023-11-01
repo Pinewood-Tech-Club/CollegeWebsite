@@ -20,6 +20,7 @@ function getSummerCamps() {
   });
 }
 
+//uses results to append into "add-camps" id
 getSummerCamps().then(results => {
 
   element = document.getElementById("add-camps");
@@ -45,10 +46,10 @@ getSummerCamps().then(results => {
   }
 });
 
+//simplifies prev. function code
 function formatData(i) {
+  //console.log(i)
   element = document.getElementById("add-camps"); //where database will be added
-
-  page = document.createElement("document");
 
   div1 = document.createElement("div"); //creating col div
   div1.classList.add("col"); // adding "col" class to div
@@ -60,10 +61,14 @@ function formatData(i) {
   div3.classList.add("col"); // adding "col" class to div
 
   a = document.createElement("button"); // creating a for name
-  a.classList.add("p-3")
-  a.classList.add("btn")
-  a.classList.add("btn-outline-success")
-  a.classList.add("summerCampButton")
+  a.setAttribute("id", `${i}`);
+  a.setAttribute("onclick", `content(${i})`)
+  a.classList.add("p-3");
+  a.classList.add("btn");
+  a.classList.add("btn-outline-success");
+  a.classList.add("summerCampButton");
+  a.setAttribute("data-bs-toggle", "modal");
+  a.setAttribute("data-bs-target", "#summerCampMoreModal")
 
   org = document.createElement("div"); // creating div for organization name
   org.classList.add("p-3");
@@ -74,13 +79,39 @@ function formatData(i) {
   return [element, div1, div2, div3, a, org, part];
 };
 
+
+function content(i) {
+  getSummerCamps().then(results => {
+    console.log(i);
+    modalHeader = document.getElementById("modal-header");
+
+    //clearElement("modal-header");
+
+    //<h1 class="modal-title fs-5" id="summerCampMoreModalLabel"></h1>
+
+    header = document.createElement("h1");
+    header.classList.add("modal-title");
+    header.classList.add("fs-5");
+    
+    header.innerHTML = results[i].name;
+    console.log(header);
+    modalHeader.appendChild(header);
+
+});
+  //console.log(i);
+};
+
+
+
+
+//initial commit to set up firebase
 function setUpFirebaseDatabase() {
   // add collection for Summer Program 1
   db.collection("college-counseling-database").doc("id1").set({
     name: "summer program 1", 
     organization:"Pinewood", 
     link: "wiki.nl",
-    tags: ["stem ", "stem2 ", "california "],
+    tags: ["stem", "stem2", "california"],
     participated:["Micky/Sophomore", "Mini/Senior"], 
     comments:["comment1", "comment2"],
     status: "active"
@@ -96,7 +127,7 @@ function setUpFirebaseDatabase() {
     name: "summer program 2", 
     organization:"Pinewood", 
     link: "wiki.nl",
-    tags: ["language ", "fun ", "california "],
+    tags: ["language", "fun", "california"],
     participated:["Jane/Junior", "Doe/Senior"], 
     comments:["comment1", "comment2"],
     status: "active"
@@ -110,6 +141,7 @@ function setUpFirebaseDatabase() {
 }
 //setUpFirebaseDatabase(); //only need to run once to set up firebase, do not rerun unless changed :)
 
+//
 function getSummerCampTag(tag) { 
   var dbRef = db.collection("college-counseling-database");
   var dbQuery = dbRef;
@@ -171,7 +203,7 @@ function createFromAddContent() {
     name: nameOfSummerCamp.value, 
     organization: organization.value, 
     link: link.value,
-    tags: ["stem ", "stem2 ", "california "],
+    tags: ["stem", "stem2", "california"],
     participated:["Micky/Sophomore", "Mini/Senior"], 
     comments:["comment1", "comment2"],
     status: "active"
