@@ -84,20 +84,57 @@ function content(i) {
   getSummerCamps().then(results => {
     console.log(i);
     modalHeader = document.getElementById("modal-header");
+    addWebLink = document.getElementById("addWebLink");
+    addTagsModal = document.getElementById("addTagsModal");
+    addParticipants = document.getElementById("addParticipants");
+    addComments = document.getElementById("addComments");
 
-    while (modalHeader.hasChildNodes()) {
-      modalHeader.firstChild.remove()
+    elementsArray = [modalHeader, addWebLink, addTagsModal, addParticipants, addComments];
+
+    for (var c = 0; c < elementsArray.length; c++) {
+      while (elementsArray[c].hasChildNodes()) {
+        elementsArray[c].firstChild.remove()
+      };
     };
-
-    //<h1 class="modal-title fs-5" id="summerCampMoreModalLabel"></h1>
 
     header = document.createElement("h1");
     header.classList.add("modal-title");
     header.classList.add("fs-5");
+
+    linkContent = document.createElement("a");
+    linkContent.setAttribute("href", `${results[i].link}`);
+
+    for (var c = 0; c < results[i].tags.length; c++) {
+      modalTag = document.createElement("p");
+      modalTag.classList.add("badge");
+      modalTag.classList.add("bg-secondary");
+
+      modalTag.innerHTML = results[i].tags[c];
+
+      addTagsModal.appendChild(modalTag);
+    };
+
+    for (var c = 0; c < results[i].participated.length; c++) {
+      participant = document.createElement("p");
+
+      participant.innerHTML = results[i].participated[c];
+
+      addParticipants.appendChild(participant);
+    };
+
+    for (var c = 0; c < results[i].comments.length; c++) {
+      comment = document.createElement("p");
+
+      comment.innerHTML = results[i].comments[c];
+
+      addComments.appendChild(comment);
+    };
     
     header.innerHTML = results[i].name;
-    console.log(header);
+    linkContent.innerHTML = results[i].link;
+
     modalHeader.appendChild(header);
+    addWebLink.appendChild(linkContent);
 
 });
   //console.log(i);
