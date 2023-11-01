@@ -198,12 +198,19 @@ function createFromAddContent() {
   let nameOfSummerCamp = document.getElementById("nameOf");
   let organization = document.getElementById("org");
   let link = document.getElementById("link");
+  let tagDiv = document.getElementById("tagDiv");
+  let children = tagDiv.children;
+  console.log(children[1].value);
 
   db.collection("college-counseling-database").add({
     name: nameOfSummerCamp.value, 
     organization: organization.value, 
     link: link.value,
+<<<<<<< HEAD
     tags: ["stem", "stem2", "california"],
+=======
+    tags: [children[1].value, children[2].value, children[3].value],
+>>>>>>> 94f82314df9eb4bbd882219c6a6b1b87d513fb19
     participated:["Micky/Sophomore", "Mini/Senior"], 
     comments:["comment1", "comment2"],
     status: "active"
