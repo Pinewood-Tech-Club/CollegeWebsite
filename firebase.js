@@ -182,7 +182,6 @@ function setUpFirebaseDatabase() {
 }
 //setUpFirebaseDatabase(); //only need to run once to set up firebase, do not rerun unless changed :)
 
-//
 function getSummerCampTag(tag) { 
   var dbRef = db.collection("college-counseling-database");
   var dbQuery = dbRef;
@@ -246,7 +245,7 @@ function createFromAddContent() {
 
   console.log(children[1].value);
 
-  db.collection("college-counseling-database").add({
+  db.collection("college-counseling-database").doc(nameOfSummerCamp.value).set({
     name: nameOfSummerCamp.value, 
     description: descriptionInput.value,
     organization: organization.value, 
