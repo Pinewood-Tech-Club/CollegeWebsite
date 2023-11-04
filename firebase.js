@@ -109,6 +109,8 @@ function content(i) {
       modalTag = document.createElement("p");
       modalTag.classList.add("badge");
       modalTag.classList.add("bg-secondary");
+      modalTag.classList.add("tagBadge");
+      
 
       modalTag.innerHTML = results[i].tags[c];
 
