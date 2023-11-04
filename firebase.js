@@ -79,7 +79,7 @@ function formatData(i) {
   return [element, div1, div2, div3, a, org, part];
 };
 
-
+//get, format and export all contentModal content
 function content(i) {
   getSummerCamps().then(results => {
     console.log(i);
@@ -103,6 +103,7 @@ function content(i) {
 
     linkContent = document.createElement("a");
     linkContent.setAttribute("href", `${results[i].link}`);
+    linkContent.classList.add("link-body-emphasis", "link-offset-2", "link-underline-opacity-25", "link-underline-opacity-75-hover");
 
     for (var c = 0; c < results[i].tags.length; c++) {
       modalTag = document.createElement("p");
@@ -137,7 +138,6 @@ function content(i) {
     addWebLink.appendChild(linkContent);
 
 });
-  //console.log(i);
 };
 
 
@@ -148,6 +148,7 @@ function setUpFirebaseDatabase() {
   // add collection for Summer Program 1
   db.collection("college-counseling-database").doc("id1").set({
     name: "summer program 1", 
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec posuere odio est, at aliquet sapien malesuada id. Sed rutrum, nulla luctus vulputate aliquam, neque orci aliquet ante, vel commodo erat orci non eros. Mauris sit amet sodales massa. Donec eu volutpat tellus, sit amet pulvinar nisi. Aenean nec orci eros. Nam tempor sapien in lorem gravida pretium. Nulla quis lorem suscipit ante lacinia varius. Curabitur purus ex, sodales et posuere a, tincidunt in turpis.",
     organization:"Pinewood", 
     link: "wiki.nl",
     tags: ["stem", "stem2", "california"],
@@ -164,6 +165,7 @@ function setUpFirebaseDatabase() {
   // add collection for summer program 2
   db.collection("college-counseling-database").doc("id2").set({
     name: "summer program 2", 
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam sagittis sapien a euismod finibus. Duis consectetur fermentum libero vitae bibendum. Cras condimentum pretium elementum. Mauris non dictum sem, eget rutrum lacus. Fusce hendrerit blandit tristique. Morbi nec sem vel metus imperdiet tincidunt vel non mi. Sed lorem felis, tempus sit amet pretium vel, cursus sit amet ex.",
     organization:"Pinewood", 
     link: "wiki.nl",
     tags: ["language", "fun", "california"],
@@ -234,15 +236,19 @@ submitButton.onclick = function() {
   createFromAddContent();
 }
 function createFromAddContent() {
+  alert("Content Submitted");
   let nameOfSummerCamp = document.getElementById("nameOf");
   let organization = document.getElementById("org");
   let link = document.getElementById("link");
   let tagDiv = document.getElementById("tagDiv");
   let children = tagDiv.children;
+  let descriptionInput = document.getElementById("descriptionInput");
+
   console.log(children[1].value);
 
   db.collection("college-counseling-database").add({
     name: nameOfSummerCamp.value, 
+    description: descriptionInput.value,
     organization: organization.value, 
     link: link.value,
     tags: [children[1].value, children[2].value, children[3].value],

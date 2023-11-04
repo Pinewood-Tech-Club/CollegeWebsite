@@ -38,11 +38,11 @@
                       <div class="modal-body">
                         <form id="signin-form">
                           <p>Email</p>
-                          <input id="emailInputSignIn">
+                          <input id="emailInputSignIn" class="formsContent">
                           <br><br>
                           <p>Password</p>
-                          <input type="password" id="passwordInputSignIn">
-                          <br><br>
+                          <input type="password" id="passwordInputSignIn" class="formsContent">
+                          <hr>
                           <button class="btn btn-outline-dark" id="signIn">Sign in!</button>
                         </form>
                       </div>
@@ -61,12 +61,15 @@
                       </div>
                       <div class="modal-body">
                         <form id="signup-form"> <!-- for billy -->
+                          <p>Full Name</p>
+                          <input id="fullNameInputSignUp" class="formsContent">
                           <p>Email</p>
-                          <input id="emailInputSignUp">
-                          <br><br>
+                          <input id="emailInputSignUp" class="formsContent">
+                          <p>Grade</p>
+                          <input id="gradeInputSignUp" class="formsContent">
                           <p>Password</p>
-                          <input type="password" id="passwordInputSignUp">
-                          <br><br>
+                          <input type="password" id="passwordInputSignUp" class="formsContent">
+                          <hr>
                           <button class="btn btn-outline-dark" id="signUp">Sign up!</button>
                         </form>
                       </div>
@@ -152,11 +155,15 @@
           <div class="modal-body">
             <!-- <div data-bs-spy="scroll" data-bs-target="#navbar-example2" data-bs-root-margin="0px 0px -40%" data-bs-smooth-scroll="true" class="scrollspy bg-body-tertiary p-3 rounded-2" tabindex="0"> -->
               <h4>General Description</h4>
-              <p id="addGeneralDescription">Coming soon</p>
-              <h4>Website Link</h4>
-              <div id="addWebLink"></div>
+              <p id="addGeneralDescription" class="contentModal">Coming soon</p>
+              <div class="oneLineDiv">
+                <h4>Website Link</h4>
+                <div id="addWebLink"></div>
+                <!-- &nbsp; -->
+              </div>
+              &nbsp;
               <h4>Tags</h4>
-              <div id="addTagsModal">
+              <div id="addTagsModal" class="contentModal">
                 <p>
                 <span class="badge bg-secondary">STEM</span>
                 <span class="badge bg-secondary">California</span>
@@ -165,24 +172,27 @@
               </div>
               <div class="oneLineDiv" id="participantDiv">
                 <h4>Pinewood Participants</h4>
-                <h6># of people</h6>
                 <button class="btn btn-sm btn-outline-success">I Participated </button>
               </div>
-              <div id="addParticipants">
-
+              <div id="addParticipants" class="contentModal">
+                
               </div>
 
               <div class="oneLineDiv" id="commentsDiv">
-                <h4 class="col" id="scrollspyHeading5">Comments</h4>
-                <button class="col btn btn-outline-dark btn-sm" id="addCommentButton">+</button>
+                <h4 id="scrollspyHeading5">Comments</h4>
+                <button class=" btn btn-outline-dark btn-sm" id="addCommentButton">+</button>
               </div>
-              <p id="addComments">...</p>
-              
+              <div id="addComments" class="contentModal">
+
+              </p>
+              </div>
             <!-- </div> -->
-          </div>
+
           <div class="modal-footer">
+            <hr>
             <button type="button" class="btn btn-outline-dark" data-bs-dismiss="modal">Close</button>
             <button type="button" class="btn btn-outline-dark">Save changes</button>
+            </div>
           </div>
         </div>
       </div>
@@ -201,6 +211,9 @@
             <div class="accordion-body">
               <div class="input-group mb-3">
                 <input id="nameOf"  type="text" class="form-control" placeholder="Name of Summer Camp" aria-label="Username" aria-describedby="basic-addon1">
+              </div>
+              <div class="input-group mb-3">
+                <input id="descriptionInput"  type="text" class="form-control" placeholder="Please Provide a Basic Description" aria-label="description" aria-describedby="basic-addon1">
               </div>
               <div class="input-group mb-3">
                 <input id="org" type="text" class="form-control" placeholder="Organization" aria-label="Username" aria-describedby="basic-addon1">

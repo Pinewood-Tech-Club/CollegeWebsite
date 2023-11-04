@@ -52,7 +52,7 @@ signinform.addEventListener('submit', (e) => {
         if (error.code === 'auth/invalid-email') {
             alert("Invalid email");
         } else if (error.code === 'auth/user-not-found') {
-            alert("We don't got that email bro");
+            alert("Invalid User");
         } else if (error.code === 'auth/wrong-password') {
             alert("Wrong password!")
         }
@@ -66,6 +66,8 @@ signupForm.addEventListener('submit', (e) => {
     // get user info
     const email = signupForm['emailInputSignUp'].value;
     const password = signupForm['passwordInputSignUp'].value;
+    // const fullName = signupForm['fullNameInputSignUp'].value;
+    // const grade = signupForm['gradeInputSignUp'].value;
 
     // sign up the user
     auth.createUserWithEmailAndPassword(email, password).then(cred => {

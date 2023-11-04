@@ -97,6 +97,10 @@ li {
     margin: 4rem;
 }
 
+.formsContent, .contentModal {
+ margin: 1.5rem;
+}
+
 .scrollspy {
     height: 500px;
     overflow: auto;
@@ -106,4 +110,12 @@ li {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+}
+
+#addCommentButton {
+    width: 50px;
+}
+
+#addWebLink {
+    margin-right: 10px;
 }
