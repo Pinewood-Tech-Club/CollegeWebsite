@@ -88,8 +88,10 @@ function content(i) {
     addTagsModal = document.getElementById("addTagsModal");
     addParticipants = document.getElementById("addParticipants");
     addComments = document.getElementById("addComments");
+    addGeneralDescription = document.getElementById("addGeneralDescription");
 
-    elementsArray = [modalHeader, addWebLink, addTagsModal, addParticipants, addComments];
+
+    elementsArray = [modalHeader, addWebLink, addTagsModal, addParticipants, addComments, addGeneralDescription];
 
     for (var c = 0; c < elementsArray.length; c++) {
       while (elementsArray[c].hasChildNodes()) {
@@ -118,12 +120,19 @@ function content(i) {
     };
 
     for (var c = 0; c < results[i].participated.length; c++) {
-      participant = document.createElement("p");
+      participantOne = document.createElement("p");
+      participantTwo = document.createElement("p");
 
-      participant.innerHTML = results[i].participated[c];
+      text = results[i].participated[c].split("/");
 
-      addParticipants.appendChild(participant);
+      participantOne.innerHTML = text[0];
+      participantTwo.innerHTML = text[1];
+
+      addParticipants.appendChild(participantOne);
+      addParticipants.appendChild(participantTwo);
     };
+
+    
 
     for (var c = 0; c < results[i].comments.length; c++) {
       comment = document.createElement("p");
@@ -132,12 +141,16 @@ function content(i) {
 
       addComments.appendChild(comment);
     };
+
+    genDescription = document.createElement("p");
     
     header.innerHTML = results[i].name;
     linkContent.innerHTML = results[i].link;
+    genDescription.innerHTML = results[i].description;
 
     modalHeader.appendChild(header);
     addWebLink.appendChild(linkContent);
+    addGeneralDescription.appendChild(genDescription);
 
 });
 };
@@ -184,7 +197,6 @@ function setUpFirebaseDatabase() {
 }
 //setUpFirebaseDatabase(); //only need to run once to set up firebase, do not rerun unless changed :)
 
-//
 function getSummerCampTag(tag) { 
   var dbRef = db.collection("college-counseling-database");
   var dbQuery = dbRef;
@@ -248,7 +260,7 @@ function createFromAddContent() {
 
   console.log(children[1].value);
 
-  db.collection("college-counseling-database").add({
+  db.collection("college-counseling-database").doc(nameOfSummerCamp.value).set({
     name: nameOfSummerCamp.value, 
     description: descriptionInput.value,
     organization: organization.value, 

@@ -41,8 +41,11 @@
                           <input id="emailInputSignIn" class="formsContent">
                           <br><br>
                           <p>Password</p>
-                          <input type="password" id="passwordInputSignIn" class="formsContent">
                           <hr>
+                          <input type="password" id="passwordInputSignIn">
+                          <br><br>
+                          <button id="google-signin-btn">Sign in with Google</button>
+                          <br><br>
                           <button class="btn btn-outline-dark" id="signIn">Sign in!</button>
                         </form>
                       </div>
@@ -155,7 +158,9 @@
           <div class="modal-body">
             <!-- <div data-bs-spy="scroll" data-bs-target="#navbar-example2" data-bs-root-margin="0px 0px -40%" data-bs-smooth-scroll="true" class="scrollspy bg-body-tertiary p-3 rounded-2" tabindex="0"> -->
               <h4>General Description</h4>
-              <p id="addGeneralDescription" class="contentModal">Coming soon</p>
+              <div id="addGeneralDescription" class="contentModal">Coming soon
+                
+              </div>
               <div class="oneLineDiv">
                 <h4>Website Link</h4>
                 <div id="addWebLink"></div>
@@ -172,11 +177,23 @@
               </div>
               <div class="oneLineDiv" id="participantDiv">
                 <h4>Pinewood Participants</h4>
+                <div class="row gx-3 row-cols-2 g-3">
+
+                </div>
                 <button class="btn btn-sm btn-outline-success">I Participated </button>
               </div>
-              <div id="addParticipants" class="contentModal">
-                
+              <div class="container px-3 text-center contentContainer">
+                <div class="row gx-3 row-cols-2 g-3">
+                <p class="col">Full Name</p>
+                <p class="col">Grade At Time Of Participation</p>
+                </div>
               </div>
+              <div class="container contentModal px-3 text-center contentContainer">
+                  <div class="row gx-3 row-cols-2 g-3" id="addParticipants">
+                  <p class="col">Full Name</p>
+                  <p class="col">Grade At Time Of Participation</p>
+                  </div>
+                </div>
 
               <div class="oneLineDiv" id="commentsDiv">
                 <h4 id="scrollspyHeading5">Comments</h4>

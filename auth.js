@@ -93,3 +93,21 @@ function hideContent(hiddenClass) {
         elements[i].style.display = "none";
     }
 };
+
+// google auth sign up
+// Initialize the Google provider object
+var provider = new firebase.auth.GoogleAuthProvider();
+
+// Attach an onClick event to the Google Sign-In button
+document.getElementById('google-signin-btn').addEventListener('click', function() {
+    firebase.auth().signInWithPopup(provider).then(function(result) {
+        // This gives you a Google Access Token. You can use it to access the Google API.
+        var token = result.credential.accessToken;
+        // The signed-in user info.
+        var user = result.user;
+        alert("Login Successful with Google");
+        window.location.href = "index.html";
+    }).catch(function(error) {
+        alert(error.message);
+    });
+});
