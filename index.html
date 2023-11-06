@@ -197,7 +197,15 @@
 
               <div class="oneLineDiv" id="commentsDiv">
                 <h4 id="scrollspyHeading5">Comments</h4>
-                <button class=" btn btn-outline-dark btn-sm" id="addCommentButton">+</button>
+                <div class="dropdown dropstart">
+                  <button class="btn btn-outline-dark btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    +
+                  </button>
+                  <ul class="dropdown-menu">
+                    <textarea id="inputComment" type="text" class="form-control" placeholder="Type Comment Here"></textarea>
+                    <button class="btn btn-outline-dark btn-sm" onclick="addComment()">Comment</button>
+                  </ul>
+                </div>
               </div>
               <div id="addComments" class="contentModal">
 

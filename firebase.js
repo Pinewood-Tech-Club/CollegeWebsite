@@ -132,8 +132,6 @@ function content(i) {
       addParticipants.appendChild(participantTwo);
     };
 
-    
-
     for (var c = 0; c < results[i].comments.length; c++) {
       comment = document.createElement("p");
 
@@ -154,6 +152,18 @@ function content(i) {
 
 });
 };
+
+
+function addComment() {
+  commentContent = document.getElementById("inputComment");
+  updateCommentSection = document.getElementById("addComments");
+
+  comment = document.createElement("p");
+  comment.innerHTML = commentContent.value;
+
+  updateCommentSection.appendChild(comment);
+  //console.log(commentContent.value);
+}
 
 
 
