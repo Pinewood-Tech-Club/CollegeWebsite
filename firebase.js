@@ -299,4 +299,10 @@ function createFromAddContent() {
   .catch(function(error) {
       console.error("Error writing document: ", error);
   });
+
+  littleArrayTeeHee = [nameOfSummerCamp, organization, link, tagDiv, children[1], children[2], children[3], descriptionInput];
+
+  for (var i = 0; i < littleArrayHeeHee.length; i++) {
+    littleArrayHeeHee[i].value = ""
+  }
 }
