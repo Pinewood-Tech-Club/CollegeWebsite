@@ -157,13 +157,26 @@ function content(i) {
 function addComment() {
   commentContent = document.getElementById("inputComment");
   updateCommentSection = document.getElementById("addComments");
+  modalHeader = document.getElementById("modal-header");
 
   comment = document.createElement("p");
   comment.innerHTML = commentContent.value;
 
+  existingCommentsArray = [];
   updateCommentSection.appendChild(comment);
+
+  for (var i = 0; i < updateCommentSection.children.length; i++) { 
+    existingCommentsArray.push(updateCommentSection.children[i].textContent);
+  }
+
+  console.log(modalHeader.children[0].textContent);
+
+  db.collection("college-counseling-database").doc(modalHeader.children[0].textContent).update({
+    comments: existingCommentsArray
+  });
+  commentContent.value = "";
   //console.log(commentContent.value);
-}
+};
 
 
 
@@ -232,9 +245,10 @@ function getSummerCampTag(tag) {
 function showTag(tag) {
   console.log(tag)
   getSummerCampTag(tag).then(results => {
-      element = document.getElementById("add-camps"); // element = the stuff already in the data-table
+    console.log("in")
+      element = document.getElementById("add-camps");
 
-    while (element.hasChildNodes()) { // remove all the children in the data-table
+    while (element.hasChildNodes()) {
       element.firstChild.remove()
     };
 
@@ -275,8 +289,8 @@ function createFromAddContent() {
     organization: organization.value, 
     link: link.value,
     tags: [children[1].value, children[2].value, children[3].value],
-    participated:[], 
-    comments:[],
+    participated:["Micky/Sophomore", "Mini/Senior"], 
+    comments:["comment1", "comment2"],
     status: "active"
   })
   .then(function() {
