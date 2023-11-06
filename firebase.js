@@ -232,10 +232,9 @@ function getSummerCampTag(tag) {
 function showTag(tag) {
   console.log(tag)
   getSummerCampTag(tag).then(results => {
-    console.log("in")
-      element = document.getElementById("add-camps");
+      element = document.getElementById("add-camps"); // element = the stuff already in the data-table
 
-    while (element.hasChildNodes()) {
+    while (element.hasChildNodes()) { // remove all the children in the data-table
       element.firstChild.remove()
     };
 
@@ -276,8 +275,8 @@ function createFromAddContent() {
     organization: organization.value, 
     link: link.value,
     tags: [children[1].value, children[2].value, children[3].value],
-    participated:["Micky/Sophomore", "Mini/Senior"], 
-    comments:["comment1", "comment2"],
+    participated:[], 
+    comments:[],
     status: "active"
   })
   .then(function() {
