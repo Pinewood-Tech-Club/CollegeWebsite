@@ -1,6 +1,11 @@
 firebase.analytics();
 //db = firebase.firestore();
 
+// import { doc, getDoc } from "firebase/firestore";
+
+// const docRef = doc(db, "cities", "SF");
+// const docSnap = await getDoc(docRef);
+
 // This function gets the data from the firebase database and returns array 'results' which has all the data.
 function getSummerCamps() {
   var dbRef = db.collection("college-counseling-database");
@@ -168,6 +173,84 @@ function content(i) {
 });
 };
 
+function getUsers(email) {
+  var dbRef = db.collection("users");
+  var dbQuery = dbRef.where(firebase.firestore.FieldPath.documentId(), '==', email);
+
+  var dbPromise = dbQuery.get();
+  return dbPromise.then(function(querySnapshot) {
+    var results = [];
+    querySnapshot.forEach(function(doc) {
+      results.push(doc.data());
+    });
+    //console.log(results);
+    return Promise.all(results);
+  })
+  .catch(function(error) {
+    console.log("error getting documents: ", error);
+  });
+}
+
+function addParticipant() {
+  addParticipants = document.getElementById("addParticipants");
+  const email = signupForm['emailInputSignUp'].value;
+
+  participantName = document.createElement("p");
+  participantName.classList.add("col");
+
+  participantGrade = document.createElement("p");
+  participantGrade.classList.add("col");
+
+  existingParticipantsArray = [];
+
+  modalHeader = document.getElementById("modal-header");
+
+  
+
+  getUsers(email).then(results => {
+    //console.log(results);
+
+    console.log("THIS IS NAME", results[0].name);
+    console.log("THIS IS GRADE", results[0].grade);
+
+
+    participantName.innerHTML = results[0].name;
+    participantGrade.innerHTML = results[0].grade;
+
+    console.log("this is printing", participantName);
+
+    addParticipants.appendChild(participantName);
+    addParticipants.appendChild(participantGrade);
+
+    for (var i = 0; i < addParticipants.children.length; i++) { 
+      existingParticipantsArray.push(addParticipants.children[i].textContent);
+    };
+  
+    console.log(existingParticipantsArray);
+
+    convertArray = [];
+
+    for (var i = 0; i < existingParticipantsArray.length; i+=2) { 
+      convertArray.push(existingParticipantsArray[i] + "/" + existingParticipantsArray[i+1])
+      
+    };
+
+    console.log(convertArray);
+
+    db.collection("college-counseling-database").doc(modalHeader.children[0].textContent).update({
+      participated: convertArray
+    });
+
+  });
+
+  //appendChild(newparticipant, newparticipantgrade)
+
+  
+  
+
+
+
+}
 
 function addComment() {
   commentContent = document.getElementById("inputComment");
@@ -192,9 +275,6 @@ function addComment() {
   commentContent.value = "";
   //console.log(commentContent.value);
 };
-
-
-
 
 //initial commit to set up firebase
 function setUpFirebaseDatabase() {
