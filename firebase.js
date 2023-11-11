@@ -87,6 +87,20 @@ function content(i) {
     addWebLink = document.getElementById("addWebLink");
     addTagsModal = document.getElementById("addTagsModal");
     addParticipants = document.getElementById("addParticipants");
+    addYourself = document.getElementById("addYourself");
+
+    
+
+    addYourself.addEventListener("click", function() {
+      db.collection("users").doc(firebase.auth().currentUser.email).get().then((doc) =>{
+        var data = doc.data();
+        db.collection("college-counseling-database").doc(modalHeader.children[0].textContent).update({
+          participated: firebase.firestore.FieldValue.arrayUnion(data['name'] + '/' + data['grade'])
+        }).then(() => {
+          window.location.href = "index.html";
+        });
+      });
+    })
     addComments = document.getElementById("addComments");
     addGeneralDescription = document.getElementById("addGeneralDescription");
 
@@ -120,6 +134,7 @@ function content(i) {
     };
 
     for (var c = 0; c < results[i].participated.length; c++) {
+
       participantOne = document.createElement("p");
       participantTwo = document.createElement("p");
 
@@ -289,7 +304,7 @@ function createFromAddContent() {
     organization: organization.value, 
     link: link.value,
     tags: [children[1].value, children[2].value, children[3].value],
-    participated:["Micky/Sophomore", "Mini/Senior"], 
+    participated:[], 
     comments:["comment1", "comment2"],
     status: "active"
   })
