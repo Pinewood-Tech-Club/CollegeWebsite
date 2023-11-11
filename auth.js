@@ -66,14 +66,25 @@ signupForm.addEventListener('submit', (e) => {
     // get user info
     const email = signupForm['emailInputSignUp'].value;
     const password = signupForm['passwordInputSignUp'].value;
-    // const fullName = signupForm['fullNameInputSignUp'].value;
-    // const grade = signupForm['gradeInputSignUp'].value;
+    const fullName = signupForm['fullNameInputSignUp'].value;
+    const grade = signupForm['gradeInputSignUp'].value;
 
     // sign up the user
     auth.createUserWithEmailAndPassword(email, password).then(cred => {
+        
         signupForm.reset();
-        window.location.href = "index.html";
-        alert("Sign Up Successful");
+
+
+        db.collection("users").doc(email).set({
+            name: fullName,
+            grade: grade
+        })
+        .then(() => {
+            window.location.href = "index.html";
+            alert("Sign Up Successful!");
+        })
+    }).catch(function(error) {
+        alert(error.message);
     });
 });
 
@@ -83,6 +94,8 @@ signout.addEventListener('click', (e) => {
   auth.signOut().then(function(){
     window.location.href = "index.html";
     alert("User Logged Out")
+  }).catch(function(error) {
+    alert(error.message);
   });
 }); 
 
@@ -106,6 +119,7 @@ document.getElementById('google-signin-btn').addEventListener('click', function(
         // The signed-in user info.
         var user = result.user;
         alert("Login Successful with Google");
+        alert(auth.currentUser.displayName);
         window.location.href = "index.html";
     }).catch(function(error) {
         alert(error.message);
