@@ -96,16 +96,16 @@ function content(i) {
 
     
 
-    addYourself.addEventListener("click", function() {
-      db.collection("users").doc(firebase.auth().currentUser.email).get().then((doc) =>{
-        var data = doc.data();
-        db.collection("college-counseling-database").doc(modalHeader.children[0].textContent).update({
-          participated: firebase.firestore.FieldValue.arrayUnion(data['name'] + '/' + data['grade'])
-        }).then(() => {
-          window.location.href = "index.html";
-        });
-      });
-    })
+    // addYourself.addEventListener("click", function() {
+    //   db.collection("users").doc(firebase.auth().currentUser.email).get().then((doc) =>{
+    //     var data = doc.data();
+    //     db.collection("college-counseling-database").doc(modalHeader.children[0].textContent).update({
+    //       participated: firebase.firestore.FieldValue.arrayUnion(data['name'] + '/' + data['grade'])
+    //     }).then(() => {
+    //       window.location.href = "index.html";
+    //     });
+    //   });
+    // })
     addComments = document.getElementById("addComments");
     addGeneralDescription = document.getElementById("addGeneralDescription");
 
