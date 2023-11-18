@@ -1,6 +1,15 @@
 auth.onAuthStateChanged(user => {
     console.log(user ? 'user signed in' : 'user signed out');
 
+    if (user) {
+        toastMessage = document.getElementById("toastMessage");
+        //alert(toastMessage);
+        toastMessage.classList.add("show");
+
+        toastBody = document.getElementById("toastBody");
+        toastBody.innerHTML = "welcome (back) " + user.email;
+        console.log(user.email);
+    }
     var signinbutton = null;
     var signoutbutton = document.querySelector('#signout-button');
     var signupbutton = null;
@@ -22,7 +31,7 @@ auth.onAuthStateChanged(user => {
         signoutbutton.style.display = "flex";
         signinbutton.style.display = "none";
         signupbutton.style.display = "none";
-        signedOutContent.style.display = "none";
+        signedOutContent.style.display = "none";  
         
     }
     else{
@@ -43,11 +52,22 @@ signinform.addEventListener('submit', (e) => {
     e.preventDefault();
     const email = signinform['emailInputSignIn'].value;
     const password = signinform['passwordInputSignIn'].value;
+
+    // toastMessage = document.getElementById("toastMessage");
+    //     //alert(toastMessage);
+    // toastMessage.classList.add("show");
+
+    // toastBody = document.getElementById("toastBody");
+    // toastBody.innerHTML = email;
     
     auth.signInWithEmailAndPassword(email, password).then(cred => {
         signinform.reset();
         window.location.href = "index.html";
+
+        console.log("hello 1");
         alert("Login Successful");
+        console.log("hello 2");
+        
     }).catch(error => {
         if (error.code === 'auth/invalid-email') {
             alert("Invalid email");
@@ -56,7 +76,7 @@ signinform.addEventListener('submit', (e) => {
         } else if (error.code === 'auth/wrong-password') {
             alert("Wrong password!")
         }
-    });
+    })
 })
 
 const signupForm = document.querySelector('#signup-form');
@@ -64,7 +84,7 @@ signupForm.addEventListener('submit', (e) => {
     e.preventDefault();
     
     // get user info
-    const email = signupForm['emailInputSignUp'].value;
+    const email = signupForm['emailInputSignUp'].value.toLowerCase();
     const password = signupForm['passwordInputSignUp'].value;
     const fullName = signupForm['fullNameInputSignUp'].value;
     const grade = signupForm['gradeInputSignUp'].value;

@@ -127,3 +127,16 @@ li {
 #inputComment {
     width: 500px;
 }
+
+.toast {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    right: 1rem;
+    top: 1rem;
+    z-index: 10;
+}
+
+.toast-body {
+    color: black;
+}

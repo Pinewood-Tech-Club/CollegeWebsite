@@ -92,20 +92,8 @@ function content(i) {
     addWebLink = document.getElementById("addWebLink");
     addTagsModal = document.getElementById("addTagsModal");
     addParticipants = document.getElementById("addParticipants");
-    addYourself = document.getElementById("addYourself");
+    //addYourself = document.getElementById("addYourself");
 
-    
-
-    // addYourself.addEventListener("click", function() {
-    //   db.collection("users").doc(firebase.auth().currentUser.email).get().then((doc) =>{
-    //     var data = doc.data();
-    //     db.collection("college-counseling-database").doc(modalHeader.children[0].textContent).update({
-    //       participated: firebase.firestore.FieldValue.arrayUnion(data['name'] + '/' + data['grade'])
-    //     }).then(() => {
-    //       window.location.href = "index.html";
-    //     });
-    //   });
-    // })
     addComments = document.getElementById("addComments");
     addGeneralDescription = document.getElementById("addGeneralDescription");
 
@@ -174,6 +162,7 @@ function content(i) {
 };
 
 function getUsers(email) {
+  console.log(email);
   var dbRef = db.collection("users");
   var dbQuery = dbRef.where(firebase.firestore.FieldPath.documentId(), '==', email);
 
@@ -183,7 +172,7 @@ function getUsers(email) {
     querySnapshot.forEach(function(doc) {
       results.push(doc.data());
     });
-    //console.log(results);
+    console.log(results);
     return Promise.all(results);
   })
   .catch(function(error) {
@@ -193,7 +182,9 @@ function getUsers(email) {
 
 function addParticipant() {
   addParticipants = document.getElementById("addParticipants");
-  const email = signupForm['emailInputSignUp'].value;
+  toastBody = document.getElementById("toastBody");
+  const email = toastBody.textContent.split(" ")[2].toLowerCase();
+  console.log(email);
 
   participantName = document.createElement("p");
   participantName.classList.add("col");
@@ -205,13 +196,11 @@ function addParticipant() {
 
   modalHeader = document.getElementById("modal-header");
 
-  
-
   getUsers(email).then(results => {
     //console.log(results);
 
-    console.log("THIS IS NAME", results[0].name);
-    console.log("THIS IS GRADE", results[0].grade);
+    //console.log("THIS IS NAME", results[0].name);
+    //console.log("THIS IS GRADE", results[0].grade);
 
 
     participantName.innerHTML = results[0].name;
@@ -242,15 +231,7 @@ function addParticipant() {
     });
 
   });
-
-  //appendChild(newparticipant, newparticipantgrade)
-
-  
-  
-
-
-
-}
+};
 
 function addComment() {
   commentContent = document.getElementById("inputComment");
