@@ -140,3 +140,7 @@ li {
 .toast-body {
     color: black;
 }
+
+.toastLogo {
+    max-height: 50px;
+}
