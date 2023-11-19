@@ -1,24 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>College Website</title>
-  <link rel="stylesheet" href="index_styles.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
-    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
-    crossorigin="anonymous"></script>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>College Website</title>
+    <link rel="stylesheet" href="index_styles.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </head>
-
 <body>
+    
+    <!--Navbar-->
+    <section id="titleSection" class="colouredSection">
 
-<<<<<<< Updated upstream
         <!-- toast user sign in  -->
       <div id="toastMessage" class="toast fade" role="alert" aria-live="assertive" aria-atomic="true">
         <div class="toast-header">
@@ -30,351 +26,305 @@
         <div id = "toastBody" class="toast-body">
           ;alkdjf;lksadjf
         </div>
-=======
-  <!--Navbar-->
-  <section id="titleSection" class="colouredSection">
-
-    <!-- toast user sign in  -->
-    <div id="toastMessage" class="toast fade" role="alert" aria-live="assertive" aria-atomic="true">
-      <div class="toast-header">
-        <!-- <img src="Logo.png" class="rounded me-2" alt="panther paw"> -->
-        <strong class="me-auto">Pinewood Tech Club</strong>
-        <small class="text-body-secondary">Now</small>
-        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
->>>>>>> Stashed changes
       </div>
-      <div id="toastBody" class="toast-body">
-        ;alkdjf;lksadjf
-      </div>
-    </div>
 
-    <!-- navbar -->
-    <div class="container-fluid">
-      <nav class="navbar navbar-expand-md">
-        <a class="navbar-brand">
-          <img src="Logo.png" width="60">
-        </a>
-        <a class="navbar-brand">Pinewood School <br> Summer College Counciling Database </a>
-
-        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-          <ul class="navbar-nav ml-auto">
-            <li class="nav-item">
-
-              <button class="btn btn-outline-warning" data-bs-toggle="modal" data-bs-target="#signin-modal"
-                id="nav-link">
-                Sign In
-              </button>
-              <div class="modal fade" id="signin-modal" tabindex="-1" aria-labelledby="modal-title" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <h5 class="modal-title" id="modal-title">Sign in</h5>
-                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-
-                    <div class="modal-body">
-                      <form id="signin-form">
-                        <p>Email</p>
-                        <input id="emailInputSignIn" class="formsContent">
-                        <br><br>
-                        <p>Password</p>
-                        <hr>
-                        <input type="password" id="passwordInputSignIn">
-                        <br><br>
-
-                        <div class="dropdown">
-                          <select class="drop-down" id="dropdown" aria-label="Floating label select example">
-                            <option selected>Open this select menu</option>
-                            <option value="1">Admin</option>
-                            <option value="2">Content Creator</option>
-                            <option value="3">Viewer</option>
-                          </select>
-                          <label for="floatingSelect">Select Account Type</label>
-                        </div>
-
-
-
-
-
-
-
-                        <br><br>
-                        <button id="google-signin-btn">Sign in with Google</button>
-                        <br><br>
-                        <button class="btn btn-outline-dark" id="signIn">Sign in!</button>
-                      </form>
+      <!-- navbar -->
+      <div class="container-fluid">
+        <nav class="navbar navbar-expand-md">
+          <a class="navbar-brand">
+            <img src="Logo.png" width="60">
+          </a>
+          <a class="navbar-brand">Pinewood School <br> Summer College Counciling Database </a>
+          
+          <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <ul class="navbar-nav ml-auto">
+              <li class="nav-item">
+                
+                <button class="btn btn-outline-warning" data-bs-toggle="modal" data-bs-target="#signin-modal" id="nav-link">
+                  Sign In
+                </button>
+                <div class="modal fade" id="signin-modal" tabindex="-1" aria-labelledby="modal-title" aria-hidden="true">
+                  <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="modal-title">Sign in</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      </div>
+                      
+                      <div class="modal-body">
+                        <form id="signin-form">
+                          <p>Email</p>
+                          <input id="emailInputSignIn" class="formsContent">
+                          <br><br>
+                          <p>Password</p>
+                          <hr>
+                          <input type="password" id="passwordInputSignIn">
+                          <br><br>
+                          <button id="google-signin-btn">Sign in with Google</button>
+                          <br><br>
+                          <button class="btn btn-outline-dark" id="signIn">Sign in!</button>
+                        </form>
+                      </div>
                     </div>
                   </div>
-                </div>
-              </div>
-            </li>
-            <li class="nav-item">
-              <button class="btn btn-outline-warning" data-bs-toggle="modal" data-bs-target="#signout-modal"
-                id="nav-link">Sign Up</button>
-              <div class="modal fade" id="signout-modal" tabindex="-1" aria-labelledby="modal-title" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <h5 class="modal-title" id="modal-title">Sign up</h5>
-                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                      <form id="signup-form">
-                        <p>Full Name</p>
-                        <input id="fullNameInputSignUp" class="formsContent">
-                        <p>Email</p>
-                        <input id="emailInputSignUp" class="formsContent">
-                        <p>Grade</p>
-                        <input id="gradeInputSignUp" class="formsContent">
-                        <p>Password</p>
-                        <input type="password" id="passwordInputSignUp" class="formsContent">
-                        <hr>
-                        <button class="btn btn-outline-dark" id="signUp">Sign up!</button>
-                      </form>
+                </div>  
+              </li>
+              <li class="nav-item">
+                <button class="btn btn-outline-warning" data-bs-toggle="modal" data-bs-target="#signout-modal" id="nav-link">Sign Up</button>
+                <div class="modal fade" id="signout-modal" tabindex="-1" aria-labelledby="modal-title" aria-hidden="true">
+                  <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="modal-title">Sign up</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      </div>
+                      <div class="modal-body">
+                        <form id="signup-form"> 
+                          <p>Full Name</p>
+                          <input id="fullNameInputSignUp" class="formsContent">
+                          <p>Email</p>
+                          <input id="emailInputSignUp" class="formsContent">
+                          <p>Grade</p>
+                          <input id="gradeInputSignUp" class="formsContent">
+                          <p>Password</p>
+                          <input type="password" id="passwordInputSignUp" class="formsContent">
+                          <hr>
+                          <button class="btn btn-outline-dark" id="signUp">Sign up!</button>
+                        </form>
+                      </div>
                     </div>
                   </div>
-                </div>
+                </div>  
+          
+              </li>
+              <li class="nav-item">
+                <button class="btn btn-outline-warning" id="signout-button">Sign Out</button>
+              </li>
+            </div>
+            </ul>
+        </nav>
+      </div>
+    </section> 
+
+
+
+    <!-- not signed in -->
+    <section class="text-center" id="signedOutContent">
+      <h2>Welcome to Pinewood College Counseling's</h2>
+      <h3>Summer Camp Database</h3>
+      <p class="p-3">Please sign in or create an account to view content</p>
+    </section>
+
+    <section id="tagsBar" class="contentContainer navbar sticky-top navbar-light bg-light"> 
+      <div class="container text-center" >
+        <div class="row gx-3 g-3 row-cols-3 row-cols-lg-5" id="tagsBarRow">
+          <div class="col">
+            <button class="btn btn-outline-dark tag" onclick="showTag('academic')">Academic</button>
+          </div>
+          <div class="col">
+            <button class="btn btn-outline-dark tag" onclick="showTag('fun')">Fun</button>
+          </div>
+          <div class="col">
+            <button class="btn btn-outline-dark tag" onclick="showTag('california')">California</button>
+          </div>
+          <div class="col">
+            <button class="btn btn-outline-dark tag" onclick="showTag('')">Clear</button>
+          </div>
+          <div class="col dropdown">
+            <button class="btn btn-outline-dark dropdown-toggle tag" data-bs-toggle="dropdown" role="button" aria-expanded="false">More</button>
+            <div class="dropdown-menu">
+              <div class="dropdown-item">
+                <button class="btn btn-outline-dark tag">something</button>
               </div>
-
-            </li>
-            <li class="nav-item">
-              <button class="btn btn-outline-warning" id="signout-button">Sign Out</button>
-            </li>
-        </div>
-        </ul>
-      </nav>
-    </div>
-  </section>
-
-
-
-  <!-- not signed in -->
-  <section class="text-center" id="signedOutContent">
-    <h2>Welcome to Pinewood College Counseling's</h2>
-    <h3>Summer Camp Database</h3>
-    <p class="p-3">Please sign in or create an account to view content</p>
-  </section>
-
-  <section id="tagsBar" class="contentContainer navbar sticky-top navbar-light bg-light">
-    <div class="container text-center">
-      <div class="row gx-3 g-3 row-cols-3 row-cols-lg-5" id="tagsBarRow">
-        <div class="col">
-          <button class="btn btn-outline-dark tag" onclick="showTag('academic')">Academic</button>
-        </div>
-        <div class="col">
-          <button class="btn btn-outline-dark tag" onclick="showTag('fun')">Fun</button>
-        </div>
-        <div class="col">
-          <button class="btn btn-outline-dark tag" onclick="showTag('california')">California</button>
-        </div>
-        <div class="col">
-          <button class="btn btn-outline-dark tag" onclick="showTag('')">Clear</button>
-        </div>
-        <div class="col dropdown">
-          <button class="btn btn-outline-dark dropdown-toggle tag" data-bs-toggle="dropdown" role="button"
-            aria-expanded="false">More</button>
-          <div class="dropdown-menu">
-            <div class="dropdown-item">
-              <button class="btn btn-outline-dark tag">something</button>
-            </div>
-            <div class="dropdown-item">
-              <button class="btn btn-outline-dark tag">something else</button>
-            </div>
-            <div class="dropdown-item">
-              <button class="btn btn-outline-dark tag">guys are you proud</button>
+              <div class="dropdown-item">
+                <button class="btn btn-outline-dark tag">something else</button>
+              </div>
+              <div class="dropdown-item">
+                <button class="btn btn-outline-dark tag">guys are you proud</button>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
 
 
-  <div class="container px-3 text-center contentContainer" id="headerRow">
-    <div class="row gx-3 row-cols-3 g-3">
-      <div class="col">
-        <p class="p-3">Summer Camp Name</p>
-      </div>
-      <div class="col">
-        <div class="p-3">Organization</div>
-      </div>
-      <div class="col">
-        <div class="p-3">Number of Previous Pinewood Participants</div>
-      </div>
-    </div>
-  </div>
-  <div class="container px-3 text-center contentContainer">
-    <div class="row gx-3 row-cols-3 g-3" id="add-camps">
-      <!-- Data -->
-    </div>
-  </div>
-
-  <!-- Content Modal -->
-  <div class="modal fade" id="summerCampMoreModal" tabindex="-1" aria-labelledby="summerCampMoreLabel"
-    aria-hidden="true">
-    <div class="modal-dialog modal-xl">
-      <div class="modal-content">
-        <div class="modal-header">
-          <div id="modal-header"></div>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    <div class="container px-3 text-center contentContainer" id="headerRow">
+      <div class="row gx-3 row-cols-3 g-3">
+        <div class="col">
+         <p class="p-3" >Summer Camp Name</p>
         </div>
-        <div class="modal-body">
-          <!-- <div data-bs-spy="scroll" data-bs-target="#navbar-example2" data-bs-root-margin="0px 0px -40%" data-bs-smooth-scroll="true" class="scrollspy bg-body-tertiary p-3 rounded-2" tabindex="0"> -->
-          <h4>General Description</h4>
-          <div id="addGeneralDescription" class="contentModal">Coming soon
+        <div class="col">
+          <div class="p-3">Organization</div>
+        </div>
+        <div class="col">
+          <div class="p-3">Number of Previous Pinewood Participants</div>
+        </div>
+      </div>
+    </div>
+    <div class="container px-3 text-center contentContainer"> 
+      <div class="row gx-3 row-cols-3 g-3" id="add-camps">
+          <!-- Data -->
+      </div>
+    </div>
 
+    <!-- Content Modal -->
+    <div class="modal fade" id="summerCampMoreModal" tabindex="-1" aria-labelledby="summerCampMoreLabel" aria-hidden="true">
+      <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+          <div class="modal-header">
+            <div id="modal-header"></div>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
-          <div class="oneLineDiv">
-            <h4>Website Link</h4>
-            <div id="addWebLink"></div>
-            <!-- &nbsp; -->
-          </div>
-          &nbsp;
-          <h4>Tags</h4>
-          <div id="addTagsModal" class="contentModal">
-            <p>
-              <span class="badge bg-secondary">STEM</span>
-              <span class="badge bg-secondary">California</span>
-              <span class="badge bg-secondary">Chemistry</span>
-            </p>
-          </div>
-          <div class="oneLineDiv" id="participantDiv">
-            <h4>Pinewood Participants</h4>
-            <div class="row gx-3 row-cols-2 g-3">
+          <div class="modal-body">
+            <!-- <div data-bs-spy="scroll" data-bs-target="#navbar-example2" data-bs-root-margin="0px 0px -40%" data-bs-smooth-scroll="true" class="scrollspy bg-body-tertiary p-3 rounded-2" tabindex="0"> -->
+              <h4>General Description</h4>
+              <div id="addGeneralDescription" class="contentModal">Coming soon
+                
+              </div>
+              <div class="oneLineDiv">
+                <h4>Website Link</h4>
+                <div id="addWebLink"></div>
+                <!-- &nbsp; -->
+              </div>
+              &nbsp;
+              <h4>Tags</h4>
+              <div id="addTagsModal" class="contentModal">
+                <p>
+                <span class="badge bg-secondary">STEM</span>
+                <span class="badge bg-secondary">California</span>
+                <span class="badge bg-secondary">Chemistry</span>
+                </p>
+              </div>
+              <div class="oneLineDiv" id="participantDiv">
+                <h4>Pinewood Participants</h4>
+                <div class="row gx-3 row-cols-2 g-3">
 
-            </div>
-            <button class="btn btn-sm btn-outline-success" onclick="addParticipant()">I Participated </button>
-          </div>
-          <!--
+                </div>
+                <button class="btn btn-sm btn-outline-success" onclick="addParticipant()">I Participated </button>
+              </div>
+              <!--
                 
               -->
-          <div class="container px-3 text-center contentContainer">
-            <div class="row gx-3 row-cols-2 g-3">
-              <p class="col">Full Name</p>
-              <p class="col">Grade At Time Of Participation</p>
-            </div>
-          </div>
-          <div class="container contentModal px-3 text-center contentContainer">
-            <div class="row gx-3 row-cols-2 g-3" id="addParticipants">
+              <div class="container px-3 text-center contentContainer">
+                <div class="row gx-3 row-cols-2 g-3">
+                <p class="col">Full Name</p>
+                <p class="col">Grade At Time Of Participation</p>
+                </div>
+              </div>
+              <div class="container contentModal px-3 text-center contentContainer">
+                  <div class="row gx-3 row-cols-2 g-3" id="addParticipants">
+                  
+                  </div>
+                  
+                </div>
 
-            </div>
+              <div class="oneLineDiv" id="commentsDiv">
+                <h4 id="scrollspyHeading5">Comments</h4>
+                <div class="dropdown dropstart">
+                  <button class="btn btn-outline-dark btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    +
+                  </button>
+                  <ul class="dropdown-menu">
+                    <textarea id="inputComment" type="text" class="form-control" placeholder="Type Comment Here"></textarea>
+                    <button class="btn btn-outline-dark btn-sm" onclick="addComment()">Comment</button>
+                  </ul>
+                </div>
+              </div>
+              <div id="addComments" class="contentModal">
 
-          </div>
-
-          <div class="oneLineDiv" id="commentsDiv">
-            <h4 id="scrollspyHeading5">Comments</h4>
-            <div class="dropdown dropstart">
-              <button class="btn btn-outline-dark btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown"
-                aria-expanded="false">
-                +
-              </button>
-              <ul class="dropdown-menu">
-                <textarea id="inputComment" type="text" class="form-control" placeholder="Type Comment Here"></textarea>
-                <button class="btn btn-outline-dark btn-sm" onclick="addComment()">Comment</button>
-              </ul>
-            </div>
-          </div>
-          <div id="addComments" class="contentModal">
-
-            </p>
-          </div>
-          <!-- </div> -->
+              </p>
+              </div>
+            <!-- </div> -->
 
           <div class="modal-footer">
             <hr>
             <button type="button" class="btn btn-outline-dark" data-bs-dismiss="modal">Close</button>
             <button type="button" class="btn btn-outline-dark">Save changes</button>
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
 
-  <!-- Sticky Bottom Add Content Accordion -->
-  <div class="sticky-bottom contentContainer">
-    <div class="accordion" id="accordionExample">
-      <div class="accordion-item" id="addContentButton">
-        <h2 class="accordion-header">
-          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne"
-            aria-expanded="true" aria-controls="collapseOne">
-            Add Content
-          </button>
-        </h2>
-        <div id="collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-          <div class="accordion-body">
-            <div class="input-group mb-3">
-              <input id="nameOf" type="text" class="form-control" placeholder="Name of Summer Camp"
-                aria-label="Username" aria-describedby="basic-addon1">
-            </div>
-            <div class="input-group mb-3">
-              <textarea id="descriptionInput" type="text" class="form-control"
-                placeholder="Please Provide a Basic Description" aria-label="description"
-                aria-describedby="basic-addon1"></textarea>
-            </div>
-            <div class="input-group mb-3">
-              <input id="org" type="text" class="form-control" placeholder="Organization" aria-label="Username"
-                aria-describedby="basic-addon1">
-            </div>
-            <div class="input-group mb-3">
-              <input id="link" type="text" class="form-control" placeholder="link" aria-label="link"
-                aria-describedby="basic-addon1">
-            </div>
-            <div id="tagDiv" class="input-group">
-              <span class="input-group-text">Tags</span>
-              <input type="text" aria-label="First name" class="form-control" placeholder="Academic">
-              <input type="text" aria-label="Last name" class="form-control" placeholder="Fun">
-              <input type="text" aria-label="Last name" class="form-control" placeholder="California">
-            </div>
-            <button class="btn btn-outline-dark" id="submitNewContent">
-              Submit
+    <!-- Sticky Bottom Add Content Accordion -->
+    <div class="sticky-bottom contentContainer">
+      <div class="accordion" id="accordionExample">
+        <div class="accordion-item" id="addContentButton">
+          <h2 class="accordion-header">
+            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+              Add Content
             </button>
+          </h2>
+          <div id="collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+              <div class="input-group mb-3">
+                <input id="nameOf"  type="text" class="form-control" placeholder="Name of Summer Camp" aria-label="Username" aria-describedby="basic-addon1">
+              </div>
+              <div class="input-group mb-3">
+                <textarea id="descriptionInput"  type="text" class="form-control" placeholder="Please Provide a Basic Description" aria-label="description" aria-describedby="basic-addon1"></textarea>
+              </div>
+              <div class="input-group mb-3">
+                <input id="org" type="text" class="form-control" placeholder="Organization" aria-label="Username" aria-describedby="basic-addon1">
+              </div>
+              <div class="input-group mb-3">
+                <input id="link" type="text" class="form-control" placeholder="link" aria-label="link" aria-describedby="basic-addon1">
+              </div>
+              <div id="tagDiv" class="input-group">
+                <span class="input-group-text">Tags</span>
+                <input type="text" aria-label="First name" class="form-control" placeholder="Academic">
+                <input type="text" aria-label="Last name" class="form-control" placeholder="Fun">
+                <input type="text" aria-label="Last name" class="form-control" placeholder="California">
+              </div>
+              <button class="btn btn-outline-dark" id="submitNewContent">
+                Submit
+              </button>
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
 
-  <!-- Footer -->
-  <footer class="footer">
-    <div class="footer-copyright ml-auto py-3">©2023 Pinewood Technology Club</div>
-  </footer>
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="footer-copyright ml-auto py-3">©2023 Pinewood Technology Club</div>
+    </footer>
 
-  <!-- Link to Firebase -->
-  <!-- The core Firebase JS SDK is always required and must be listed first -->
-  <script src="https://www.gstatic.com/firebasejs/7.5.0/firebase-app.js"></script>
+    <!-- Link to Firebase -->
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/7.5.0/firebase-app.js"></script>
 
-  <!-- TODO: Add SDKs for Firebase products that you want to use
+    <!-- TODO: Add SDKs for Firebase products that you want to use
          https://firebase.google.com/docs/web/setup#available-libraries -->
-  <script src="https://www.gstatic.com/firebasejs/7.5.0/firebase-analytics.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.5.0/firebase-analytics.js"></script>
 
-  <script src="https://www.gstatic.com/firebasejs/7.5.0/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.5.0/firebase-firestore.js"></script>
 
-  <script src="https://www.gstatic.com/firebasejs/7.5.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.5.0/firebase-auth.js"></script>
+    
+    <script>
+      var firebaseConfig = {
+        apiKey: "AIzaSyDAMD1hMJYS7upXHipLG_HlPxhtDwkRVK8",
+        authDomain: "college-counseling-database.firebaseapp.com",
+        databaseURL: "https://college-counseling-database-default-rtdb.firebaseio.com",
+        projectId: "college-counseling-database",
+        storageBucket: "college-counseling-database.appspot.com",
+        messagingSenderId: "1085147306385",
+        appId: "1:1085147306385:web:080af2eb2caea2e44ee230",
+        measurementId: "G-MGN0MY84XX"
+      };
+      
+      // Initialize Firebase
+      firebase.initializeApp(firebaseConfig);
 
-  <script>
-    var firebaseConfig = {
-      apiKey: "AIzaSyDAMD1hMJYS7upXHipLG_HlPxhtDwkRVK8",
-      authDomain: "college-counseling-database.firebaseapp.com",
-      databaseURL: "https://college-counseling-database-default-rtdb.firebaseio.com",
-      projectId: "college-counseling-database",
-      storageBucket: "college-counseling-database.appspot.com",
-      messagingSenderId: "1085147306385",
-      appId: "1:1085147306385:web:080af2eb2caea2e44ee230",
-      measurementId: "G-MGN0MY84XX"
-    };
+      const auth = firebase.auth();
+      const db = firebase.firestore();
+      const analtics = firebase.analytics();
+    </script>
 
-    // Initialize Firebase
-    firebase.initializeApp(firebaseConfig);
-
-    const auth = firebase.auth();
-    const db = firebase.firestore();
-    const analtics = firebase.analytics();
-  </script>
-
-  <script src="firebase.js" charset="utf-8"></script>
-  <!-- Link to Signout.js-->
-  <script src="auth.js" charset="utf-8"></script>
-</body>
-
-</html>
+    <script src="firebase.js" charset="utf-8"></script>
+    <!-- Link to Signout.js-->
+    <script src="auth.js" charset="utf-8"></script>
+  </body>
+  </html>
