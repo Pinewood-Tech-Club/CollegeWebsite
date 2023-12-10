@@ -107,7 +107,7 @@ function content(i) {
     };
 
     header = document.createElement("h1");
-    header.classList.add("modal-title");
+    header.classList.add("modal-title", "modal-color");
     header.classList.add("fs-5");
 
     linkContent = document.createElement("a");
@@ -117,7 +117,7 @@ function content(i) {
     for (var c = 0; c < results[i].tags.length; c++) {
       modalTag = document.createElement("p");
       modalTag.classList.add("badge");
-      modalTag.classList.add("bg-secondary");
+      modalTag.classList.add("bg-success");
       modalTag.classList.add("tagBadge");
       
 
@@ -381,3 +381,47 @@ function createFromAddContent() {
     littleArrayTeeHee[i].value = ""
   }
 }
+
+function adminEdit() {
+  console.log("admin is editing");
+  addGeneralDescription = document.getElementById("addGeneralDescription");
+  addWebLink = document.getElementById("addWebLink");
+  AdminParticipantEdit = document.getElementById("AdminParticipantEdit");
+  currentParticipants = document.getElementById("addParticipants");
+
+  addGeneralDescription.innerHTML = '<textarea class="form-control" id="floatingTextarea">"'+addGeneralDescription.innerText + '"</textarea>';
+  addWebLink.innerHTML = '<input class="form-control" value="'+addWebLink.innerText+'">';
+  
+  rowContainer = document.createElement("div");
+  rowContainer.classList.add("container");
+  rowContainer.classList.add("px-3");
+  rowContainer.classList.add("text-center");
+  rowContainer.classList.add("contentModal");
+  rowContainer.classList.add("contentContainer");
+
+  console.log(currentParticipants.children.length/2);
+
+  console.log("editing children");
+  rowDiv = document.createElement("div");
+  rowDiv.classList.add("row");
+  rowDiv.classList.add("gx-3");
+  rowDiv.classList.add("row-cols-1");
+  rowDiv.classList.add("g-3");
+
+  for (var i = 0; i < (currentParticipants.children.length/2); i++) { 
+    
+    empty = document.createElement("p")
+    rowContent = document.createElement("button")
+
+    rowContent.classList.add("btn-close");
+    //rowContent.classList.add("g-3");
+    rowContent.setAttribute("aria-label", "Close");
+    rowContent.setAttribute("type", "button");
+
+    rowDiv.appendChild(empty);
+    empty.appendChild(rowContent);
+  }
+  
+  rowContainer.appendChild(rowDiv);
+  AdminParticipantEdit.appendChild(rowContainer);
+};

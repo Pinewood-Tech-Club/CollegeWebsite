@@ -76,22 +76,11 @@ signinform.addEventListener('submit', (e) => {
     e.preventDefault();
     const email = signinform['emailInputSignIn'].value;
     const password = signinform['passwordInputSignIn'].value;
-
-    // toastMessage = document.getElementById("toastMessage");
-    //     //alert(toastMessage);
-    // toastMessage.classList.add("show");
-
-    // toastBody = document.getElementById("toastBody");
-    // toastBody.innerHTML = email;
-    
+   
     auth.signInWithEmailAndPassword(email, password).then(cred => {
         signinform.reset();
         window.location.href = "index.html";
-
-        console.log("hello 1");
-        alert("Login Successful");
-        console.log("hello 2");
-        
+        alert("Login Successful");   
     }).catch(error => {
         if (error.code === 'auth/invalid-email') {
             alert("Invalid email");
