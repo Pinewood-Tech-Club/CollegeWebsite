@@ -19,7 +19,7 @@
       <div id="toastMessage" class="toast fade" role="alert" aria-live="assertive" aria-atomic="true">
         <div class="toast-header">
           <img src="TechClubPantherLogo.png" class="rounded me-2 toastLogo" alt="panther face logo black">
-          <strong class="me-auto">Pinewood Tech Club</strong>
+          <strong class="me-auto">Pinewood Technology Club</strong>
           <small class="text-body-secondary">Now</small>
           <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
         </div>
@@ -180,13 +180,15 @@
           <div class="modal-body">
             <!-- <div data-bs-spy="scroll" data-bs-target="#navbar-example2" data-bs-root-margin="0px 0px -40%" data-bs-smooth-scroll="true" class="scrollspy bg-body-tertiary p-3 rounded-2" tabindex="0"> -->
               <h4>General Description</h4>
+              <div class="form-floating">
               <div id="addGeneralDescription" class="contentModal">Coming soon
-                
+              </div>
               </div>
               <div class="oneLineDiv">
                 <h4>Website Link</h4>
+                <div class="form-floating">
                 <div id="addWebLink"></div>
-                <!-- &nbsp; -->
+                </div><!-- &nbsp; -->
               </div>
               &nbsp;
               <h4>Tags</h4>
@@ -204,9 +206,15 @@
                 </div>
                 <button class="btn btn-sm btn-outline-success" onclick="addParticipant()">I Participated </button>
               </div>
-              <!--
-                
-              -->
+              
+              <section id="participantSection">
+                <section id="AdminParticipantEdit">
+                  <div class="row gx-3 row-cols-2 g-3">
+                    <p class="col">Delete Participant</p>
+                  </div>
+                </section>
+                <!-- <button type="button" class="btn-close" aria-label="Close"></button> -->
+              <section>
               <div class="container px-3 text-center contentContainer">
                 <div class="row gx-3 row-cols-2 g-3">
                 <p class="col">Full Name</p>
@@ -219,7 +227,8 @@
                   </div>
                   
                 </div>
-
+              </section>
+              </section>
               <div class="oneLineDiv" id="commentsDiv">
                 <h4 id="scrollspyHeading5">Comments</h4>
                 <div class="dropdown dropstart">
@@ -239,8 +248,9 @@
             <!-- </div> -->
 
           <div class="modal-footer">
+            <hr>
             <button type="button" class="btn btn-outline-success" data-bs-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-outline-success">Save changes</button>
+            <button type="button" class="btn btn-outline-success" onclick="adminEdit()">Edit Content</button>
             </div>
           </div>
         </div>
