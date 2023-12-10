@@ -107,7 +107,7 @@ function content(i) {
     };
 
     header = document.createElement("h1");
-    header.classList.add("modal-title");
+    header.classList.add("modal-title", "modal-color");
     header.classList.add("fs-5");
 
     linkContent = document.createElement("a");
@@ -117,7 +117,7 @@ function content(i) {
     for (var c = 0; c < results[i].tags.length; c++) {
       modalTag = document.createElement("p");
       modalTag.classList.add("badge");
-      modalTag.classList.add("bg-secondary");
+      modalTag.classList.add("bg-success");
       modalTag.classList.add("tagBadge");
       
 

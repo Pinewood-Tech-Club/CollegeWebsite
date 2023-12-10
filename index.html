@@ -175,7 +175,7 @@
         <div class="modal-content">
           <div class="modal-header">
             <div id="modal-header"></div>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            <button type="button" class="btn-close" id="x-modal-button" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
             <!-- <div data-bs-spy="scroll" data-bs-target="#navbar-example2" data-bs-root-margin="0px 0px -40%" data-bs-smooth-scroll="true" class="scrollspy bg-body-tertiary p-3 rounded-2" tabindex="0"> -->
@@ -223,12 +223,12 @@
               <div class="oneLineDiv" id="commentsDiv">
                 <h4 id="scrollspyHeading5">Comments</h4>
                 <div class="dropdown dropstart">
-                  <button class="btn btn-outline-dark btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  <button class="btn btn-outline-success btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                     +
                   </button>
                   <ul class="dropdown-menu">
                     <textarea id="inputComment" type="text" class="form-control" placeholder="Type Comment Here"></textarea>
-                    <button class="btn btn-outline-dark btn-sm" onclick="addComment()">Comment</button>
+                    <button class="btn btn-outline-success btn-sm" id="that-one-button" onclick="addComment()">Comment</button>
                   </ul>
                 </div>
               </div>
@@ -239,9 +239,8 @@
             <!-- </div> -->
 
           <div class="modal-footer">
-            <hr>
-            <button type="button" class="btn btn-outline-dark" data-bs-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-outline-dark">Save changes</button>
+            <button type="button" class="btn btn-outline-success" data-bs-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-outline-success">Save changes</button>
             </div>
           </div>
         </div>
