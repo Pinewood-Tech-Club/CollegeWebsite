@@ -213,7 +213,7 @@ function addParticipant() {
 
     for (var i = 0; i < addParticipants.children.length; i++) { 
       existingParticipantsArray.push(addParticipants.children[i].textContent);
-    };
+    }
   
     console.log(existingParticipantsArray);
 
@@ -221,7 +221,6 @@ function addParticipant() {
 
     for (var i = 0; i < existingParticipantsArray.length; i+=2) { 
       convertArray.push(existingParticipantsArray[i] + "/" + existingParticipantsArray[i+1])
-      
     };
 
     console.log(convertArray);
@@ -378,7 +377,7 @@ function createFromAddContent() {
 
   littleArrayTeeHee = [nameOfSummerCamp, organization, link, tagDiv, children[1], children[2], children[3], descriptionInput];
 
-  for (var i = 0; i < littleArrayHeeHee.length; i++) {
-    littleArrayHeeHee[i].value = ""
+  for (var i = 0; i < littleArrayTeeHee.length; i++) {
+    littleArrayTeeHee[i].value = ""
   }
 }

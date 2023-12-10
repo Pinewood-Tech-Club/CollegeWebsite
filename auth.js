@@ -1,3 +1,23 @@
+function getUsers(email) {
+    console.log(email);
+    var dbRef = db.collection("users");
+    var dbQuery = dbRef.where(firebase.firestore.FieldPath.documentId(), '==', email);
+  
+    var dbPromise = dbQuery.get();
+    return dbPromise.then(function(querySnapshot) {
+      var results = [];
+      querySnapshot.forEach(function(doc) {
+        results.push(doc.data());
+      });
+      console.log(results);
+      return Promise.all(results);
+    })
+    .catch(function(error) {
+      console.log("error getting documents: ", error);
+    });
+  }
+  
+
 auth.onAuthStateChanged(user => {
     console.log(user ? 'user signed in' : 'user signed out');
 
@@ -32,7 +52,11 @@ auth.onAuthStateChanged(user => {
         signinbutton.style.display = "none";
         signupbutton.style.display = "none";
         signedOutContent.style.display = "none";  
-        
+        getUsers(user.email).then(results => {
+            if (results[0].accountType == "viewer"){
+                hideContent("notforViewers")
+            }
+        })
     }
     else{
         signoutbutton.style.display = "none";
@@ -95,9 +119,29 @@ signupForm.addEventListener('submit', (e) => {
         signupForm.reset();
 
 
+        /*viewer can
+        1. view and search for summer camps
+        2. can see number of pw participants for summer camps
+        3. can see comments but cannot comment
+        */
+
+        /*content creators can
+        1. add programs/content
+        2. can interact with the I partcipated button
+        3. can comment
+        */
+
+        /*admins can
+        1. do everything a content creator can
+        2. edit content
+        3. delete participants
+        4. delete comments
+        */
+
         db.collection("users").doc(email).set({
             name: fullName,
-            grade: grade
+            grade: grade,
+            accountType: "viewer"
         })
         .then(() => {
             window.location.href = "index.html";
@@ -120,8 +164,7 @@ signout.addEventListener('click', (e) => {
 }); 
 
 function hideContent(hiddenClass) {
-    elements = document.getElementsByClassName(hiddenClass);
-
+    elements = document.getElementsByClassName("notforViewers");
     for (var i = 0; i < elements.length; i++) {
         elements[i].style.display = "none";
     }
