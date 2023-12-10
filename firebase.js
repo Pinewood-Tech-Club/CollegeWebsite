@@ -142,6 +142,7 @@ function content(i) {
 
     for (var c = 0; c < results[i].comments.length; c++) {
       comment = document.createElement("p");
+      comment.classList.add("userComment");
 
       comment.innerHTML = results[i].comments[c];
 
@@ -389,6 +390,7 @@ function adminEdit() {
   addWebLink = document.getElementById("addWebLink");
   AdminParticipantEdit = document.getElementById("AdminParticipantEdit");
   currentParticipants = document.getElementById("addParticipants");
+  commentSection = document.getElementsByClassName("userComment");
 
   addGeneralDescription.innerHTML = '<textarea class="form-control" id="floatingTextarea">"'+addGeneralDescription.innerText + '"</textarea>';
   addWebLink.innerHTML = '<input class="form-control" value="'+addWebLink.innerText+'">';
@@ -425,4 +427,9 @@ function adminEdit() {
   
   rowContainer.appendChild(rowDiv);
   AdminParticipantEdit.appendChild(rowContainer);
+
+  for (var c = 0; c < (commentSection.length); c++) {
+    //console.log(commentSection[c].innerText);
+    commentSection[c].innerHTML = '<textarea class="form-control" id="floatingTextarea">"'+commentSection[c].innerText + '"</textarea>';
+  }
 };
