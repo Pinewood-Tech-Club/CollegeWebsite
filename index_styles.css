@@ -144,3 +144,8 @@ li {
 .toastLogo {
     max-height: 50px;
 }
+
+#participantSection {
+    display: flex;
+    
+}
