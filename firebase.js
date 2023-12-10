@@ -107,7 +107,7 @@ function content(i) {
     };
 
     header = document.createElement("h1");
-    header.classList.add("modal-title");
+    header.classList.add("modal-title", "modal-color");
     header.classList.add("fs-5");
 
     linkContent = document.createElement("a");
@@ -117,7 +117,7 @@ function content(i) {
     for (var c = 0; c < results[i].tags.length; c++) {
       modalTag = document.createElement("p");
       modalTag.classList.add("badge");
-      modalTag.classList.add("bg-secondary");
+      modalTag.classList.add("bg-success");
       modalTag.classList.add("tagBadge");
       
 
@@ -214,7 +214,7 @@ function addParticipant() {
 
     for (var i = 0; i < addParticipants.children.length; i++) { 
       existingParticipantsArray.push(addParticipants.children[i].textContent);
-    };
+    }
   
     console.log(existingParticipantsArray);
 
@@ -222,7 +222,6 @@ function addParticipant() {
 
     for (var i = 0; i < existingParticipantsArray.length; i+=2) { 
       convertArray.push(existingParticipantsArray[i] + "/" + existingParticipantsArray[i+1])
-      
     };
 
     console.log(convertArray);
@@ -379,8 +378,8 @@ function createFromAddContent() {
 
   littleArrayTeeHee = [nameOfSummerCamp, organization, link, tagDiv, children[1], children[2], children[3], descriptionInput];
 
-  for (var i = 0; i < littleArrayHeeHee.length; i++) {
-    littleArrayHeeHee[i].value = ""
+  for (var i = 0; i < littleArrayTeeHee.length; i++) {
+    littleArrayTeeHee[i].value = ""
   }
 }
 
