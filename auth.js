@@ -1,21 +1,21 @@
-function getUsers(email) {
-    console.log(email);
-    var dbRef = db.collection("users");
-    var dbQuery = dbRef.where(firebase.firestore.FieldPath.documentId(), '==', email);
+// function getUsers(email) {
+//     console.log(email);
+//     var dbRef = db.collection("users");
+//     var dbQuery = dbRef.where(firebase.firestore.FieldPath.documentId(), '==', email);
   
-    var dbPromise = dbQuery.get();
-    return dbPromise.then(function(querySnapshot) {
-      var results = [];
-      querySnapshot.forEach(function(doc) {
-        results.push(doc.data());
-      });
-      console.log(results);
-      return Promise.all(results);
-    })
-    .catch(function(error) {
-      console.log("error getting documents: ", error);
-    });
-  }
+//     var dbPromise = dbQuery.get();
+//     return dbPromise.then(function(querySnapshot) {
+//       var results = [];
+//       querySnapshot.forEach(function(doc) {
+//         results.push(doc.data());
+//       });
+//       console.log(results);
+//       return Promise.all(results);
+//     })
+//     .catch(function(error) {
+//       console.log("error getting documents: ", error);
+//     });
+//   }
   
 
 auth.onAuthStateChanged(user => {
@@ -52,14 +52,15 @@ auth.onAuthStateChanged(user => {
         signinbutton.style.display = "none";
         signupbutton.style.display = "none";
         signedOutContent.style.display = "none";  
-        getUsers(user.email).then(results => {
-            if (results[0].accountType == "viewer"){
-                hideContent("notforViewers")
-            }
-        })
+        // getUsers(user.email).then(results => {
+        //     if (results[0].accountType == "viewer"){
+        //         hideContent("notforViewers")
+        //     }
+        // })
     }
     else{
         signoutbutton.style.display = "none";
+        //contentContainer.style.display = "none";
         signinbutton.style.display = "flex";
         signupbutton.style.display = "flex";
         hideContent('contentContainer');
@@ -130,7 +131,7 @@ signupForm.addEventListener('submit', (e) => {
         db.collection("users").doc(email).set({
             name: fullName,
             grade: grade,
-            accountType: "viewer"
+            accountType: "viewer",
         })
         .then(() => {
             window.location.href = "index.html";
@@ -153,7 +154,7 @@ signout.addEventListener('click', (e) => {
 }); 
 
 function hideContent(hiddenClass) {
-    elements = document.getElementsByClassName("notforViewers");
+    elements = document.getElementsByClassName(hiddenClass);
     for (var i = 0; i < elements.length; i++) {
         elements[i].style.display = "none";
     }
