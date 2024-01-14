@@ -35,7 +35,7 @@ getSummerCamps().then(results => {
   };
 
   for (var i = 0; i < results.length; i++) {
-    [element, div1, div2, div3, a, org, part] = formatData(i);
+    [element, div1, div2, div3, a, org, part] = formatData(results[i].name);
 
     //getting data 
     a.innerHTML = results[i].name; 
@@ -114,24 +114,32 @@ function content(i) {
     linkContent.setAttribute("href", `${results[i].link}`);
     linkContent.classList.add("link-body-emphasis", "link-offset-2", "link-underline-opacity-25", "link-underline-opacity-75-hover");
 
-    for (var c = 0; c < results[i].tags.length; c++) {
+    var flag = null;
+
+    for (var c = 0; c < results.length; c++){
+      if (results[c].name == i){
+        flag = c;
+      }
+    }
+    
+    for (var c = 0; c < flag.tags.length; c++) {
       modalTag = document.createElement("p");
       modalTag.classList.add("badge");
       modalTag.classList.add("bg-success");
       modalTag.classList.add("tagBadge");
       
 
-      modalTag.innerHTML = results[i].tags[c];
+      modalTag.innerHTML = flag.tags[c];
 
       addTagsModal.appendChild(modalTag);
     };
 
-    for (var c = 0; c < results[i].participated.length; c++) {
+    for (var c = 0; c < flag.participated.length; c++) {
 
       participantOne = document.createElement("p");
       participantTwo = document.createElement("p");
 
-      text = results[i].participated[c].split("/");
+      text = flag.participated[c].split("/");
 
       participantOne.innerHTML = text[0];
       participantTwo.innerHTML = text[1];
@@ -140,20 +148,20 @@ function content(i) {
       addParticipants.appendChild(participantTwo);
     };
 
-    for (var c = 0; c < results[i].comments.length; c++) {
+    for (var c = 0; c < flag.comments.length; c++) {
       comment = document.createElement("p");
       comment.classList.add("userComment");
 
-      comment.innerHTML = results[i].comments[c];
+      comment.innerHTML = flag.comments[c];
 
       addComments.appendChild(comment);
     };
 
     genDescription = document.createElement("p");
     
-    header.innerHTML = results[i].name;
-    linkContent.innerHTML = results[i].link;
-    genDescription.innerHTML = results[i].description;
+    header.innerHTML = flag.name;
+    linkContent.innerHTML = flag.link;
+    genDescription.innerHTML = flag.description;
 
     modalHeader.appendChild(header);
     addWebLink.appendChild(linkContent);
@@ -294,42 +302,26 @@ function setUpFirebaseDatabase() {
       console.error("Error writing document: ", error);
   });
 }
-//setUpFirebaseDatabase(); //only need to run once to set up firebase, do not rerun unless changed :)
-
-function getSummerCampTag(tag) { 
-  var dbRef = db.collection("college-counseling-database");
-  var dbQuery = dbRef;
-
-  if (tag!="") {
-    dbQuery = dbRef.where("tags", "array-contains", tag);
-  }
-
-  var dbPromise = dbQuery.get();
-  return dbPromise.then(function(querySnapshot) {
-    var results = [];
-    querySnapshot.forEach(function(doc) {
-      results.push(doc.data());
-    });
-    console.log(results)
-    return Promise.all(results);
-  })
-  .catch(function(error) {
-    console.log("error getting documents: ", error);
-  });
-}
 
 function showTag(tag) {
-  console.log(tag)
-  getSummerCampTag(tag).then(results => {
+  getSummerCamps().then(results => {
     console.log("in")
       element = document.getElementById("add-camps");
 
     while (element.hasChildNodes()) {
       element.firstChild.remove()
     };
-
     for (var i = 0; i < results.length; i++) {
-      [element, div1, div2, div3, a, org, part] = formatData(i)
+      var flag = false;
+      for (var j = 0; j < results[i].tags.length; j++){
+        if (results[i].tags[j].toLowerCase() == tag){
+          flag = true;
+        }
+      }
+      if (flag && tag != ""){
+        continue;
+      }
+      [element, div1, div2, div3, a, org, part] = formatData(results[i].name)
 
       //getting data 
       a.innerHTML = results[i].name; 
