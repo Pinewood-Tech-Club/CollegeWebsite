@@ -86,6 +86,13 @@ function formatData(i) {
 
 //get, format and export all contentModal content
 function content(i) {
+  var flag = null;
+
+  for (var c = 0; c < results.length; c++){
+    if (results[c].name == i){
+      flag = c;
+    }
+  }
   getSummerCamps().then(results => {
     console.log(i);
     modalHeader = document.getElementById("modal-header");
@@ -111,16 +118,10 @@ function content(i) {
     header.classList.add("fs-5");
 
     linkContent = document.createElement("a");
-    linkContent.setAttribute("href", `${results[i].link}`);
+    linkContent.setAttribute("href", `${flag}`);
     linkContent.classList.add("link-body-emphasis", "link-offset-2", "link-underline-opacity-25", "link-underline-opacity-75-hover");
 
-    var flag = null;
 
-    for (var c = 0; c < results.length; c++){
-      if (results[c].name == i){
-        flag = c;
-      }
-    }
     
     for (var c = 0; c < flag.tags.length; c++) {
       modalTag = document.createElement("p");
@@ -318,7 +319,7 @@ function showTag(tag) {
           flag = true;
         }
       }
-      if (flag && tag != ""){
+      if (tag != "" && !flag){
         continue;
       }
       [element, div1, div2, div3, a, org, part] = formatData(results[i].name)
