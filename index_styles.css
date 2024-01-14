@@ -167,3 +167,7 @@ li {
     display: flex;
 
 }
+#AdminParticipantEdit {
+    display: none;
+    flex-direction: column;
+}

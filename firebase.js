@@ -388,9 +388,13 @@ function adminEdit() {
   addGeneralDescription = document.getElementById("addGeneralDescription");
   addWebLink = document.getElementById("addWebLink");
   AdminParticipantEdit = document.getElementById("AdminParticipantEdit");
+  AdminParticipantEdit.style.display = "flex";
   currentParticipants = document.getElementById("addParticipants");
   commentSection = document.getElementsByClassName("userComment");
-
+  modalFooter = document.getElementById("modalFooter");
+  editContent = document.getElementById("editContent");
+  editContent.style.display = "none";
+  
   addGeneralDescription.innerHTML = '<textarea class="form-control" id="floatingTextarea">"'+addGeneralDescription.innerText + '"</textarea>';
   addWebLink.innerHTML = '<input class="form-control" value="'+addWebLink.innerText+'">';
   
@@ -431,4 +435,11 @@ function adminEdit() {
     //console.log(commentSection[c].innerText);
     commentSection[c].innerHTML = '<textarea class="form-control" id="floatingTextarea">"'+commentSection[c].innerText + '"</textarea>';
   }
+
+  doneButton = document.createElement("button");
+  doneButton.classList.add("btn");
+  doneButton.classList.add("btn-outline-success");
+  doneButton.innerHTML = "Exit Editing";
+
+  modalFooter.appendChild(doneButton);
 };
