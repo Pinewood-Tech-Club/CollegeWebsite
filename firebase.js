@@ -67,7 +67,7 @@ function formatData(i) {
 
   a = document.createElement("button"); // creating a for name
   a.setAttribute("id", `${i}`);
-  a.setAttribute("onclick", `content(${i})`)
+  a.setAttribute("onclick", `content('${i}')`)
   a.classList.add("p-3");
   a.classList.add("btn");
   a.classList.add("btn-outline-success");
@@ -85,16 +85,20 @@ function formatData(i) {
 };
 
 //get, format and export all contentModal content
-function content(i) {
-  var flag = null;
-
-  for (var c = 0; c < results.length; c++){
-    if (results[c].name == i){
-      flag = c;
-    }
-  }
+function content(id) {
   getSummerCamps().then(results => {
-    console.log(i);
+
+    var result = null;
+
+    for (var c = 0; c < results.length; c++){
+      if (results[c].name == id){
+       //getting position for id in firebase results
+        result = results[c];
+        break;
+      }
+    }
+
+    //console.log(id);
     modalHeader = document.getElementById("modal-header");
     addWebLink = document.getElementById("addWebLink");
     addTagsModal = document.getElementById("addTagsModal");
@@ -118,29 +122,29 @@ function content(i) {
     header.classList.add("fs-5");
 
     linkContent = document.createElement("a");
-    linkContent.setAttribute("href", `${flag}`);
+    linkContent.setAttribute("href", `${result.link}`);
     linkContent.classList.add("link-body-emphasis", "link-offset-2", "link-underline-opacity-25", "link-underline-opacity-75-hover");
 
 
     
-    for (var c = 0; c < flag.tags.length; c++) {
+    for (var c = 0; c < result.tags.length; c++) {
       modalTag = document.createElement("p");
       modalTag.classList.add("badge");
       modalTag.classList.add("bg-success");
       modalTag.classList.add("tagBadge");
       
 
-      modalTag.innerHTML = flag.tags[c];
+      modalTag.innerHTML = result.tags[c];
 
       addTagsModal.appendChild(modalTag);
     };
 
-    for (var c = 0; c < flag.participated.length; c++) {
+    for (var c = 0; c < result.participated.length; c++) {
 
       participantOne = document.createElement("p");
       participantTwo = document.createElement("p");
 
-      text = flag.participated[c].split("/");
+      text = result.participated[c].split("/");
 
       participantOne.innerHTML = text[0];
       participantTwo.innerHTML = text[1];
@@ -149,20 +153,20 @@ function content(i) {
       addParticipants.appendChild(participantTwo);
     };
 
-    for (var c = 0; c < flag.comments.length; c++) {
+    for (var c = 0; c < result.comments.length; c++) {
       comment = document.createElement("p");
       comment.classList.add("userComment");
 
-      comment.innerHTML = flag.comments[c];
+      comment.innerHTML = result.comments[c];
 
       addComments.appendChild(comment);
     };
 
     genDescription = document.createElement("p");
     
-    header.innerHTML = flag.name;
-    linkContent.innerHTML = flag.link;
-    genDescription.innerHTML = flag.description;
+    header.innerHTML = result.name;
+    linkContent.innerHTML = result.link;
+    genDescription.innerHTML = result.description;
 
     modalHeader.appendChild(header);
     addWebLink.appendChild(linkContent);
