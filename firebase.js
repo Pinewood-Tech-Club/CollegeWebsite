@@ -485,6 +485,9 @@ function exitEdit() {
   for (var i = 0; i < tags.children.length; i++) { 
      existingTagsArray.push(tags.children[i].children[0].value);
   };
+
+  console.log(existingCommentsArray);
+  console.log(existingTagsArray);
   
   db.collection("college-counseling-database").doc(campName).update({
     description: addGeneralDescription.children[0].value,
@@ -499,10 +502,36 @@ function exitEdit() {
   doneButton = document.getElementById("doneButton");
   doneButton.style.display = "none";
 
+  content(campName);
 };
 
-function deleteParticipant(i) {
+function deleteParticipant(c) {
+  modalHeader = document.getElementById("modal-header");
+  campName = modalHeader.children[0].textContent;
+
   getSummerCamps().then(results => {
-    console.log(results.participated.length);
+    let tag = 0;
+
+    for (var i = 0; i < results.length; i++) { 
+      if (results[i] == campName) {
+        tag = i;
+      } else {
+        console.log("not a match");
+      }
+    }
+
+    participantList = results[tag].participated;
+
+    console.log(participantList);
+    console.log(c);
+
+    participantList.splice(c, 1);
+    console.log(participantList);
+
+    db.collection("college-counseling-database").doc(campName).update({
+      participated: participantList
+      });
+
+    content(campName);
   })
 }
