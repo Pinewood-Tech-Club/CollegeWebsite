@@ -103,11 +103,15 @@ function content(id) {
     addWebLink = document.getElementById("addWebLink");
     addTagsModal = document.getElementById("addTagsModal");
     addParticipants = document.getElementById("addParticipants");
+    AdminParticipantEdit = document.getElementById("AdminParticipantEdit");
     //addYourself = document.getElementById("addYourself");
+
+    if (AdminParticipantEdit.style.display == "flex") {
+      AdminParticipantEdit.style.display = "none";
+    }
 
     addComments = document.getElementById("addComments");
     addGeneralDescription = document.getElementById("addGeneralDescription");
-
 
     elementsArray = [modalHeader, addWebLink, addTagsModal, addParticipants, addComments, addGeneralDescription];
 
@@ -125,15 +129,13 @@ function content(id) {
     linkContent.setAttribute("href", `${result.link}`);
     linkContent.classList.add("link-body-emphasis", "link-offset-2", "link-underline-opacity-25", "link-underline-opacity-75-hover");
 
-
-    
     for (var c = 0; c < result.tags.length; c++) {
       modalTag = document.createElement("p");
       modalTag.classList.add("badge");
       modalTag.classList.add("bg-success");
       modalTag.classList.add("tagBadge");
+      modalTag.setAttribute("id", `tag${c}`);
       
-
       modalTag.innerHTML = result.tags[c];
 
       addTagsModal.appendChild(modalTag);
@@ -385,15 +387,25 @@ function adminEdit() {
   addGeneralDescription = document.getElementById("addGeneralDescription");
   addWebLink = document.getElementById("addWebLink");
   AdminParticipantEdit = document.getElementById("AdminParticipantEdit");
-  AdminParticipantEdit.style.display = "flex";
   currentParticipants = document.getElementById("addParticipants");
   commentSection = document.getElementsByClassName("userComment");
   modalFooter = document.getElementById("modalFooter");
   editContent = document.getElementById("editContent");
+  tagOne = document.getElementById("tag0");
+  tagTwo = document.getElementById("tag1");
+  tagThree = document.getElementById("tag2");
+
+  AdminParticipantEdit.style.display = "flex";
   editContent.style.display = "none";
+
+  console.log(tagOne);
+
+  tagOne.innerHTML = '<input class="form-control form-control-sm" value='+ tagOne.innerText+'>';
+  tagTwo.innerHTML = '<input class="form-control form-control-sm" value='+ tagTwo.innerText+'>';
+  tagThree.innerHTML = '<input class="form-control form-control-sm" value='+ tagThree.innerText+'>';
   
-  addGeneralDescription.innerHTML = '<textarea class="form-control" id="floatingTextarea">"'+addGeneralDescription.innerText + '"</textarea>';
-  addWebLink.innerHTML = '<input class="form-control" value="'+addWebLink.innerText+'">';
+  addGeneralDescription.innerHTML = '<textarea class="form-control" id="floatingTextarea">'+addGeneralDescription.innerText + '</textarea>';
+  addWebLink.innerHTML = '<input class="form-control" value='+addWebLink.innerText+'>';
   
   rowContainer = document.createElement("div");
   rowContainer.classList.add("container");
@@ -411,32 +423,86 @@ function adminEdit() {
   rowDiv.classList.add("row-cols-1");
   rowDiv.classList.add("g-3");
 
-  for (var i = 0; i < (currentParticipants.children.length/2); i++) { 
-    
-    empty = document.createElement("p")
-    rowContent = document.createElement("button")
-
-    rowContent.classList.add("btn-close");
-    //rowContent.classList.add("g-3");
-    rowContent.setAttribute("aria-label", "Close");
-    rowContent.setAttribute("type", "button");
-
-    rowDiv.appendChild(empty);
-    empty.appendChild(rowContent);
-  }
   
+
+  // if (rowDiv.children.length == currentParticipants.children.length/2) {
+    
+  // } else {
+      for (var i = 0; i < (currentParticipants.children.length/2); i++) { 
+        
+        empty = document.createElement("p");
+        rowContent = document.createElement("button");
+
+        rowContent.classList.add("btn-close");
+        //rowContent.classList.add("g-3");
+        rowContent.setAttribute("aria-label", "Close");
+        rowContent.setAttribute("type", "button");
+        rowContent.setAttribute("onClick", `deleteParticipant(${i})`);
+
+        rowDiv.appendChild(empty);
+        empty.appendChild(rowContent);
+      }
+  // }
   rowContainer.appendChild(rowDiv);
   AdminParticipantEdit.appendChild(rowContainer);
 
+  // console.log(rowDiv.children.length);
+  // console.log(rowDiv);
+
   for (var c = 0; c < (commentSection.length); c++) {
     //console.log(commentSection[c].innerText);
-    commentSection[c].innerHTML = '<textarea class="form-control" id="floatingTextarea">"'+commentSection[c].innerText + '"</textarea>';
+    commentSection[c].innerHTML = '<textarea class="form-control" id="floatingTextarea">'+commentSection[c].innerText + '</textarea>';
   }
 
   doneButton = document.createElement("button");
   doneButton.classList.add("btn");
   doneButton.classList.add("btn-outline-success");
+  doneButton.setAttribute("onClick", "exitEdit()");
+  doneButton.setAttribute("id", "doneButton")
   doneButton.innerHTML = "Exit Editing";
 
   modalFooter.appendChild(doneButton);
 };
+
+function exitEdit() {
+  addGeneralDescription = document.getElementById("addGeneralDescription");
+  updateCommentSection = document.getElementById("addComments");
+  tags = document.getElementById("addTagsModal");
+  webLink = document.getElementById("addWebLink");
+  webValue = webLink.children[0].value;
+  modalHeader = document.getElementById("modal-header");
+  campName = modalHeader.children[0].textContent;
+
+  existingCommentsArray = [];
+  existingTagsArray = [];
+
+  for (var i = 0; i < updateCommentSection.children.length; i++) { 
+    if (updateCommentSection.children[i].children[0].value != "") {
+        existingCommentsArray.push(updateCommentSection.children[i].children[0].value);
+      }
+    };
+
+  for (var i = 0; i < tags.children.length; i++) { 
+     existingTagsArray.push(tags.children[i].children[0].value);
+  };
+  
+  db.collection("college-counseling-database").doc(campName).update({
+    description: addGeneralDescription.children[0].value,
+    tags: existingTagsArray,
+    comments: existingCommentsArray, 
+    link: webValue
+    });
+
+  editContent = document.getElementById("editContent");
+  editContent.style.display = "flex";
+
+  doneButton = document.getElementById("doneButton");
+  doneButton.style.display = "none";
+
+};
+
+function deleteParticipant(i) {
+  getSummerCamps().then(results => {
+    console.log(results.participated.length);
+  })
+}

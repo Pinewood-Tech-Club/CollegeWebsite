@@ -1,23 +1,3 @@
-// function getUsers(email) {
-//     console.log(email);
-//     var dbRef = db.collection("users");
-//     var dbQuery = dbRef.where(firebase.firestore.FieldPath.documentId(), '==', email);
-  
-//     var dbPromise = dbQuery.get();
-//     return dbPromise.then(function(querySnapshot) {
-//       var results = [];
-//       querySnapshot.forEach(function(doc) {
-//         results.push(doc.data());
-//       });
-//       console.log(results);
-//       return Promise.all(results);
-//     })
-//     .catch(function(error) {
-//       console.log("error getting documents: ", error);
-//     });
-//   }
-  
-
 auth.onAuthStateChanged(user => {
     console.log(user ? 'user signed in' : 'user signed out');
 
