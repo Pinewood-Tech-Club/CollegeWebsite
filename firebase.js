@@ -213,12 +213,6 @@ function addParticipant() {
   modalHeader = document.getElementById("modal-header");
 
   getUsers(email).then(results => {
-    //console.log(results);
-
-    //console.log("THIS IS NAME", results[0].name);
-    //console.log("THIS IS GRADE", results[0].grade);
-
-
     participantName.innerHTML = results[0].name;
     participantGrade.innerHTML = results[0].grade;
 
@@ -394,6 +388,13 @@ function adminEdit() {
   tagOne = document.getElementById("tag0");
   tagTwo = document.getElementById("tag1");
   tagThree = document.getElementById("tag2");
+  rowContainer = document.getElementById("rowContainer");
+  console.log(rowContainer);
+  if (rowContainer != null) {
+    rowContainer.remove()
+  } else {
+    console.log("rowContainer not found")
+  }
 
   AdminParticipantEdit.style.display = "flex";
   editContent.style.display = "none";
@@ -409,6 +410,7 @@ function adminEdit() {
   
   rowContainer = document.createElement("div");
   rowContainer.classList.add("container");
+  rowContainer.setAttribute("id", "rowContainer");
   rowContainer.classList.add("px-3");
   rowContainer.classList.add("text-center");
   rowContainer.classList.add("contentModal");
@@ -423,11 +425,8 @@ function adminEdit() {
   rowDiv.classList.add("row-cols-1");
   rowDiv.classList.add("g-3");
 
-  
+  console.log(rowDiv);
 
-  // if (rowDiv.children.length == currentParticipants.children.length/2) {
-    
-  // } else {
       for (var i = 0; i < (currentParticipants.children.length/2); i++) { 
         
         empty = document.createElement("p");
@@ -454,15 +453,30 @@ function adminEdit() {
     commentSection[c].innerHTML = '<textarea class="form-control" id="floatingTextarea">'+commentSection[c].innerText + '</textarea>';
   }
 
-  doneButton = document.createElement("button");
-  doneButton.classList.add("btn");
-  doneButton.classList.add("btn-outline-success");
-  doneButton.setAttribute("onClick", "exitEdit()");
-  doneButton.setAttribute("id", "doneButton")
-  doneButton.innerHTML = "Exit Editing";
+  if (document.getElementById("doneButton") == null) {
+    doneButton = document.createElement("button");
+    doneButton.classList.add("btn");
+    doneButton.classList.add("btn-outline-success");
+    doneButton.setAttribute("onClick", "exitEdit()");
+    doneButton.setAttribute("id", "doneButton")
+    doneButton.innerHTML = "Exit Editing";
 
-  modalFooter.appendChild(doneButton);
+    modalFooter.appendChild(doneButton);
+  } else {
+    doneButton = document.getElementById("doneButton");
+    doneButton.style.display = "flex";
+  }
+
+
 };
+
+function buttonChange() {
+  editContent = document.getElementById("editContent");
+  editContent.style.display = "flex";
+
+  doneButton = document.getElementById("doneButton");
+  doneButton.style.display = "none";
+}
 
 function exitEdit() {
   addGeneralDescription = document.getElementById("addGeneralDescription");
@@ -496,11 +510,7 @@ function exitEdit() {
     link: webValue
     });
 
-  editContent = document.getElementById("editContent");
-  editContent.style.display = "flex";
-
-  doneButton = document.getElementById("doneButton");
-  doneButton.style.display = "none";
+  buttonChange();
 
   content(campName);
 };
@@ -532,6 +542,8 @@ function deleteParticipant(c) {
       participated: participantList
       });
 
+    buttonChange();
     content(campName);
+    
   })
 }
