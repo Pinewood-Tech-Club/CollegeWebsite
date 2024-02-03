@@ -277,9 +277,6 @@ function showTag(tag) {
     while (element.hasChildNodes()) {
       element.firstChild.remove()
     };
-<<<<<<< Updated upstream
-
-=======
     //simple insertion sort (ik built-in sort is faster but im too lazy to write custom comparator function so cry abt it)
     for (var i = 1; i < results.length; i++){
       var idx = i;
@@ -290,7 +287,6 @@ function showTag(tag) {
         idx--;
       }
     }
->>>>>>> Stashed changes
     for (var i = 0; i < results.length; i++) {
       [element, div1, div2, div3, a, org, part] = formatData(i)
 
@@ -344,8 +340,6 @@ function createFromAddContent() {
   for (var i = 0; i < littleArrayHeeHee.length; i++) {
     littleArrayHeeHee[i].value = ""
   }
-<<<<<<< Updated upstream
-=======
 }
 
 function adminEdit() {
@@ -499,5 +493,4 @@ function deleteParticipant(c) {
 
     content(campName);
   })
->>>>>>> Stashed changes
 }
