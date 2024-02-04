@@ -401,6 +401,8 @@ function createFromAddContent() {
 }
 
 function adminEdit() {
+  document.getElementsByClassName("perhapshidden").hidden = false;
+
   console.log("admin is editing");
   addGeneralDescription = document.getElementById("addGeneralDescription");
   addWebLink = document.getElementById("addWebLink");
