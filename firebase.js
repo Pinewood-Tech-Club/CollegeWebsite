@@ -515,6 +515,7 @@ function exitEdit() {
   content(campName);
 };
 
+// c is a number that represents *something* 
 function deleteParticipant(c) {
   modalHeader = document.getElementById("modal-header");
   campName = modalHeader.children[0].textContent;
@@ -547,3 +548,26 @@ function deleteParticipant(c) {
     
   })
 }
+function decidePrivileges(email) {
+  // Extract the domain part of the email
+  const domain = email.split('@')[1];
+  // Extract the user part of the email
+  const user = email.split('@')[0];
+
+  // Check if the domain is 'pinewood.edu'
+  if (domain === 'pinewood.edu') {
+    // Check if the first character of the user part is not a number
+    if (isNaN(user.charAt(0))) {
+      return 'admin';
+    } else {
+      return 'content creator';
+    }
+  } else {
+    return 'viewer';
+  }
+}
+
+// Example usage
+console.log(decidePrivileges('22john.doe@pinewood.edu')); // Should grant content creator privileges and indicate the user is a student
+console.log(decidePrivileges('jane.doe@pinewood.edu')); // Should grant admin privileges and indicate the user is staff
+console.log(decidePrivileges('jane.doe@gmail.com')); // Should deny all privileges
