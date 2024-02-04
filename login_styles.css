@@ -1,15 +1,66 @@
-h1{
-    text-align: center;
+body {
+    /*background-image: url(jackSleep.png);*/
+    background-size: contain;
 }
-label{
-    display:block;
-    text-align: center;
+#mainContainer {
+    display: flex;
+    align-items: center;
+    border-style: solid;
+    height: 100%;
 }
-input{
-    display:block;
-    margin:auto;
+#otherContainer {
+    align-self: center;
+    border-style: solid;
+    width: 20vw;
 }
-button{
-    display:block;
-    margin:auto;
+#loginContainer {
+    place-self: center;
+    margin: 20px;
+}
+#usernameContainer {
+    font-size: 1.2vw;
+    place-self: center;
+    margin: 10px;
+}
+#username {
+    display: flex;
+    justify-content: center;
+}
+#username_input {
+    width: 10vw;
+}
+#passwordContainer {
+    font-size: 1.2vw;
+    place-self: center;
+    margin: 10px;
+}
+#password {
+    display: flex;
+    justify-content: center;
+}
+#password_input {
+    width: 10vw;
+}
+#buttonContainer {
+    place-self: center;
+    margin: 10px;
+}
+#login {
+    margin-top: 100px;
+    width: 10vw;
+    height: 5vh;
+    font-size: 1vw;
+    border-radius: 0.5vw;
+    background-color: lightgray;
+    cursor: pointer;
+}
+#login:hover {
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 1);
+    opacity: 70%;
+}
+#login:active {
+    box-shadow: 0px 0px 0px;
+    margin-left: 5px;
+    margin-top: 105px;
+    opacity: 50%;
 }

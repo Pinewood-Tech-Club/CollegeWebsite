@@ -1,0 +1,4 @@
+[
+    {"name":"summer program 1", "organization":"Pinewood", "link":"wiki.nl", "tags":["stem", "stem2", "california"], "participated":[["Micky", "Sophomore"], ["Mini", "Senior"]], "comments":["yee-haw", "shlay"], "status":"active"},
+    {"name":"summer program 2", "organization":"Pinewood", "link":"wiki.nl", "tags":["language", "fun", "california"], "participated":[["Jane", "Junior"], ["Doe", "Senior"]], "comments":["very fun!", "epic"], "status":"active"}
+]

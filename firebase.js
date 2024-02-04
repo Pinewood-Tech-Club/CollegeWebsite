@@ -1,12 +1,17 @@
 firebase.analytics();
 //db = firebase.firestore();
 
+// import { doc, getDoc } from "firebase/firestore";
+
+// const docRef = doc(db, "cities", "SF");
+// const docSnap = await getDoc(docRef);
+
 // This function gets the data from the firebase database and returns array 'results' which has all the data.
 function getSummerCamps() {
   var dbRef = db.collection("college-counseling-database");
   var dbQuery = dbRef.orderBy("name", "asc");
 
-  var dbPromise = dbQuery.get();``
+  var dbPromise = dbQuery.get();
   return dbPromise.then(function(querySnapshot) {
     var results = [];
     querySnapshot.forEach(function(doc) {
@@ -22,7 +27,6 @@ function getSummerCamps() {
 
 //uses results to append into "add-camps" id
 getSummerCamps().then(results => {
-  //i like insertion sort ok dont judge
   for (var i = 1; i < results.length; i++){
     var idx = i;
     while (idx > 0 && results[idx].participated.length > results[idx-1].participated.length){
@@ -39,7 +43,7 @@ getSummerCamps().then(results => {
   };
 
   for (var i = 0; i < results.length; i++) {
-    [element, div1, div2, div3, a, org, part] = formatData(i);
+    [element, div1, div2, div3, a, org, part] = formatData(results[i].name);
 
     //getting data 
     a.innerHTML = results[i].name; 
@@ -51,10 +55,8 @@ getSummerCamps().then(results => {
     div2.appendChild(org);
     div3.appendChild(part);
     element.append(div1, div2, div3);
+
   }
-  
-
-
 });
 
 //simplifies prev. function code
@@ -73,7 +75,7 @@ function formatData(i) {
 
   a = document.createElement("button"); // creating a for name
   a.setAttribute("id", `${i}`);
-  a.setAttribute("onclick", `content(${i})`)
+  a.setAttribute("onclick", `content('${i}')`)
   a.classList.add("p-3");
   a.classList.add("btn");
   a.classList.add("btn-outline-success");
@@ -91,30 +93,33 @@ function formatData(i) {
 };
 
 //get, format and export all contentModal content
-function content(i) {
+function content(id) {
   getSummerCamps().then(results => {
-    console.log(i);
+
+    var result = null;
+
+    for (var c = 0; c < results.length; c++){
+      if (results[c].name == id){
+       //getting position for id in firebase results
+        result = results[c];
+        break;
+      }
+    }
+
+    //console.log(id);
     modalHeader = document.getElementById("modal-header");
     addWebLink = document.getElementById("addWebLink");
     addTagsModal = document.getElementById("addTagsModal");
     addParticipants = document.getElementById("addParticipants");
-    addYourself = document.getElementById("addYourself");
+    AdminParticipantEdit = document.getElementById("AdminParticipantEdit");
+    //addYourself = document.getElementById("addYourself");
 
-    
+    if (AdminParticipantEdit.style.display == "flex") {
+      AdminParticipantEdit.style.display = "none";
+    }
 
-    addYourself.addEventListener("click", function() {
-      db.collection("users").doc(firebase.auth().currentUser.email).get().then((doc) =>{
-        var data = doc.data();
-        db.collection("college-counseling-database").doc(modalHeader.children[0].textContent).update({
-          participated: firebase.firestore.FieldValue.arrayUnion(data['name'] + '/' + data['grade'])
-        }).then(() => {
-          window.location.href = "index.html";
-        });
-      });
-    })
     addComments = document.getElementById("addComments");
     addGeneralDescription = document.getElementById("addGeneralDescription");
-
 
     elementsArray = [modalHeader, addWebLink, addTagsModal, addParticipants, addComments, addGeneralDescription];
 
@@ -125,31 +130,31 @@ function content(i) {
     };
 
     header = document.createElement("h1");
-    header.classList.add("modal-title");
+    header.classList.add("modal-title", "modal-color");
     header.classList.add("fs-5");
 
     linkContent = document.createElement("a");
-    linkContent.setAttribute("href", `${results[i].link}`);
+    linkContent.setAttribute("href", `${result.link}`);
     linkContent.classList.add("link-body-emphasis", "link-offset-2", "link-underline-opacity-25", "link-underline-opacity-75-hover");
 
-    for (var c = 0; c < results[i].tags.length; c++) {
+    for (var c = 0; c < result.tags.length; c++) {
       modalTag = document.createElement("p");
       modalTag.classList.add("badge");
-      modalTag.classList.add("bg-secondary");
+      modalTag.classList.add("bg-success");
       modalTag.classList.add("tagBadge");
+      modalTag.setAttribute("id", `tag${c}`);
       
-
-      modalTag.innerHTML = results[i].tags[c];
+      modalTag.innerHTML = result.tags[c];
 
       addTagsModal.appendChild(modalTag);
     };
 
-    for (var c = 0; c < results[i].participated.length; c++) {
+    for (var c = 0; c < result.participated.length; c++) {
 
       participantOne = document.createElement("p");
       participantTwo = document.createElement("p");
 
-      text = results[i].participated[c].split("/");
+      text = result.participated[c].split("/");
 
       participantOne.innerHTML = text[0];
       participantTwo.innerHTML = text[1];
@@ -158,19 +163,20 @@ function content(i) {
       addParticipants.appendChild(participantTwo);
     };
 
-    for (var c = 0; c < results[i].comments.length; c++) {
+    for (var c = 0; c < result.comments.length; c++) {
       comment = document.createElement("p");
+      comment.classList.add("userComment");
 
-      comment.innerHTML = results[i].comments[c];
+      comment.innerHTML = result.comments[c];
 
       addComments.appendChild(comment);
     };
 
     genDescription = document.createElement("p");
     
-    header.innerHTML = results[i].name;
-    linkContent.innerHTML = results[i].link;
-    genDescription.innerHTML = results[i].description;
+    header.innerHTML = result.name;
+    linkContent.innerHTML = result.link;
+    genDescription.innerHTML = result.description;
 
     modalHeader.appendChild(header);
     addWebLink.appendChild(linkContent);
@@ -179,6 +185,76 @@ function content(i) {
 });
 };
 
+function getUsers(email) {
+  console.log(email);
+  var dbRef = db.collection("users");
+  var dbQuery = dbRef.where(firebase.firestore.FieldPath.documentId(), '==', email);
+
+  var dbPromise = dbQuery.get();
+  return dbPromise.then(function(querySnapshot) {
+    var results = [];
+    querySnapshot.forEach(function(doc) {
+      results.push(doc.data());
+    });
+    console.log(results);
+    return Promise.all(results);
+  })
+  .catch(function(error) {
+    console.log("error getting documents: ", error);
+  });
+}
+
+function addParticipant() {
+  addParticipants = document.getElementById("addParticipants");
+  toastBody = document.getElementById("toastBody");
+  const email = toastBody.textContent.split(" ")[2].toLowerCase();
+  console.log(email);
+
+  participantName = document.createElement("p");
+  participantName.classList.add("col");
+
+  participantGrade = document.createElement("p");
+  participantGrade.classList.add("col");
+
+  existingParticipantsArray = [];
+
+  modalHeader = document.getElementById("modal-header");
+
+  getUsers(email).then(results => {
+    //console.log(results);
+
+    //console.log("THIS IS NAME", results[0].name);
+    //console.log("THIS IS GRADE", results[0].grade);
+
+
+    participantName.innerHTML = results[0].name;
+    participantGrade.innerHTML = results[0].grade;
+
+    console.log("this is printing", participantName);
+
+    addParticipants.appendChild(participantName);
+    addParticipants.appendChild(participantGrade);
+
+    for (var i = 0; i < addParticipants.children.length; i++) { 
+      existingParticipantsArray.push(addParticipants.children[i].textContent);
+    }
+  
+    console.log(existingParticipantsArray);
+
+    convertArray = [];
+
+    for (var i = 0; i < existingParticipantsArray.length; i+=2) { 
+      convertArray.push(existingParticipantsArray[i] + "/" + existingParticipantsArray[i+1])
+    };
+
+    console.log(convertArray);
+
+    db.collection("college-counseling-database").doc(modalHeader.children[0].textContent).update({
+      participated: convertArray
+    });
+
+  });
+};
 
 function addComment() {
   commentContent = document.getElementById("inputComment");
@@ -204,9 +280,6 @@ function addComment() {
   //console.log(commentContent.value);
 };
 
-
-
-
 //initial commit to set up firebase
 function setUpFirebaseDatabase() {
   // add collection for Summer Program 1
@@ -216,7 +289,7 @@ function setUpFirebaseDatabase() {
     organization:"Pinewood", 
     link: "wiki.nl",
     tags: ["stem", "stem2", "california"],
-    participated:[], 
+    participated:["Micky/Sophomore", "Mini/Senior"], 
     comments:["comment1", "comment2"],
     status: "active"
   })
@@ -233,7 +306,7 @@ function setUpFirebaseDatabase() {
     organization:"Pinewood", 
     link: "wiki.nl",
     tags: ["language", "fun", "california"],
-    participated:[], 
+    participated:["Jane/Junior", "Doe/Senior"], 
     comments:["comment1", "comment2"],
     status: "active"
   })
@@ -244,33 +317,9 @@ function setUpFirebaseDatabase() {
       console.error("Error writing document: ", error);
   });
 }
-//setUpFirebaseDatabase(); //only need to run once to set up firebase, do not rerun unless changed :)
-
-function getSummerCampTag(tag) { 
-  var dbRef = db.collection("college-counseling-database");
-  var dbQuery = dbRef;
-
-  if (tag!="") {
-    dbQuery = dbRef.where("tags", "array-contains", tag);
-  }
-
-  var dbPromise = dbQuery.get();
-  return dbPromise.then(function(querySnapshot) {
-    var results = [];
-    querySnapshot.forEach(function(doc) {
-      results.push(doc.data());
-    });
-    console.log(results)
-    return Promise.all(results);
-  })
-  .catch(function(error) {
-    console.log("error getting documents: ", error);
-  });
-}
 
 function showTag(tag) {
-  console.log(tag)
-  getSummerCampTag(tag).then(results => {
+  getSummerCamps().then(results => {
     console.log("in")
       element = document.getElementById("add-camps");
 
@@ -288,7 +337,16 @@ function showTag(tag) {
       }
     }
     for (var i = 0; i < results.length; i++) {
-      [element, div1, div2, div3, a, org, part] = formatData(i)
+      var flag = false;
+      for (var j = 0; j < results[i].tags.length; j++){
+        if (results[i].tags[j].toLowerCase() == tag){
+          flag = true;
+        }
+      }
+      if (tag != "" && !flag){
+        continue;
+      }
+      [element, div1, div2, div3, a, org, part] = formatData(results[i].name)
 
       //getting data 
       a.innerHTML = results[i].name; 
@@ -337,8 +395,8 @@ function createFromAddContent() {
 
   littleArrayTeeHee = [nameOfSummerCamp, organization, link, tagDiv, children[1], children[2], children[3], descriptionInput];
 
-  for (var i = 0; i < littleArrayHeeHee.length; i++) {
-    littleArrayHeeHee[i].value = ""
+  for (var i = 0; i < littleArrayTeeHee.length; i++) {
+    littleArrayTeeHee[i].value = ""
   }
 }
 
@@ -418,9 +476,10 @@ function adminEdit() {
   doneButton.classList.add("btn");
   doneButton.classList.add("btn-outline-success");
   doneButton.setAttribute("onClick", "exitEdit()");
-  doneButton.setAttribute("id");
-  modalFooter.appendChild(don, "doneButton");
+  doneButton.setAttribute("id", "doneButton")
   doneButton.innerHTML = "Exit Editing";
+
+  modalFooter.appendChild(doneButton);
 };
 
 function exitEdit() {

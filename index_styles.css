@@ -1,15 +1,173 @@
-h1{
-    text-align: center;
-}
-#login{
-    color:blue;
-    display:block;
-    text-align: center;
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
-#signup{
-    color:blue;
-    display:block;
+footer {
     text-align: center;
+    margin-top: auto;
+    color: white;
+    font-size: small;
+    background: linear-gradient(114deg, #1A5D1A 66%, #fbab1a 66%);
+    vertical-align: bottom;
 }
 
+.navbar-brand{
+    color: rgb(255, 255, 255);
+    font-family: 'Open Sans', sans-serif;
+    font-size: 6.5rem;
+    font-weight: bold;
+}
+
+.nav-item {
+    padding: 0 18px;
+}
+
+.colouredSection {
+    /* background: #1A5D1A; */
+    background: linear-gradient(114deg, #1A5D1A 66%, #fbab1a 66%);
+    color: rgb(255, 255, 255);
+}
+
+.modal-body {
+    color: rgb(0, 0, 0);
+}
+
+.modal-title {
+    color: white;
+}
+
+.modal-header {
+    background-color: #1A5D1A;
+}
+
+#x-modal-button {
+    background-color: white;
+}
+
+#that-one-button {
+    margin: 10px;
+}
+
+.container-fluid {
+    padding: 7% 15%;
+  }
+
+#nav-link {
+    font-weight: bold;
+    color: #1A5D1A;
+    background-color: #fbab1a;
+    display: none;
+}
+
+#signout-button {
+    font-weight: bold;
+    color: #1A5D1A;
+    background-color: #fbab1a;
+    display: none;
+}
+
+ul#add-camps {
+    margin-top: 25px;
+    list-style-type: none;
+}
+
+li {
+    margin-bottom: 10px;
+}
+#copyright {
+    position: absolute;
+    bottom: 0;
+}
+
+.bigContainer {
+    height: 1000px;
+}
+.summerCampButton {
+    width: 100%;
+}
+
+#tagsBar {
+    justify-content: space-around;
+    width: 100%;
+}
+
+#tagsBarRow {
+    width: 100%;
+}
+
+#addContentButton {
+    margin: 2rem .5rem;
+}
+
+#submitNewContent {
+    margin-top: 1rem;
+}
+
+#signedOutContent {
+    margin: 4rem;
+}
+
+.formsContent, .contentModal {
+ margin: 1.5rem;
+}
+
+.scrollspy {
+    height: 500px;
+    overflow: auto;
+}
+
+.oneLineDiv {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+#addCommentButton {
+    width: 50px;
+}
+
+#addWebLink {
+    margin-right: 10px;
+}
+
+.tagBadge {
+    margin-right: 5px;
+    height: 25px;
+    width: 100px;
+    display: flex;
+    justify-content: center;
+}
+
+#inputComment {
+    width: 500px;
+    height: 200px;
+    margin: 10px;
+}
+
+.toast {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    right: 1rem;
+    top: 1rem;
+    z-index: 10;
+}
+
+.toast-body {
+    color: black;
+}
+
+.toastLogo {
+    max-height: 50px;
+}
+
+#participantSection {
+    display: flex;
+
+}
+#AdminParticipantEdit {
+    display: none;
+    flex-direction: column;
+}
