@@ -27,7 +27,15 @@ function getSummerCamps() {
 
 //uses results to append into "add-camps" id
 getSummerCamps().then(results => {
-
+  for (var i = 1; i < results.length; i++){
+    var idx = i;
+    while (idx > 0 && results[idx].participated.length > results[idx-1].participated.length){
+      var temp = results[idx]
+      results[idx] = results[idx-1];
+      results[idx-1] = temp;
+      idx--;
+    }
+  }
   element = document.getElementById("add-camps");
 
   while (element.hasChildNodes()) {
@@ -339,6 +347,16 @@ function showTag(tag) {
     while (element.hasChildNodes()) {
       element.firstChild.remove()
     };
+    //simple insertion sort (ik built-in sort is faster but im too lazy to write custom comparator function so cry abt it)
+    for (var i = 1; i < results.length; i++){
+      var idx = i;
+      while (idx > 0 && results[idx].participated.length > results[idx-1].participated.length){
+        var temp = results[idx]
+        results[idx] = results[idx-1];
+        results[idx-1] = temp;
+        idx--;
+      }
+    }
     for (var i = 0; i < results.length; i++) {
       var flag = false;
       for (var j = 0; j < results[i].tags.length; j++){
@@ -404,6 +422,8 @@ function createFromAddContent() {
 }
 
 function adminEdit() {
+  document.getElementsByClassName("perhapshidden").hidden = false;
+
   console.log("admin is editing");
   addGeneralDescription = document.getElementById("addGeneralDescription");
   addWebLink = document.getElementById("addWebLink");
