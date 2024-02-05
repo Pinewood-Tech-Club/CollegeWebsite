@@ -46,6 +46,13 @@ auth.onAuthStateChanged(user => {
         hideContent('contentContainer');
         signedOutContent.style.display = "block";
     }
+
+    getUsers(user.email).then(results => {
+        console.log(results);
+        //ARNAV START HERE
+    }).catch(error => {
+        console.error("Error getting users:", error);
+    });
 })
 
 function sleep(ms) {
