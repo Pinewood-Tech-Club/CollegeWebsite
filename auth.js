@@ -59,26 +59,46 @@ function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-const signinform = document.querySelector('#signin-form')
-signinform.addEventListener('submit', (e) => {
-    e.preventDefault();
-    const email = signinform['emailInputSignIn'].value;
-    const password = signinform['passwordInputSignIn'].value;
-   
-    auth.signInWithEmailAndPassword(email, password).then(cred => {
-        signinform.reset();
-        window.location.href = "index.html";
-        alert("Login Successful");   
-    }).catch(error => {
-        if (error.code === 'auth/invalid-email') {
-            alert("Invalid email");
-        } else if (error.code === 'auth/user-not-found') {
-            alert("Invalid User");
-        } else if (error.code === 'auth/wrong-password') {
-            alert("Wrong password!")
-        }
-    })
-})
+// Ensure the DOM is fully loaded
+document.addEventListener('DOMContentLoaded', function() {
+    // Access the sign-in form
+    const signinform = document.querySelector('#signin-form');
+    
+    // Add an event listener for the form submission
+    signinform.addEventListener('submit', (e) => {
+        e.preventDefault(); // Prevent the default form submission behavior
+        
+        // Get user info from form inputs
+        const email = signinform['emailInputSignIn'].value;
+        const password = signinform['passwordInputSignIn'].value;
+       
+        // Sign in the user with Firebase Authentication
+        auth.signInWithEmailAndPassword(email, password).then(cred => {
+            // Reset the form
+            signinform.reset();
+            // Redirect the user or update UI as needed
+            window.location.href = "index.html"; // Or any other page
+            alert("Login Successful");
+        }).catch(error => {
+            // Handle errors such as invalid email, user not found, or wrong password
+            switch(error.code) {
+                case 'auth/invalid-email':
+                    alert("Invalid email format.");
+                    break;
+                case 'auth/user-not-found':
+                    alert("User not found.");
+                    break;
+                case 'auth/wrong-password':
+                    alert("Incorrect password.");
+                    break;
+                default:
+                    alert("Error signing in: " + error.message);
+                    console.log(error.message);
+            }
+        });
+    });
+});
+
 
 const signupForm = document.querySelector('#signup-form');
 signupForm.addEventListener('submit', (e) => {
