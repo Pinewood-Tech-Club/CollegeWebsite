@@ -421,6 +421,43 @@ function createFromAddContent() {
   }
 }
 
+function mostUsedTags() {
+  // Create a map with key being tag and value being the count of results with tag
+  let tagCounts = {}
+  getSummerCamps().then(results => {
+    for (var i = 0; i < results.length; i++) {
+      for (var j = 0; j < results[i].tags.length; j++){
+        var tag = results[i].tags[j].toLowerCase()  
+        // increase count for tag in tagCounts because results[i] includes this tag or set it to 1 if it is not in tagCounts
+        if (tag in tagCounts) {
+          tagCounts[tag] = tagCounts[tag] + 1
+        }  else  {
+          tagCounts[tag] = 1
+        }       
+      }
+    }
+
+    // Create an array from the map to short by value  eg. [['academic', 4], ['fun', 6]]
+    var items = Object.keys(tagCounts).map(function(key) {
+      return [key, dict[key]];
+    });
+
+    // Sort the array based on the second element
+    items.sort(function(first, second) {
+      return second[1] - first[1];
+    });
+
+    //items.slice(0, 3) // get the 3 most used tags
+    return items;
+  });
+}
+
+// testing mostUsedTags()
+sortedTags = mostUsedTags()
+sortedTags.forEach(function(entry) {
+  console.log(entry[0]);
+});
+
 function adminEdit() {
   document.getElementsByClassName("perhapshidden").hidden = false;
 
