@@ -2,7 +2,6 @@
 
 // Listen for auth state changes
 auth.onAuthStateChanged(user => {
-    console.log(user ? 'user signed in' : 'user signed out');
 
     // Select elements outside the condition to avoid repetition
     var signoutButton = document.querySelector('#signout-button');
@@ -38,12 +37,10 @@ auth.onAuthStateChanged(user => {
         // Fetch user data or set permissions
         db.collection("users").doc(user.email).get().then(doc => {
             if (doc.exists) {
-                // User data exists, handle accordingly
-                console.log("Document data:", doc.data());
-            } else {
-                // No such document, possibly set permissions based on email
                 let accountType = returnPermissions(user.email);
                 console.log("Setting account type:", accountType);
+                // User data exists, handle accordingly
+                console.log("Document data:", doc.data());
             }
         }).catch(error => {
             console.error("Error getting user data:", error);
@@ -53,7 +50,6 @@ auth.onAuthStateChanged(user => {
         signoutButton.style.display = "none";
         signinButton.style.display = "flex";
         signupButton.style.display = "flex";
-        hideContent('contentContainer'); // Assuming this function exists to hide certain content
         signedOutContent.style.display = "block";
     }
 });
@@ -117,6 +113,7 @@ signupForm.addEventListener('submit', e => {
     }).then(() => {
         window.location.href = "index.html";
         alert("Sign Up Successful!");
+        console.log(accountType);
     }).catch(error => {
         alert(error.message);
     });
