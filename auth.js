@@ -96,11 +96,13 @@ document.addEventListener('DOMContentLoaded', function() {
                     console.log(error.message);
             }
         });
+        // will return admin, viewer, or content creator
+        returnPermissions(email);
     });
 });
 
 
-const signupForm = document.querySelector('#signup-form');
+/*const signupForm = document.querySelector('#signup-form');
 signupForm.addEventListener('submit', (e) => {
     e.preventDefault();
     
@@ -135,6 +137,7 @@ signupForm.addEventListener('submit', (e) => {
         4. delete comments
         */
 
+        /*
         db.collection("users").doc(email).set({
             name: fullName,
             grade: grade,
@@ -147,7 +150,7 @@ signupForm.addEventListener('submit', (e) => {
     }).catch(function(error) {
         alert(error.message);
     });
-});
+}); */
 
 const signout = document.querySelector('#signout-button');
 signout.addEventListener('click', (e) => {
@@ -185,3 +188,20 @@ document.getElementById('google-signin-btn').addEventListener('click', function(
         alert(error.message);
     });
 });
+
+function returnPermissions(email) {
+    // Check if the email domain is @pinewood.edu
+    if (email.endsWith("@pinewood.edu")) {
+        // Check if the email does not start with a number
+        // ^[^\d] means the string starts with any character except digits
+        if (/^[^\d]/.test(email)) {
+            return "admin";
+        } else {
+            // If it starts with a number or any other case within @pinewood domain
+            return "content creator";
+        }
+    } else {
+        // Everyone else is a viewer
+        return "viewer";
+    }
+}
