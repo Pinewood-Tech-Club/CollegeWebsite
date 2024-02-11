@@ -27,7 +27,15 @@ function getSummerCamps() {
 
 //uses results to append into "add-camps" id
 getSummerCamps().then(results => {
-
+  for (var i = 1; i < results.length; i++){
+    var idx = i;
+    while (idx > 0 && results[idx].participated.length > results[idx-1].participated.length){
+      var temp = results[idx]
+      results[idx] = results[idx-1];
+      results[idx-1] = temp;
+      idx--;
+    }
+  }
   element = document.getElementById("add-camps");
 
   while (element.hasChildNodes()) {
@@ -98,21 +106,24 @@ function content(id) {
       }
     }
 
-    //console.log(id);
+    //getting all modal components
     modalHeader = document.getElementById("modal-header");
     addWebLink = document.getElementById("addWebLink");
     addTagsModal = document.getElementById("addTagsModal");
     addParticipants = document.getElementById("addParticipants");
     AdminParticipantEdit = document.getElementById("AdminParticipantEdit");
-    //addYourself = document.getElementById("addYourself");
 
+    
+    //hiding 'delete participant' div that should only be shown after clicking edit content
     if (AdminParticipantEdit.style.display == "flex") {
       AdminParticipantEdit.style.display = "none";
     }
 
+    //getting more modal components
     addComments = document.getElementById("addComments");
     addGeneralDescription = document.getElementById("addGeneralDescription");
 
+    //removing all existing content
     elementsArray = [modalHeader, addWebLink, addTagsModal, addParticipants, addComments, addGeneralDescription];
 
     for (var c = 0; c < elementsArray.length; c++) {
@@ -121,14 +132,18 @@ function content(id) {
       };
     };
 
+    //creating headaer
     header = document.createElement("h1");
     header.classList.add("modal-title", "modal-color");
     header.classList.add("fs-5");
 
+    //creating link
     linkContent = document.createElement("a");
     linkContent.setAttribute("href", `${result.link}`);
     linkContent.classList.add("link-body-emphasis", "link-offset-2", "link-underline-opacity-25", "link-underline-opacity-75-hover");
 
+
+    //adding badges
     for (var c = 0; c < result.tags.length; c++) {
       modalTag = document.createElement("p");
       modalTag.classList.add("badge");
@@ -141,6 +156,7 @@ function content(id) {
       addTagsModal.appendChild(modalTag);
     };
 
+    //adding participants
     for (var c = 0; c < result.participated.length; c++) {
 
       participantOne = document.createElement("p");
@@ -155,6 +171,7 @@ function content(id) {
       addParticipants.appendChild(participantTwo);
     };
 
+    //adding comments
     for (var c = 0; c < result.comments.length; c++) {
       comment = document.createElement("p");
       comment.classList.add("userComment");
@@ -164,12 +181,15 @@ function content(id) {
       addComments.appendChild(comment);
     };
 
+    //making description element
     genDescription = document.createElement("p");
     
+    //adding text content
     header.innerHTML = result.name;
     linkContent.innerHTML = result.link;
     genDescription.innerHTML = result.description;
 
+    //adding all content into modal for user to see
     modalHeader.appendChild(header);
     addWebLink.appendChild(linkContent);
     addGeneralDescription.appendChild(genDescription);
@@ -196,41 +216,55 @@ function getUsers(email) {
   });
 }
 
+//adding new participants, onClick
 function addParticipant() {
   addParticipants = document.getElementById("addParticipants");
+  existingParticipantsArray = [];
+
+  //creating array of all current participants w/o new participant
+  for (var i = 0; i < addParticipants.children.length; i++) { 
+    existingParticipantsArray.push(addParticipants.children[i].textContent);
+  }
+
+  //getting toastBody to get user email #lifeHack
   toastBody = document.getElementById("toastBody");
   const email = toastBody.textContent.split(" ")[2].toLowerCase();
   console.log(email);
 
+  //creating elements for participants
   participantName = document.createElement("p");
   participantName.classList.add("col");
 
   participantGrade = document.createElement("p");
   participantGrade.classList.add("col");
 
-  existingParticipantsArray = [];
+  //array for current participants + new
+  updatedParticipantsArray = [];
 
   modalHeader = document.getElementById("modal-header");
 
   getUsers(email).then(results => {
+    //adding textContent
     participantName.innerHTML = results[0].name;
     participantGrade.innerHTML = results[0].grade;
 
-    console.log("this is printing", participantName);
-
-    addParticipants.appendChild(participantName);
+    //checking if participants is already in list
+    if (existingParticipantsArray.includes(participantName.textContent) == true) { 
+      alert("You've already participated");
+    } else { //participant not yet added -> add them
+      addParticipants.appendChild(participantName);
     addParticipants.appendChild(participantGrade);
 
     for (var i = 0; i < addParticipants.children.length; i++) { 
-      existingParticipantsArray.push(addParticipants.children[i].textContent);
+      updatedParticipantsArray.push(addParticipants.children[i].textContent);
     }
   
-    console.log(existingParticipantsArray);
+    console.log(updatedParticipantsArray);
 
     convertArray = [];
 
-    for (var i = 0; i < existingParticipantsArray.length; i+=2) { 
-      convertArray.push(existingParticipantsArray[i] + "/" + existingParticipantsArray[i+1])
+    for (var i = 0; i < updatedParticipantsArray.length; i+=2) { 
+      convertArray.push(updatedParticipantsArray[i] + "/" + updatedParticipantsArray[i+1])
     };
 
     console.log(convertArray);
@@ -238,10 +272,11 @@ function addParticipant() {
     db.collection("college-counseling-database").doc(modalHeader.children[0].textContent).update({
       participated: convertArray
     });
-
+    }
   });
 };
 
+//adding a comment
 function addComment() {
   commentContent = document.getElementById("inputComment");
   updateCommentSection = document.getElementById("addComments");
@@ -312,6 +347,16 @@ function showTag(tag) {
     while (element.hasChildNodes()) {
       element.firstChild.remove()
     };
+    //simple insertion sort (ik built-in sort is faster but im too lazy to write custom comparator function so cry abt it)
+    for (var i = 1; i < results.length; i++){
+      var idx = i;
+      while (idx > 0 && results[idx].participated.length > results[idx-1].participated.length){
+        var temp = results[idx]
+        results[idx] = results[idx-1];
+        results[idx-1] = temp;
+        idx--;
+      }
+    }
     for (var i = 0; i < results.length; i++) {
       var flag = false;
       for (var j = 0; j < results[i].tags.length; j++){
@@ -377,6 +422,8 @@ function createFromAddContent() {
 }
 
 function adminEdit() {
+  document.getElementsByClassName("perhapshidden").hidden = false;
+
   console.log("admin is editing");
   addGeneralDescription = document.getElementById("addGeneralDescription");
   addWebLink = document.getElementById("addWebLink");
