@@ -32,11 +32,6 @@ auth.onAuthStateChanged(user => {
         signinbutton.style.display = "none";
         signupbutton.style.display = "none";
         signedOutContent.style.display = "none";  
-        // getUsers(user.email).then(results => {
-        //     if (results[0].accountType == "viewer"){
-        //         hideContent("notforViewers")
-        //     }
-        // })
     }
     else{
         signoutbutton.style.display = "none";
