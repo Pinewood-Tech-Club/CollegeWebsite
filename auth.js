@@ -9,6 +9,10 @@ auth.onAuthStateChanged(user => {
     var signedOutContent = document.getElementById('signedOutContent');
     var signinButton = null;
     var signupButton = null;
+    var accordion = document.getElementById("addContentButton");
+    var editContentButton = document.getElementById("editContent");
+    var commentButton = document.getElementById("addCommentButton");
+    var participationButton = document.getElementById("participated");
 
     // Iterate to find sign in and sign up buttons
     buttons.forEach(button => {
@@ -52,6 +56,40 @@ auth.onAuthStateChanged(user => {
         signupButton.style.display = "flex";
         signedOutContent.style.display = "block";
     }
+
+    db.collection("users").doc(user.email).get().then(doc => {
+        if (doc.exists) {
+            const userData = doc.data();
+            console.log(userData);
+            const accountType = userData.accountType;
+            console.log(accountType);
+            switch(accountType) {
+                case "viewer":
+                    accordion.style.display = "none";
+                    editContentButton.style.display = "none";
+                    commentButton.style.display = "none";
+                    participationButton.style.display = "none";
+                    break;
+                case "content creator":
+                    editContentButton.style.display = "none";
+                    commentButton.style.display = "flex";
+                    participationButton.style.display = "flex";
+                    accordion.style.display = "flex";
+                    break;
+                case "admin":
+                    editContentButton.style.display = "flex";
+                    commentButton.style.display = "none";
+                    participationButton.style.display = "none";
+                    accordion.style.display = "none";
+                default:
+                    break;
+            }
+        }   else {
+            console.log("User data not found")
+        }
+    }).catch(error => {
+        console.error("Error getting user data:", error);
+    })
 });
 
 // Utility function for hiding content by class
