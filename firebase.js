@@ -420,8 +420,19 @@ function createFromAddContent() {
     littleArrayTeeHee[i].value = ""
   }
 }
-
+function viewerEdit() {
+  document.getElementById("editContent").hidden = true;
+  document.getElementById("addContentModal").hidden = true;
+}
+function contentCreatorEdit() {
+  document.getElementById("editContent").hidden = true;
+  document.getElementById("addContentModal").hidden = false;
+}
 function adminEdit() {
+  document.getElementById("editContent").hidden = false;
+  document.getElementById("addContentModal").hidden = false;
+}
+function editContent() {
   document.getElementsByClassName("perhapshidden").hidden = false;
 
   console.log("admin is editing");

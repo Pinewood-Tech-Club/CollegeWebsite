@@ -208,7 +208,7 @@
               <section id="participantSection">
                 <section id="AdminParticipantEdit">
                   <div class="row gx-3 row-cols-2 g-3">
-                    <p class="col perhapshidden">Delete Participant</p>
+                    <p class="col">Delete Participant</p>
                   </div>
                 </section>
                 <!-- <button type="button" class="btn-close" aria-label="Close"></button> -->
@@ -248,7 +248,7 @@
           <div id="modalFooter" class="modal-footer">
             <hr>
             <button type="button" class="btn btn-outline-success" data-bs-dismiss="modal">Close</button>
-            <button id="editContent" type="button" class="btn btn-outline-success" onclick="adminEdit()">Edit Content</button>
+            <button id="editContent" type="button" class="btn btn-outline-success" onclick="editContent()">Edit Content</button>
             </div>
           </div>
         </div>
@@ -260,7 +260,7 @@
       <div class="accordion" id="accordionExample">
         <div class="accordion-item" id="addContentButton">
           <h2 class="accordion-header">
-            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+            <button id="addContentModal" class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-panded="true" aria-controls="collapseOne">
               Add Content
             </button>
           </h2>

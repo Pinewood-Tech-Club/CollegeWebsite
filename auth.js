@@ -43,6 +43,7 @@ auth.onAuthStateChanged(user => {
             if (doc.exists) {
                 let accountType = returnPermissions(user.email);
                 console.log("Setting account type:", accountType);
+                decideEditingPrivledges(accountType);
                 // User data exists, handle accordingly
                 console.log("Document data:", doc.data());
             }
@@ -55,6 +56,7 @@ auth.onAuthStateChanged(user => {
         signinButton.style.display = "flex";
         signupButton.style.display = "flex";
         signedOutContent.style.display = "block";
+        hideContent('contentContainer');
     }
 
     db.collection("users").doc(user.email).get().then(doc => {
@@ -110,6 +112,20 @@ function returnPermissions(email) {
         }
     } else {
         return "viewer";
+    }
+}
+function decideEditingPrivledges(accountType) {
+    console.log(accountType);
+    if (accountType == "admin") {
+        adminEdit();
+        console.log("admin Editing enabled");
+    }
+    else if (accountType == "content creator") {
+        contentCreatorEdit();
+    }
+    else {
+        viewerEdit();
+        console.log("viewer Editing enabled");
     }
 }
 
