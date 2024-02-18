@@ -421,24 +421,23 @@ function createFromAddContent() {
   }
 }
 
-var out = "";
+var out = ""; // Global variable used to update tag calculated in promise (mostUsedTagsPromise(val))
 function mostUsedTagsPromise(val) {
   // Create a map with key being tag and value being the count of results with tag
   return getSummerCamps().then(results => {
 
     console.log("Check results", results.length)
-    let tagCounts = {}
-    console.log("Running mostUsedTags", results.length)
+
+    let tagCounts = {};  // Dictionary to keep tags and counts in results. eg. key = "academic", value = 6 if academic appears 6 times in results 
     for (var i = 0; i < results.length; i++) {
       for (var j = 0; j < results[i].tags.length; j++){
         var tag = results[i].tags[j].toLowerCase()  
     
         // increase count for tag in tagCounts because results[i] includes this tag or set it to 1 if it is not in tagCounts
         if (tag in tagCounts) {
-          tagCounts[tag] = tagCounts[tag] + 1
-          console.log(tagCounts[tag])
+          tagCounts[tag] = tagCounts[tag] + 1;
         }  else  {
-          tagCounts[tag] = 1
+          tagCounts[tag] = 1;
         }       
       }
     }
@@ -453,6 +452,7 @@ function mostUsedTagsPromise(val) {
       return second[1] - first[1];
     });
 
+    // Set the text in the buttons sorted by tag (fixed 6 buttons at most)
     if (items.length > 0) {
       document.getElementById('button-tag1').innerText = items[0][0];
     } else {
@@ -492,18 +492,6 @@ async function mostUsedTags(val) {
   await mostUsedTagsPromise(val);
   console.log("Out, ", out);
 }
-
-
-//function mostUsedTags(val) {
-//  mostUsedTagsPromise(val);
-//  console.log("Out, ", out);
-//  return out;  
-//}
-
-// Testing mostUsedTags
-//console.log("1st", mostUsedTags(0));
-//console.log("2nd", mostUsedTags(1));
-//console.log("3rd", mostUsedTags(2));
   
 
 
