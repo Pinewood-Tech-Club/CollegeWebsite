@@ -420,6 +420,7 @@ function createFromAddContent() {
     littleArrayTeeHee[i].value = ""
   }
 }
+<<<<<<< HEAD
 function viewerEdit() {
   document.getElementById("editContent").hidden = true;
   document.getElementById("addContentModal").hidden = true;
@@ -428,6 +429,83 @@ function contentCreatorEdit() {
   document.getElementById("editContent").hidden = true;
   document.getElementById("addContentModal").hidden = false;
 }
+=======
+
+var out = ""; // Global variable used to update tag calculated in promise (mostUsedTagsPromise(val))
+function mostUsedTagsPromise(val) {
+  // Create a map with key being tag and value being the count of results with tag
+  return getSummerCamps().then(results => {
+
+    console.log("Check results", results.length)
+
+    let tagCounts = {};  // Dictionary to keep tags and counts in results. eg. key = "academic", value = 6 if academic appears 6 times in results 
+    for (var i = 0; i < results.length; i++) {
+      for (var j = 0; j < results[i].tags.length; j++){
+        var tag = results[i].tags[j].toLowerCase()  
+    
+        // increase count for tag in tagCounts because results[i] includes this tag or set it to 1 if it is not in tagCounts
+        if (tag in tagCounts) {
+          tagCounts[tag] = tagCounts[tag] + 1;
+        }  else  {
+          tagCounts[tag] = 1;
+        }       
+      }
+    }
+
+    // Create an array from the map to sort by value  eg. [['academic', 4], ['fun', 6]]
+    var items = Object.keys(tagCounts).map(function(key) {
+      return [key, tagCounts[key]];
+    });
+
+    // Sort the array based on the second element
+    items.sort(function(first, second) {
+      return second[1] - first[1];
+    });
+
+    // Set the text in the buttons sorted by tag (fixed 6 buttons at most)
+    if (items.length > 0) {
+      document.getElementById('button-tag1').innerText = items[0][0];
+    } else {
+      document.getElementById('button-tag1').innerText = "";
+    }
+    if (items.length > 1) {
+      document.getElementById('button-tag2').innerText = items[1][0];
+    }  else {
+      document.getElementById('button-tag2').innerText = "";
+    }
+    if (items.length > 2) {
+      document.getElementById('button-tag3').innerText = items[2][0];
+    }  else {
+      document.getElementById('button-tag3').innerText = "";
+    }
+
+    if (items.length > 3) {
+      document.getElementById('drop-button-tag1').innerText = items[3][0];
+    } else {
+      document.getElementById('drop-button-tag1').innerText = "";
+    }
+    if (items.length > 4) {
+      document.getElementById('drop-button-tag2').innerText = items[4][0];
+    }  else {
+      document.getElementById('drop-button-tag2').innerText = "";
+    }
+    if (items.length > 5) {
+      document.getElementById('drop-button-tag3').innerText = items[5][0];
+    }  else {
+      document.getElementById('drop-button-tag3').innerText = "";
+    }
+    return Promise.resolve(items[val][0]);
+  }).then(res => {out = res;});
+}
+
+async function mostUsedTags(val) {
+  await mostUsedTagsPromise(val);
+  console.log("Out, ", out);
+}
+  
+
+
+>>>>>>> Alan-fr
 function adminEdit() {
   document.getElementById("editContent").hidden = false;
   document.getElementById("addContentModal").hidden = false;
