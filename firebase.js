@@ -420,7 +420,7 @@ function createFromAddContent() {
     littleArrayTeeHee[i].value = ""
   }
 }
-<<<<<<< HEAD
+
 function viewerEdit() {
   document.getElementById("editContent").hidden = true;
   document.getElementById("addContentModal").hidden = true;
@@ -429,7 +429,6 @@ function contentCreatorEdit() {
   document.getElementById("editContent").hidden = true;
   document.getElementById("addContentModal").hidden = false;
 }
-=======
 
 var out = ""; // Global variable used to update tag calculated in promise (mostUsedTagsPromise(val))
 function mostUsedTagsPromise(val) {
@@ -503,9 +502,6 @@ async function mostUsedTags(val) {
   console.log("Out, ", out);
 }
   
-
-
->>>>>>> Alan-fr
 function adminEdit() {
   document.getElementById("editContent").hidden = false;
   document.getElementById("addContentModal").hidden = false;
