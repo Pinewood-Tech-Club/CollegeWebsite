@@ -1,5 +1,39 @@
 // Assuming 'auth' and 'db' are already initialized Firebase Authentication and Firestore instances
-
+function setPermissions(email) {
+    db.collection("users").doc(email).get().then(doc => {
+        if (doc.exists) {
+            const userData = doc.data();
+            console.log(userData);
+            const accountType = userData.accountType;
+            console.log(accountType);
+            switch(accountType) {
+                case "viewer":
+                    accordion.style.display = "none";
+                    editContentButton.style.display = "none";
+                    commentButton.style.display = "none";
+                    participationButton.style.display = "none";
+                    break;
+                case "content creator":
+                    editContentButton.style.display = "none";
+                    commentButton.style.display = "flex";
+                    participationButton.style.display = "flex";
+                    accordion.style.display = "flex";
+                    break;
+                case "admin":
+                    editContentButton.style.display = "flex";
+                    commentButton.style.display = "none";
+                    participationButton.style.display = "none";
+                    accordion.style.display = "none";
+                default:
+                    break;
+            }
+        }   else {
+            console.log("User data not found")
+        }
+    }).catch(error => {
+        console.error("Error getting user data:", error);
+    })
+}
 // Listen for auth state changes
 auth.onAuthStateChanged(user => {
 
@@ -58,39 +92,7 @@ auth.onAuthStateChanged(user => {
         hideContent('contentContainer');
     }
 
-    db.collection("users").doc(user.email).get().then(doc => {
-        if (doc.exists) {
-            const userData = doc.data();
-            console.log(userData);
-            const accountType = userData.accountType;
-            console.log(accountType);
-            switch(accountType) {
-                case "viewer":
-                    accordion.style.display = "none";
-                    editContentButton.style.display = "none";
-                    commentButton.style.display = "none";
-                    participationButton.style.display = "none";
-                    break;
-                case "content creator":
-                    editContentButton.style.display = "none";
-                    commentButton.style.display = "flex";
-                    participationButton.style.display = "flex";
-                    accordion.style.display = "flex";
-                    break;
-                case "admin":
-                    editContentButton.style.display = "flex";
-                    commentButton.style.display = "none";
-                    participationButton.style.display = "none";
-                    accordion.style.display = "none";
-                default:
-                    break;
-            }
-        }   else {
-            console.log("User data not found")
-        }
-    }).catch(error => {
-        console.error("Error getting user data:", error);
-    })
+    setPermissions(user.email);
 });
 
 // Utility function for hiding content by class
@@ -152,7 +154,7 @@ signupForm.addEventListener('submit', e => {
     }).then(() => {
         window.location.href = "index.html";
         alert("Sign Up Successful!");
-        console.log(accountType);
+        setPermissions(email);
     }).catch(error => {
         alert(error.message);
     });
