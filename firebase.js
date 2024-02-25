@@ -432,7 +432,12 @@ function mostUsedTagsPromise(val) {
     let tagCounts = {};  // Dictionary to keep tags and counts in results. eg. key = "academic", value = 6 if academic appears 6 times in results 
     for (var i = 0; i < results.length; i++) {
       for (var j = 0; j < results[i].tags.length; j++){
-        var tag = results[i].tags[j].toLowerCase()  
+        var tag = results[i].tags[j].toLowerCase()
+        firstLetter = tag.charAt(0)
+        firstLetter = firstLetter.toUpperCase()
+        remainingLetters = tag.substring(1)
+        tag = firstLetter + remainingLetters
+
     
         // increase count for tag in tagCounts because results[i] includes this tag or set it to 1 if it is not in tagCounts
         if (tag in tagCounts) {
