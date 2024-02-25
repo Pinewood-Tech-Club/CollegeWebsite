@@ -97,6 +97,11 @@ li {
     width: 100%;
 }
 
+#accordionExample {
+    display: flex;
+    width: 100% !important;
+}
+
 #addContentButton {
     margin: 2rem .5rem;
 }
@@ -170,4 +175,8 @@ li {
 #AdminParticipantEdit {
     display: none;
     flex-direction: column;
+}
+
+.accordion-button {
+    flex-grow: 1;
 }
