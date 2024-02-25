@@ -275,7 +275,7 @@ function addParticipant() {
     console.log(convertArray);
 
     var participantNumber = document.getElementById("participantNumber");
-    participantNumber.innerHTML = updatedParticipantsArray.length/2;
+    participantNumber.innerHTML = "Pinewood Participants: " + updatedParticipantsArray.length/2;
 
     db.collection("college-counseling-database").doc(modalHeader.children[0].textContent).update({
       participated: convertArray
