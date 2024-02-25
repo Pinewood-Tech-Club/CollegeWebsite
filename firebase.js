@@ -339,7 +339,7 @@ function showTag(tag) {
     for (var i = 0; i < results.length; i++) {
       var flag = false;
       for (var j = 0; j < results[i].tags.length; j++){
-        if (results[i].tags[j].toLowerCase() == tag){
+        if (results[i].tags[j].toLowerCase() == tag.toLowerCase()){
           flag = true;
         }
       }
