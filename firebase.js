@@ -273,6 +273,9 @@ function addParticipant() {
 
     console.log(convertArray);
 
+    var participantNumber = document.getElementById("participantNumber");
+    participantNumber.innerHTML = updatedParticipantsArray.length/2;
+
     db.collection("college-counseling-database").doc(modalHeader.children[0].textContent).update({
       participated: convertArray
     });
@@ -390,6 +393,11 @@ let submitButton = document.getElementById("submitNewContent");
 submitButton.onclick = function() {
   createFromAddContent();
 }
+
+function autoRefresh() {
+  window.location = window.location.href;
+}
+
 function createFromAddContent() {
   alert("Content Submitted");
   let nameOfSummerCamp = document.getElementById("nameOf");
@@ -408,11 +416,12 @@ function createFromAddContent() {
     link: link.value,
     tags: [children[1].value, children[2].value, children[3].value],
     participated:[], 
-    comments:["comment1", "comment2"],
+    comments:[""],
     status: "active"
   })
   .then(function() {
     console.log("Document successfully written!");
+    autoRefresh();
   })
   .catch(function(error) {
       console.error("Error writing document: ", error);
