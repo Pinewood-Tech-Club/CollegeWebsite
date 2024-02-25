@@ -416,7 +416,7 @@ function createFromAddContent() {
     link: link.value,
     tags: [children[1].value, children[2].value, children[3].value],
     participated:[], 
-    comments:[""],
+    comments:[],
     status: "active"
   })
   .then(function() {
