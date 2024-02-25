@@ -1,5 +1,10 @@
 // Assuming 'auth' and 'db' are already initialized Firebase Authentication and Firestore instances
 function setPermissions(email) {
+    var accordion = document.getElementById("addContentButton");
+    var editContentButton = document.getElementById("editContent");
+    var commentButton = document.getElementById("addCommentButton");
+    var participationButton = document.getElementById("participated");
+
     db.collection("users").doc(email).get().then(doc => {
         if (doc.exists) {
             const userData = doc.data();
@@ -43,10 +48,6 @@ auth.onAuthStateChanged(user => {
     var signedOutContent = document.getElementById('signedOutContent');
     var signinButton = null;
     var signupButton = null;
-    var accordion = document.getElementById("addContentButton");
-    var editContentButton = document.getElementById("editContent");
-    var commentButton = document.getElementById("addCommentButton");
-    var participationButton = document.getElementById("participated");
 
     // Iterate to find sign in and sign up buttons
     buttons.forEach(button => {
