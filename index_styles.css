@@ -73,6 +73,10 @@ ul#add-camps {
     list-style-type: none;
 }
 
+#add-camps-container {
+    z-index: 50;
+}
+
 li {
     margin-bottom: 10px;
 }
@@ -100,6 +104,11 @@ li {
 #accordionExample {
     display: flex;
     width: 100% !important;
+    z-index: 1;
+    }
+
+#mainAccordion {
+    pointer-events: none;
 }
 
 #addContentButton {
@@ -179,4 +188,10 @@ li {
 
 .accordion-button {
     flex-grow: 1;
+    pointer-events: auto;
+    z-index: 100
+}
+
+#addContentModal {
+    z-index: 50
 }
