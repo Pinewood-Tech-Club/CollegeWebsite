@@ -4,6 +4,9 @@ function setPermissions(email) {
     var editContentButton = document.getElementById("editContent");
     var commentButton = document.getElementById("addCommentButton");
     var participationButton = document.getElementById("participated");
+    var fullNameAndGrade = document.getElementById("FullNameAndGrade");
+    var participantsList = document.getElementById("participantsList");
+    var participantNumber = document.getElementById("participantNumber");
 
     db.collection("users").doc(email).get().then(doc => {
         if (doc.exists) {
@@ -13,18 +16,27 @@ function setPermissions(email) {
             console.log(accountType);
             switch(accountType) {
                 case "viewer":
+                    fullNameAndGrade.style.display = "none";
+                    participantsList.style.display = "none";
+                    participantNumber.style.display = "flex";
                     accordion.style.display = "none";
                     editContentButton.style.display = "none";
                     commentButton.style.display = "none";
                     participationButton.style.display = "none";
                     break;
                 case "content creator":
+                    fullNameAndGrade.style.display = "none";
+                    participantsList.style.display = "none";
+                    participantNumber.style.display = "flex";
                     editContentButton.style.display = "none";
                     commentButton.style.display = "flex";
                     participationButton.style.display = "flex";
                     accordion.style.display = "flex";
                     break;
                 case "admin":
+                    fullNameAndGrade.style.display = "flex";
+                    participantsList.style.display = "flex";
+                    participantNumber.style.display = "block";
                     editContentButton.style.display = "flex";
                     commentButton.style.display = "none";
                     participationButton.style.display = "none";
@@ -172,12 +184,12 @@ signout.addEventListener('click', e => {
     });
 });
 
-// Google Sign-In
-var provider = new firebase.auth.GoogleAuthProvider();
-document.getElementById('google-signin-btn').addEventListener('click', function() {
-    firebase.auth().signInWithPopup(provider).then(result => {
-        window.location.href = "index.html";
-    }).catch(error => {
-        alert(error.message);
-    });
-});
+// // Google Sign-In
+// var provider = new firebase.auth.GoogleAuthProvider();
+// document.getElementById('google-signin-btn').addEventListener('click', function() {
+//     firebase.auth().signInWithPopup(provider).then(result => {
+//         window.location.href = "index.html";
+//     }).catch(error => {
+//         alert(error.message);
+//     });
+// });

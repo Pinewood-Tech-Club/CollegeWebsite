@@ -112,6 +112,7 @@ function content(id) {
     addTagsModal = document.getElementById("addTagsModal");
     addParticipants = document.getElementById("addParticipants");
     AdminParticipantEdit = document.getElementById("AdminParticipantEdit");
+    var participantNumber = document.getElementById("participantNumber");
 
     
     //hiding 'delete participant' div that should only be shown after clicking edit content
@@ -170,6 +171,9 @@ function content(id) {
       addParticipants.appendChild(participantOne);
       addParticipants.appendChild(participantTwo);
     };
+
+    console.log(result.participated)
+    participantNumber.innerHTML = result.participated.length;
 
     //adding comments
     for (var c = 0; c < result.comments.length; c++) {
