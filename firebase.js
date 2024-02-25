@@ -173,7 +173,8 @@ function content(id) {
     };
 
     console.log(result.participated)
-    participantNumber.innerHTML = result.participated.length;
+    participantNumber.innerHTML = "Pinewood Participants: " + result.participated.length;
+    
 
     //adding comments
     for (var c = 0; c < result.comments.length; c++) {
