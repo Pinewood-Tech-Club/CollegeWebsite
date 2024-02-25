@@ -60,8 +60,6 @@
                           <hr>
                           <input type="password" id="passwordInputSignIn">
                           <br><br>
-                          <button id="google-signin-btn">Sign in with Google</button>
-                          <br><br>
                           <button class="btn btn-outline-dark" id="signIn">Sign in!</button>
                         </form>
                       </div>
@@ -256,7 +254,7 @@
           <div id="modalFooter" class="modal-footer">
             <hr>
             <button type="button" class="btn btn-outline-success" data-bs-dismiss="modal">Close</button>
-            <button id="editContent" type="button" class="btn btn-outline-success" onclick="editContent()">Edit Content</button>
+            <button id="editContent" type="button" class="btn btn-outline-success" onclick="adminEdit()">Edit Content</button>
             </div>
           </div>
         </div>
@@ -264,11 +262,11 @@
     </div>
 
     <!-- Sticky Bottom Add Content Accordion -->
-    <div class="sticky-bottom contentContainer">
+    <div class="sticky-bottom contentContainer accordionContainer">
       <div class="accordion" id="accordionExample">
         <div class="accordion-item" id="addContentButton">
           <h2 class="accordion-header">
-            <button id="addContentModal" class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-panded="true" aria-controls="collapseOne">
+            <button id="addContentModal" class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
               Add Content
             </button>
           </h2>

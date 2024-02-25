@@ -421,14 +421,6 @@ function createFromAddContent() {
   }
 }
 
-function viewerEdit() {
-  document.getElementById("editContent").hidden = true;
-  document.getElementById("addContentModal").hidden = true;
-}
-function contentCreatorEdit() {
-  document.getElementById("editContent").hidden = true;
-  document.getElementById("addContentModal").hidden = false;
-}
 
 var out = ""; // Global variable used to update tag calculated in promise (mostUsedTagsPromise(val))
 function mostUsedTagsPromise(val) {
@@ -501,13 +493,8 @@ async function mostUsedTags(val) {
   await mostUsedTagsPromise(val);
   console.log("Out, ", out);
 }
-  
+
 function adminEdit() {
-  document.getElementById("editContent").hidden = false;
-  document.getElementById("addContentModal").hidden = false;
-}
-function editContent() {
-  document.getElementsByClassName("perhapshidden").hidden = false;
 
   console.log("admin is editing");
   addGeneralDescription = document.getElementById("addGeneralDescription");
