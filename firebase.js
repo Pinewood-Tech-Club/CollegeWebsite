@@ -596,8 +596,9 @@ function adminEdit() {
     doneButton.classList.add("btn");
     doneButton.classList.add("btn-outline-success");
     doneButton.setAttribute("onClick", "exitEdit()");
-    doneButton.setAttribute("id", "doneButton")
-    doneButton.innerHTML = "Exit Editing";
+    doneButton.setAttribute("id", "doneButton");
+    doneButton.setAttribute("data-bs-dismiss","modal");
+    doneButton.innerHTML = "Save Editing";
 
     modalFooter.appendChild(doneButton);
   } else {
@@ -605,7 +606,7 @@ function adminEdit() {
     doneButton.style.display = "flex";
   }
 
-
+  
 };
 
 function buttonChange() {
@@ -620,6 +621,7 @@ function exitEdit() {
   addGeneralDescription = document.getElementById("addGeneralDescription");
   updateCommentSection = document.getElementById("addComments");
   tags = document.getElementById("addTagsModal");
+  participants = document.getElementById("addParticipants");
   webLink = document.getElementById("addWebLink");
   webValue = webLink.children[0].value;
   modalHeader = document.getElementById("modal-header");
@@ -627,6 +629,7 @@ function exitEdit() {
 
   existingCommentsArray = [];
   existingTagsArray = [];
+  existingParticipantsArray = [];
 
   for (var i = 0; i < updateCommentSection.children.length; i++) { 
     if (updateCommentSection.children[i].children[0].value != "") {
@@ -638,50 +641,41 @@ function exitEdit() {
      existingTagsArray.push(tags.children[i].children[0].value);
   };
 
-  console.log(existingCommentsArray);
-  console.log(existingTagsArray);
-  
+  for (var i = 0; i < participants.children.length; i += 2) { 
+    existingParticipantsArray.push(participants.children[i].innerHTML + "/" + participants.children[i+1].innerHTML);
+ };
+
+ console.log(existingCommentsArray);
+ console.log(existingTagsArray); 
+ console.log("PARTICIPANTS:", existingParticipantsArray); 
+
   db.collection("college-counseling-database").doc(campName).update({
     description: addGeneralDescription.children[0].value,
     tags: existingTagsArray,
     comments: existingCommentsArray, 
+    participated: existingParticipantsArray,
     link: webValue
-    });
+  });
 
   buttonChange();
 
   content(campName);
+
 };
 
 function deleteParticipant(c) {
-  modalHeader = document.getElementById("modal-header");
-  campName = modalHeader.children[0].textContent;
 
-  getSummerCamps().then(results => {
-    let tag = 0;
+  // Remove name and grade from table
+  participants = document.getElementById("addParticipants");
+  if (participants.hasChildNodes()) {
+    participants.removeChild(participants.children[c*2+1]); // remove grade
+    participants.removeChild(participants.children[c*2]);   // remove name
+  }
 
-    for (var i = 0; i < results.length; i++) { 
-      if (results[i] == campName) {
-        tag = i;
-      } else {
-        console.log("not a match");
-      }
-    }
-
-    participantList = results[tag].participated;
-
-    console.log(participantList);
-    console.log(c);
-
-    participantList.splice(c, 1);
-    console.log(participantList);
-
-    db.collection("college-counseling-database").doc(campName).update({
-      participated: participantList
-      });
-
-    buttonChange();
-    content(campName);
-    
-  })
+  // Remove last button from "remove button array"
+  delContainer = document.getElementById("rowContainer");
+  if (delContainer.hasChildNodes()) {
+    delButtons = delContainer.children[0] 
+    delButtons.removeChild(delButtons.lastElementChild);
+  }
 }
