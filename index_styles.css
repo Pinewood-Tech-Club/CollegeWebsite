@@ -104,7 +104,6 @@ li {
 #accordionExample {
     display: flex;
     width: 100% !important;
-    z-index: 1;
     }
 
 #mainAccordion {
@@ -193,5 +192,10 @@ li {
 }
 
 #addContentModal {
-    z-index: 50
+    z-index: 1
+}
+
+#collapseOne {
+    z-index: 100 !important;
+    pointer-events: auto;
 }
