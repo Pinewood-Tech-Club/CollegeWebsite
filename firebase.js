@@ -664,7 +664,6 @@ function exitEdit() {
 };
 
 function deleteParticipant(c) {
-
   // Remove name and grade from table
   participants = document.getElementById("addParticipants");
   if (participants.hasChildNodes()) {

@@ -195,3 +195,17 @@ li {
 #addContentModal {
     z-index: 50
 }
+
+#addContentSeeHistoryDiv {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+#historyButton.btn.btn-outline-dark {
+    margin-top: 2rem;
+    margin-right: 0.5rem;
+    display: flex;
+    flex-direction: row;
+    height: 50%;
+}
