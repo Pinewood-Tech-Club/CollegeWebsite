@@ -40,7 +40,7 @@ function setPermissions(email) {
                     editContentButton.style.display = "flex";
                     commentButton.style.display = "none";
                     participationButton.style.display = "none";
-                    accordion.style.display = "none";
+                    accordion.style.display = "flex";
                 default:
                     break;
             }
