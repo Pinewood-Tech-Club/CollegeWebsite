@@ -25,6 +25,9 @@ function getSummerCamps() {
   });
 }
 
+function switchToHistory(){
+  window.location.href="./history.html"
+}
 //uses results to append into "add-camps" id
 getSummerCamps().then(results => {
   for (var i = 1; i < results.length; i++){
@@ -434,9 +437,11 @@ function createFromAddContent() {
   let month = date.getMonth() + 1;
   let year = date.getFullYear();
 
-  db.collection("history").doc(`entry${snap}`).set({
+  let flag = false;
+  alert("idk")
+  db.collection("history").doc("add " + nameOfSummerCamp.value).set({
     action: {type: "add summer program"},
-    date: `${month}/${day}/${year}`,
+    date: month.toString() + "/" + day.toString() + "/" + year.toString(),
     user: auth.currentUser.email
   })
   .then(function() {
@@ -444,8 +449,14 @@ function createFromAddContent() {
   })
   .catch(function(error) {
       console.error("Error writing document: ", error);
-  });
-
+  })
+  alert("test2")
+  if (flag){
+    alert("fsaiofashfasjlhkafsjhkafksjh");
+  }
+  else{
+    alert("shfsakjhsfahjka");
+  }
   littleArrayTeeHee = [nameOfSummerCamp, organization, link, tagDiv, children[1], children[2], children[3], descriptionInput];
 
   for (var i = 0; i < littleArrayTeeHee.length; i++) {
