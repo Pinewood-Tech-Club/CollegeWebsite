@@ -428,6 +428,24 @@ function createFromAddContent() {
       console.error("Error writing document: ", error);
   });
 
+  const date = new Date();
+
+  let day = date.getDate();
+  let month = date.getMonth() + 1;
+  let year = date.getFullYear();
+
+  db.collection("history").doc(`entry${snap}`).set({
+    action: {type: "add summer program"},
+    date: `${month}/${day}/${year}`,
+    user: auth.currentUser.email
+  })
+  .then(function() {
+    console.log("Document successfully written!");
+  })
+  .catch(function(error) {
+      console.error("Error writing document: ", error);
+  });
+
   littleArrayTeeHee = [nameOfSummerCamp, organization, link, tagDiv, children[1], children[2], children[3], descriptionInput];
 
   for (var i = 0; i < littleArrayTeeHee.length; i++) {
