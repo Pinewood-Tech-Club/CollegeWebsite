@@ -26,6 +26,24 @@ function getSummerCamps() {
     });
 }
 
+function getReports() {
+  var dbRef = db.collection("reports");
+  var dbQuery = dbRef.orderBy("name", "asc");
+
+  var dbPromise = dbQuery.get();
+  return dbPromise.then(function(querySnapshot) {
+    var results = [];
+    querySnapshot.forEach(function(doc) {
+      results.push(doc.data());
+    });
+    console.log(results)
+    return Promise.all(results);
+  })
+  .catch(function(error) {
+    console.log("error getting documents: ", error);
+  });
+}
+
 function switchToHistory() {
   window.location.href = "./history.html";
 }
@@ -148,22 +166,27 @@ function content(id) {
     header = document.createElement("h1");
     header.classList.add("modal-title", "modal-color");
     header.classList.add("fs-5");
+    header.setAttribute("id", "camp name")
+    header.setAttribute("onmouseover", "handleMouseOver(this)");
+    header.setAttribute("onmouseout", "handleMouseOut(event, this)");
 
     //creating link
     linkContent = document.createElement("a");
     linkContent.setAttribute("href", `${result.link}`);
-    linkContent.classList.add(
-      "link-body-emphasis",
-      "link-offset-2",
-      "link-underline-opacity-25",
-      "link-underline-opacity-75-hover"
-    );
+    linkContent.classList.add("link-body-emphasis", "link-offset-2", "link-underline-opacity-25", "link-underline-opacity-75-hover");
+    linkContent.setAttribute("id", "link")
+    linkContent.setAttribute("onmouseover", "handleMouseOver(this)");
+    linkContent.setAttribute("onmouseout", "handleMouseOut(event, this)");
+
 
     //adding badges
     for (var c = 0; c < result.tags.length; c++) {
       modalTag = document.createElement("p");
       modalTag.classList.add("badge");
       modalTag.classList.add("bg-success");
+      modalTag.setAttribute("id", "tag " + (c + 1));
+      modalTag.setAttribute("onmouseover", "handleMouseOver(this)");
+      modalTag.setAttribute("onmouseout", "handleMouseOut(event, this)");
       modalTag.classList.add("tagBadge");
       modalTag.setAttribute("id", `tag${c}`);
 
@@ -194,15 +217,21 @@ function content(id) {
     for (var c = 0; c < result.comments.length; c++) {
       comment = document.createElement("p");
       comment.classList.add("userComment");
+      comment.setAttribute("id", "comment " + (c + 1))
 
       comment.innerHTML = result.comments[c];
+      comment.setAttribute("onmouseover", "handleMouseOver(this)");
+      comment.setAttribute("onmouseout", "handleMouseOut(event, this)");
 
       addComments.appendChild(comment);
     }
 
     //making description element
     genDescription = document.createElement("p");
-
+    genDescription.setAttribute("id", "description")
+    genDescription.setAttribute("onmouseover", "handleMouseOver(this)");
+    genDescription.setAttribute("onmouseout", "handleMouseOut(event, this)");
+    
     //adding text content
     header.innerHTML = result.name;
     linkContent.innerHTML = result.link;
@@ -359,6 +388,145 @@ function addComment() {
   //console.log(commentContent.value);
 }
 
+//variables for both "createReportButton()" and "addReport()"
+var reportTarget = ""
+var commentNumber = 0
+
+//report button
+function createReportButton(target) {
+  const reportButton = document.createElement("button");
+  reportModal = document.getElementById("reportModal")
+  reportModalLabel = document.getElementById("reportModalLabel");
+  reportTextArea = document.getElementById("reportTextArea")
+  campBeingReported = document.getElementById("camp name").innerHTML;
+  reportButton.textContent = "Report";
+
+  reportButton.classList.add("report-button", "btn", "btn-outline-danger", "btn-sm");
+  reportButton.setAttribute("data-bs-toggle","modal");
+  reportButton.setAttribute("data-bs-target","#reportModal");
+  reportButton.style.cssText = "margin-right:10px; margin-left:10px; float:right";
+
+  reportButton.setAttribute("onmouseout", "handleMouseOut(event, this)");
+  reportTarget = target.id;
+  if (reportTarget.includes("comment")) {
+    commentNumber = reportTarget.substring(8)
+    reportTarget = "comments"
+    //console.log("COMMENT DETECTED, OPINION REJECTED")
+  }
+
+  reportModalLabel.innerHTML = ("Report " + campBeingReported + "'s " + reportTarget + ":");
+
+  reportModal.addEventListener("hidden.bs.modal", function() {
+    if (!reportTextArea.value == "") {
+      reportTextArea.value = "";
+    };
+    //console.log("BYE BYE 🤫🧏‍♂️") lmao it always says bye bye 10-100 times 💀 idk why but it works so who cares :D
+  });
+
+  return reportButton;
+};
+
+//actually adds the report (separated into a diff function bc it triggeres after confirming)
+function addReport() {
+  campBeingReported = document.getElementById("camp name").innerHTML;
+  reportTextArea = document.getElementById("reportTextArea");
+
+  if (reportTarget == "comments"){
+    reportTextArea.value = ("comment" + commentNumber + " / " + reportTextArea.value)
+  }
+
+  //A BUNCH OF FIREBASE STUFF
+  getReports().then(results => { 
+    nameArray = [];
+    //console.log(results)
+
+    //creating two arrays that merge and get put into firebase (updates the existing firebase list of reports)
+    dbRef = db.collection("reports").doc(campBeingReported);
+    updatedReportsArray = [];
+    existingReportsArray = [];
+
+    updatedReportsArray.push(reportTextArea.value);
+
+    //makes sure all this happens AFTER it gets the existing reports, otherwise it stores it before it even gets the data
+    dbRef.get().then(function(doc) {
+      if (doc.exists) {
+        existingReportsArray = doc.data()[reportTarget] || [];
+        //console.log("Field value:", existingReportsArray);
+       
+        for (var i = 0; i < existingReportsArray.length; i++) { 
+          updatedReportsArray.push(existingReportsArray[i]);
+        }
+        
+        //these are the documents in firebase, if the camp has never been reported before then it adds it to the "reports" collection
+        for (let i = 0; i < results.length; i++) {
+          nameArray.push(results[i].name);
+        }
+    
+        if (nameArray.includes(campBeingReported)) {
+          //console.log("YO HERE I AM")
+          db.collection("reports").doc(campBeingReported).update({
+            [reportTarget]: updatedReportsArray,
+          });
+        }
+      } else {
+        db.collection("reports").doc(campBeingReported).set({
+          name: campBeingReported,
+          description: [],
+          link: [],
+          tags: [],
+          comments: [],
+        })
+        .then(function() {
+          //console.log("Document successfully written!");   🤓
+          db.collection("reports").doc(campBeingReported).update({
+            [reportTarget]: updatedReportsArray,
+          })
+        })
+        .catch(function(error) {
+            console.error("Error writing document: ", error);
+        });
+      };
+    });
+  });
+};
+
+
+//handles when the mouse hovers over description element (spawns report button)
+function handleMouseOver(element) {
+  const reportButton = createReportButton(element);
+  if (!element.parentElement.querySelector(".report-button")) {
+    element.parentElement.insertBefore(reportButton, element);
+  };
+};
+
+//handles when the mouse stops hovering over description element (despawns report button)
+function handleMouseOut(event, element) {
+  const reportButton = element.parentElement.querySelector(".report-button");
+  if (reportButton && !reportButton.contains(event.relatedTarget)) {
+    element.parentElement.removeChild(reportButton);
+  }
+};
+
+function setUpReportDatabase() {
+  // add collection for Summer Program 1
+  db.collection("reports").doc("id1").set({
+    name: ["summer program 1", 1],
+    description: ["al;kdjf;lkasjdf", 1],
+    link: ["wiki.nl", 1],
+    tags: ["stem/1", "stem2/1"],
+    comments:["comment1/1", "comment2/1"],
+  })
+  .then(function() {
+    console.log("Document successfully written!");
+  })
+  .catch(function(error) {
+      console.error("Error writing document: ", error);
+  });
+
+}
+
+//setUpReportDatabase() //DO NOT UNCOMMENT THANK YOU VERY MUCHI (if you uncomment cate will hunt you down) (yes that is a threat)
+
 //initial commit to set up firebase
 function setUpFirebaseDatabase() {
   // add collection for Summer Program 1
@@ -469,23 +637,22 @@ function createFromAddContent() {
 
   console.log(children[1].value);
 
-  db.collection("college-counseling-database")
-    .doc(nameOfSummerCamp.value)
-    .set({
-      name: nameOfSummerCamp.value,
-      description: descriptionInput.value,
-      organization: organization.value,
-      link: link.value,
-      tags: [children[1].value, children[2].value, children[3].value],
-      participated: [],
-      comments: [],
-      status: "active",
-    })
-    .then(function () {
-      console.log("Document successfully written!");
-      autoRefresh();
-    })
-    .catch(function (error) {
+  db.collection("college-counseling-database").doc(nameOfSummerCamp.value).set({
+    name: nameOfSummerCamp.value, 
+    description: descriptionInput.value,
+    organization: organization.value, 
+    link: link.value,
+    tags: [children[1].value, children[2].value, children[3].value],
+    participated:[], 
+    comments:[],
+    reports:[],
+    status: "active"
+  })
+  .then(function() {
+    console.log("Document successfully written!");
+    autoRefresh();
+  })
+  .catch(function(error) {
       console.error("Error writing document: ", error);
     });
 
@@ -789,3 +956,5 @@ function deleteParticipant(c) {
     delButtons.removeChild(delButtons.lastElementChild);
   }
 }
+
+//tee hee

@@ -40,6 +40,11 @@ footer {
 
 .modal-header {
     background-color: #1A5D1A;
+    display: inline-flex;
+}
+
+#modal-header {
+    display: inline-flex;
 }
 
 #x-modal-button {
@@ -212,4 +217,25 @@ li {
     display: flex;
     flex-direction: row;
     height: 50%;
+}
+
+#addContentSeeHistoryDiv {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+#historyButton.btn.btn-outline-dark {
+    margin-top: 2rem;
+    margin-right: 0.5rem;
+    display: flex;
+    flex-direction: row;
+    height: 50%;
+}
+
+.btn-sm {
+    min-width: 1.8em;
+    padding: .25em !important;
+    margin-left: .1em;
+    margin-right: .1em;
 }

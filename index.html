@@ -300,6 +300,32 @@
     <button id="historyButton" type="button" class="btn btn-outline-dark" onclick="switchToHistory()">See History</button>
 
     </div>
+    <!-- Report trigger modal -->
+  <!-- Modal -->
+  <div class="modal fade" id="reportModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="reportModalLabel"></h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="form-floating">
+            <textarea class="form-control" placeholder="Describe your report here" id="reportTextArea" style="height: 100px"></textarea>
+            <label for="reportTextArea">Report Description</label>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
+          <button type="button" class="btn btn-outline-danger" onclick="addReport()" data-bs-dismiss="modal">Report</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+    <button id="historyButton" type="button" class="btn btn-outline-dark" onclick="switchToHistory()">See History</button>
+
+    </div>
     <!-- Footer -->
     <footer class="footer">
       <div class="footer-copyright ml-auto py-3">©2023 Pinewood Technology Club</div>
