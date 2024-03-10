@@ -334,6 +334,28 @@ function addComment() {
       comments: existingCommentsArray,
     });
   commentContent.value = "";
+  const date = new Date();
+
+  let day = date.getDate();
+  let month = date.getMonth() + 1;
+  let year = date.getFullYear();
+  console.log(day);
+  db.collection("history")
+    .doc(
+      "comment: " +
+        modalHeader.children[0].textContent +
+        " " +
+        toString(updateCommentSection.length)
+    )
+    .set({
+      action: {
+        type: "add comment",
+        summercamp: modalHeader.children[0].textContent,
+        content: comment.innerHTML,
+      },
+      date: month.toString() + "/" + day.toString() + "/" + year.toString(),
+      user: auth.currentUser.email,
+    });
   //console.log(commentContent.value);
 }
 
@@ -474,7 +496,6 @@ function createFromAddContent() {
   let year = date.getFullYear();
 
   let flag = false;
-  alert("idk");
   db.collection("history")
     .doc("add " + nameOfSummerCamp.value)
     .set({

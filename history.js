@@ -20,8 +20,16 @@ fetchData().then((results) => {
       results[i].user +
       ", Action: " +
       results[i].action.type;
-    if ("summercamp" in results[i].action) {
+    if (results[i].action.type == "add summer program") {
       e.innerHTML += ", Summer camp name: " + results[i].action.summercamp;
+      div.append(e);
+    }
+    if (results[i].action.type == "add comment") {
+      e.innerHTML +=
+        ", Summer camp: " +
+        results[i].action.summercamp +
+        ", Comment content: " +
+        results[i].action.content;
       div.append(e);
     }
   }
