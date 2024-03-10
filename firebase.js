@@ -12,53 +12,56 @@ function getSummerCamps() {
   var dbQuery = dbRef.orderBy("name", "asc");
 
   var dbPromise = dbQuery.get();
-  return dbPromise.then(function(querySnapshot) {
-    var results = [];
-    querySnapshot.forEach(function(doc) {
-      results.push(doc.data());
+  return dbPromise
+    .then(function (querySnapshot) {
+      var results = [];
+      querySnapshot.forEach(function (doc) {
+        results.push(doc.data());
+      });
+      console.log(results);
+      return Promise.all(results);
+    })
+    .catch(function (error) {
+      console.log("error getting documents: ", error);
     });
-    console.log(results)
-    return Promise.all(results);
-  })
-  .catch(function(error) {
-    console.log("error getting documents: ", error);
-  });
 }
 
-function switchToHistory(){
-  window.location.href="./history.html"
+function switchToHistory() {
+  window.location.href = "./history.html";
 }
 //uses results to append into "add-camps" id
-getSummerCamps().then(results => {
-  for (var i = 1; i < results.length; i++){
+getSummerCamps().then((results) => {
+  for (var i = 1; i < results.length; i++) {
     var idx = i;
-    while (idx > 0 && results[idx].participated.length > results[idx-1].participated.length){
-      var temp = results[idx]
-      results[idx] = results[idx-1];
-      results[idx-1] = temp;
+    while (
+      idx > 0 &&
+      results[idx].participated.length > results[idx - 1].participated.length
+    ) {
+      var temp = results[idx];
+      results[idx] = results[idx - 1];
+      results[idx - 1] = temp;
       idx--;
     }
   }
   element = document.getElementById("add-camps");
 
   while (element.hasChildNodes()) {
-    element.firstChild.remove()
-  };
+    element.firstChild.remove();
+  }
 
   for (var i = 0; i < results.length; i++) {
     [element, div1, div2, div3, a, org, part] = formatData(results[i].name);
 
-    //getting data 
-    a.innerHTML = results[i].name; 
+    //getting data
+    a.innerHTML = results[i].name;
     org.innerHTML = results[i].organization;
     part.innerHTML = results[i].participated.length;
 
-    //append HTML 
+    //append HTML
     div1.appendChild(a);
     div2.appendChild(org);
     div3.appendChild(part);
     element.append(div1, div2, div3);
-
   }
 });
 
@@ -78,13 +81,13 @@ function formatData(i) {
 
   a = document.createElement("button"); // creating a for name
   a.setAttribute("id", `${i}`);
-  a.setAttribute("onclick", `content('${i}')`)
+  a.setAttribute("onclick", `content('${i}')`);
   a.classList.add("p-3");
   a.classList.add("btn");
   a.classList.add("btn-outline-success");
   a.classList.add("summerCampButton");
   a.setAttribute("data-bs-toggle", "modal");
-  a.setAttribute("data-bs-target", "#summerCampMoreModal")
+  a.setAttribute("data-bs-target", "#summerCampMoreModal");
 
   org = document.createElement("div"); // creating div for organization name
   org.classList.add("p-3");
@@ -93,17 +96,16 @@ function formatData(i) {
   part.classList.add("p-3");
 
   return [element, div1, div2, div3, a, org, part];
-};
+}
 
 //get, format and export all contentModal content
 function content(id) {
-  getSummerCamps().then(results => {
-
+  getSummerCamps().then((results) => {
     var result = null;
 
-    for (var c = 0; c < results.length; c++){
-      if (results[c].name == id){
-       //getting position for id in firebase results
+    for (var c = 0; c < results.length; c++) {
+      if (results[c].name == id) {
+        //getting position for id in firebase results
         result = results[c];
         break;
       }
@@ -117,7 +119,6 @@ function content(id) {
     AdminParticipantEdit = document.getElementById("AdminParticipantEdit");
     var participantNumber = document.getElementById("participantNumber");
 
-    
     //hiding 'delete participant' div that should only be shown after clicking edit content
     if (AdminParticipantEdit.style.display == "flex") {
       AdminParticipantEdit.style.display = "none";
@@ -128,13 +129,20 @@ function content(id) {
     addGeneralDescription = document.getElementById("addGeneralDescription");
 
     //removing all existing content
-    elementsArray = [modalHeader, addWebLink, addTagsModal, addParticipants, addComments, addGeneralDescription];
+    elementsArray = [
+      modalHeader,
+      addWebLink,
+      addTagsModal,
+      addParticipants,
+      addComments,
+      addGeneralDescription,
+    ];
 
     for (var c = 0; c < elementsArray.length; c++) {
       while (elementsArray[c].hasChildNodes()) {
-        elementsArray[c].firstChild.remove()
-      };
-    };
+        elementsArray[c].firstChild.remove();
+      }
+    }
 
     //creating headaer
     header = document.createElement("h1");
@@ -144,8 +152,12 @@ function content(id) {
     //creating link
     linkContent = document.createElement("a");
     linkContent.setAttribute("href", `${result.link}`);
-    linkContent.classList.add("link-body-emphasis", "link-offset-2", "link-underline-opacity-25", "link-underline-opacity-75-hover");
-
+    linkContent.classList.add(
+      "link-body-emphasis",
+      "link-offset-2",
+      "link-underline-opacity-25",
+      "link-underline-opacity-75-hover"
+    );
 
     //adding badges
     for (var c = 0; c < result.tags.length; c++) {
@@ -154,15 +166,14 @@ function content(id) {
       modalTag.classList.add("bg-success");
       modalTag.classList.add("tagBadge");
       modalTag.setAttribute("id", `tag${c}`);
-      
+
       modalTag.innerHTML = result.tags[c];
 
       addTagsModal.appendChild(modalTag);
-    };
+    }
 
     //adding participants
     for (var c = 0; c < result.participated.length; c++) {
-
       participantOne = document.createElement("p");
       participantTwo = document.createElement("p");
 
@@ -173,11 +184,11 @@ function content(id) {
 
       addParticipants.appendChild(participantOne);
       addParticipants.appendChild(participantTwo);
-    };
+    }
 
-    console.log(result.participated)
-    participantNumber.innerHTML = "Pinewood Participants: " + result.participated.length;
-    
+    console.log(result.participated);
+    participantNumber.innerHTML =
+      "Pinewood Participants: " + result.participated.length;
 
     //adding comments
     for (var c = 0; c < result.comments.length; c++) {
@@ -187,11 +198,11 @@ function content(id) {
       comment.innerHTML = result.comments[c];
 
       addComments.appendChild(comment);
-    };
+    }
 
     //making description element
     genDescription = document.createElement("p");
-    
+
     //adding text content
     header.innerHTML = result.name;
     linkContent.innerHTML = result.link;
@@ -201,27 +212,31 @@ function content(id) {
     modalHeader.appendChild(header);
     addWebLink.appendChild(linkContent);
     addGeneralDescription.appendChild(genDescription);
-
-});
-};
+  });
+}
 
 function getUsers(email) {
   console.log(email);
   var dbRef = db.collection("users");
-  var dbQuery = dbRef.where(firebase.firestore.FieldPath.documentId(), '==', email);
+  var dbQuery = dbRef.where(
+    firebase.firestore.FieldPath.documentId(),
+    "==",
+    email
+  );
 
   var dbPromise = dbQuery.get();
-  return dbPromise.then(function(querySnapshot) {
-    var results = [];
-    querySnapshot.forEach(function(doc) {
-      results.push(doc.data());
+  return dbPromise
+    .then(function (querySnapshot) {
+      var results = [];
+      querySnapshot.forEach(function (doc) {
+        results.push(doc.data());
+      });
+      console.log(results);
+      return Promise.all(results);
+    })
+    .catch(function (error) {
+      console.log("error getting documents: ", error);
     });
-    console.log(results);
-    return Promise.all(results);
-  })
-  .catch(function(error) {
-    console.log("error getting documents: ", error);
-  });
 }
 
 //adding new participants, onClick
@@ -230,7 +245,7 @@ function addParticipant() {
   existingParticipantsArray = [];
 
   //creating array of all current participants w/o new participant
-  for (var i = 0; i < addParticipants.children.length; i++) { 
+  for (var i = 0; i < addParticipants.children.length; i++) {
     existingParticipantsArray.push(addParticipants.children[i].textContent);
   }
 
@@ -251,41 +266,49 @@ function addParticipant() {
 
   modalHeader = document.getElementById("modal-header");
 
-  getUsers(email).then(results => {
+  getUsers(email).then((results) => {
     //adding textContent
     participantName.innerHTML = results[0].name;
     participantGrade.innerHTML = results[0].grade;
 
     //checking if participants is already in list
-    if (existingParticipantsArray.includes(participantName.textContent) == true) { 
+    if (
+      existingParticipantsArray.includes(participantName.textContent) == true
+    ) {
       alert("You've already participated");
-    } else { //participant not yet added -> add them
+    } else {
+      //participant not yet added -> add them
       addParticipants.appendChild(participantName);
-    addParticipants.appendChild(participantGrade);
+      addParticipants.appendChild(participantGrade);
 
-    for (var i = 0; i < addParticipants.children.length; i++) { 
-      updatedParticipantsArray.push(addParticipants.children[i].textContent);
-    }
-  
-    console.log(updatedParticipantsArray);
+      for (var i = 0; i < addParticipants.children.length; i++) {
+        updatedParticipantsArray.push(addParticipants.children[i].textContent);
+      }
 
-    convertArray = [];
+      console.log(updatedParticipantsArray);
 
-    for (var i = 0; i < updatedParticipantsArray.length; i+=2) { 
-      convertArray.push(updatedParticipantsArray[i] + "/" + updatedParticipantsArray[i+1])
-    };
+      convertArray = [];
 
-    console.log(convertArray);
+      for (var i = 0; i < updatedParticipantsArray.length; i += 2) {
+        convertArray.push(
+          updatedParticipantsArray[i] + "/" + updatedParticipantsArray[i + 1]
+        );
+      }
 
-    var participantNumber = document.getElementById("participantNumber");
-    participantNumber.innerHTML = "Pinewood Participants: " + updatedParticipantsArray.length/2;
+      console.log(convertArray);
 
-    db.collection("college-counseling-database").doc(modalHeader.children[0].textContent).update({
-      participated: convertArray
-    });
+      var participantNumber = document.getElementById("participantNumber");
+      participantNumber.innerHTML =
+        "Pinewood Participants: " + updatedParticipantsArray.length / 2;
+
+      db.collection("college-counseling-database")
+        .doc(modalHeader.children[0].textContent)
+        .update({
+          participated: convertArray,
+        });
     }
   });
-};
+}
 
 //adding a comment
 function addComment() {
@@ -299,93 +322,104 @@ function addComment() {
   existingCommentsArray = [];
   updateCommentSection.appendChild(comment);
 
-  for (var i = 0; i < updateCommentSection.children.length; i++) { 
+  for (var i = 0; i < updateCommentSection.children.length; i++) {
     existingCommentsArray.push(updateCommentSection.children[i].textContent);
   }
 
   console.log(modalHeader.children[0].textContent);
 
-  db.collection("college-counseling-database").doc(modalHeader.children[0].textContent).update({
-    comments: existingCommentsArray
-  });
+  db.collection("college-counseling-database")
+    .doc(modalHeader.children[0].textContent)
+    .update({
+      comments: existingCommentsArray,
+    });
   commentContent.value = "";
   //console.log(commentContent.value);
-};
+}
 
 //initial commit to set up firebase
 function setUpFirebaseDatabase() {
   // add collection for Summer Program 1
-  db.collection("college-counseling-database").doc("id1").set({
-    name: "summer program 1", 
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec posuere odio est, at aliquet sapien malesuada id. Sed rutrum, nulla luctus vulputate aliquam, neque orci aliquet ante, vel commodo erat orci non eros. Mauris sit amet sodales massa. Donec eu volutpat tellus, sit amet pulvinar nisi. Aenean nec orci eros. Nam tempor sapien in lorem gravida pretium. Nulla quis lorem suscipit ante lacinia varius. Curabitur purus ex, sodales et posuere a, tincidunt in turpis.",
-    organization:"Pinewood", 
-    link: "wiki.nl",
-    tags: ["stem", "stem2", "california"],
-    participated:["Micky/Sophomore", "Mini/Senior"], 
-    comments:["comment1", "comment2"],
-    status: "active"
-  })
-  .then(function() {
-    console.log("Document successfully written!");
-  })
-  .catch(function(error) {
+  db.collection("college-counseling-database")
+    .doc("id1")
+    .set({
+      name: "summer program 1",
+      description:
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec posuere odio est, at aliquet sapien malesuada id. Sed rutrum, nulla luctus vulputate aliquam, neque orci aliquet ante, vel commodo erat orci non eros. Mauris sit amet sodales massa. Donec eu volutpat tellus, sit amet pulvinar nisi. Aenean nec orci eros. Nam tempor sapien in lorem gravida pretium. Nulla quis lorem suscipit ante lacinia varius. Curabitur purus ex, sodales et posuere a, tincidunt in turpis.",
+      organization: "Pinewood",
+      link: "wiki.nl",
+      tags: ["stem", "stem2", "california"],
+      participated: ["Micky/Sophomore", "Mini/Senior"],
+      comments: ["comment1", "comment2"],
+      status: "active",
+    })
+    .then(function () {
+      console.log("Document successfully written!");
+    })
+    .catch(function (error) {
       console.error("Error writing document: ", error);
-  });
+    });
   // add collection for summer program 2
-  db.collection("college-counseling-database").doc("id2").set({
-    name: "summer program 2", 
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam sagittis sapien a euismod finibus. Duis consectetur fermentum libero vitae bibendum. Cras condimentum pretium elementum. Mauris non dictum sem, eget rutrum lacus. Fusce hendrerit blandit tristique. Morbi nec sem vel metus imperdiet tincidunt vel non mi. Sed lorem felis, tempus sit amet pretium vel, cursus sit amet ex.",
-    organization:"Pinewood", 
-    link: "wiki.nl",
-    tags: ["language", "fun", "california"],
-    participated:["Jane/Junior", "Doe/Senior"], 
-    comments:["comment1", "comment2"],
-    status: "active"
-  })
-  .then(function() {
-    console.log("Document successfully written!");
-  })
-  .catch(function(error) {
+  db.collection("college-counseling-database")
+    .doc("id2")
+    .set({
+      name: "summer program 2",
+      description:
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam sagittis sapien a euismod finibus. Duis consectetur fermentum libero vitae bibendum. Cras condimentum pretium elementum. Mauris non dictum sem, eget rutrum lacus. Fusce hendrerit blandit tristique. Morbi nec sem vel metus imperdiet tincidunt vel non mi. Sed lorem felis, tempus sit amet pretium vel, cursus sit amet ex.",
+      organization: "Pinewood",
+      link: "wiki.nl",
+      tags: ["language", "fun", "california"],
+      participated: ["Jane/Junior", "Doe/Senior"],
+      comments: ["comment1", "comment2"],
+      status: "active",
+    })
+    .then(function () {
+      console.log("Document successfully written!");
+    })
+    .catch(function (error) {
       console.error("Error writing document: ", error);
-  });
+    });
 }
 
 function showTag(tag) {
-  getSummerCamps().then(results => {
-    console.log("in")
-      element = document.getElementById("add-camps");
+  getSummerCamps().then((results) => {
+    console.log("in");
+    element = document.getElementById("add-camps");
 
     while (element.hasChildNodes()) {
-      element.firstChild.remove()
-    };
+      element.firstChild.remove();
+    }
     //simple insertion sort (ik built-in sort is faster but im too lazy to write custom comparator function so cry abt it)
-    for (var i = 1; i < results.length; i++){
+    for (var i = 1; i < results.length; i++) {
       var idx = i;
-      while (idx > 0 && results[idx].participated.length > results[idx-1].participated.length){
-        var temp = results[idx]
-        results[idx] = results[idx-1];
-        results[idx-1] = temp;
+      while (
+        idx > 0 &&
+        results[idx].participated.length > results[idx - 1].participated.length
+      ) {
+        var temp = results[idx];
+        results[idx] = results[idx - 1];
+        results[idx - 1] = temp;
         idx--;
       }
     }
     for (var i = 0; i < results.length; i++) {
       var flag = false;
-      for (var j = 0; j < results[i].tags.length; j++){
-        if (results[i].tags[j].toLowerCase() == tag.toLowerCase()){
+      for (var j = 0; j < results[i].tags.length; j++) {
+        if (results[i].tags[j].toLowerCase() == tag.toLowerCase()) {
           flag = true;
         }
       }
-      if (tag != "" && !flag){
+      if (tag != "" && !flag) {
         continue;
       }
-      [element, div1, div2, div3, a, org, part] = formatData(results[i].name)
+      [element, div1, div2, div3, a, org, part] = formatData(results[i].name);
 
-      //getting data 
-      a.innerHTML = results[i].name; 
+      //getting data
+      a.innerHTML = results[i].name;
       org.innerHTML = results[i].organization;
       part.innerHTML = results[i].participated.length;
-  
-      //append HTML 
+
+      //append HTML
       div1.appendChild(a);
       div2.appendChild(org);
       div3.appendChild(part);
@@ -394,9 +428,9 @@ function showTag(tag) {
   });
 }
 let submitButton = document.getElementById("submitNewContent");
-submitButton.onclick = function() {
+submitButton.onclick = function () {
   createFromAddContent();
-}
+};
 
 function autoRefresh() {
   window.location = window.location.href;
@@ -413,23 +447,25 @@ function createFromAddContent() {
 
   console.log(children[1].value);
 
-  db.collection("college-counseling-database").doc(nameOfSummerCamp.value).set({
-    name: nameOfSummerCamp.value, 
-    description: descriptionInput.value,
-    organization: organization.value, 
-    link: link.value,
-    tags: [children[1].value, children[2].value, children[3].value],
-    participated:[], 
-    comments:[],
-    status: "active"
-  })
-  .then(function() {
-    console.log("Document successfully written!");
-    autoRefresh();
-  })
-  .catch(function(error) {
+  db.collection("college-counseling-database")
+    .doc(nameOfSummerCamp.value)
+    .set({
+      name: nameOfSummerCamp.value,
+      description: descriptionInput.value,
+      organization: organization.value,
+      link: link.value,
+      tags: [children[1].value, children[2].value, children[3].value],
+      participated: [],
+      comments: [],
+      status: "active",
+    })
+    .then(function () {
+      console.log("Document successfully written!");
+      autoRefresh();
+    })
+    .catch(function (error) {
       console.error("Error writing document: ", error);
-  });
+    });
 
   const date = new Date();
 
@@ -438,103 +474,111 @@ function createFromAddContent() {
   let year = date.getFullYear();
 
   let flag = false;
-  alert("idk")
-  db.collection("history").doc("add " + nameOfSummerCamp.value).set({
-    action: {type: "add summer program"},
-    date: month.toString() + "/" + day.toString() + "/" + year.toString(),
-    user: auth.currentUser.email
-  })
-  .then(function() {
-    console.log("Document successfully written!");
-  })
-  .catch(function(error) {
+  alert("idk");
+  db.collection("history")
+    .doc("add " + nameOfSummerCamp.value)
+    .set({
+      action: {
+        type: "add summer program",
+        summercamp: nameOfSummerCamp.value,
+      },
+      date: month.toString() + "/" + day.toString() + "/" + year.toString(),
+      user: auth.currentUser.email,
+    })
+    .then(function () {
+      console.log("Document successfully written!");
+    })
+    .catch(function (error) {
       console.error("Error writing document: ", error);
-  })
-  alert("test2")
-  if (flag){
-    alert("fsaiofashfasjlhkafsjhkafksjh");
-  }
-  else{
-    alert("shfsakjhsfahjka");
-  }
-  littleArrayTeeHee = [nameOfSummerCamp, organization, link, tagDiv, children[1], children[2], children[3], descriptionInput];
+    });
+  littleArrayTeeHee = [
+    nameOfSummerCamp,
+    organization,
+    link,
+    tagDiv,
+    children[1],
+    children[2],
+    children[3],
+    descriptionInput,
+  ];
 
   for (var i = 0; i < littleArrayTeeHee.length; i++) {
-    littleArrayTeeHee[i].value = ""
+    littleArrayTeeHee[i].value = "";
   }
 }
-
 
 var out = ""; // Global variable used to update tag calculated in promise (mostUsedTagsPromise(val))
 function mostUsedTagsPromise(val) {
   // Create a map with key being tag and value being the count of results with tag
-  return getSummerCamps().then(results => {
+  return getSummerCamps()
+    .then((results) => {
+      console.log("Check results", results.length);
 
-    console.log("Check results", results.length)
+      let tagCounts = {}; // Dictionary to keep tags and counts in results. eg. key = "academic", value = 6 if academic appears 6 times in results
+      for (var i = 0; i < results.length; i++) {
+        for (var j = 0; j < results[i].tags.length; j++) {
+          var tag = results[i].tags[j].toLowerCase();
+          firstLetter = tag.charAt(0);
+          firstLetter = firstLetter.toUpperCase();
+          remainingLetters = tag.substring(1);
+          tag = firstLetter + remainingLetters;
 
-    let tagCounts = {};  // Dictionary to keep tags and counts in results. eg. key = "academic", value = 6 if academic appears 6 times in results 
-    for (var i = 0; i < results.length; i++) {
-      for (var j = 0; j < results[i].tags.length; j++){
-        var tag = results[i].tags[j].toLowerCase()
-        firstLetter = tag.charAt(0)
-        firstLetter = firstLetter.toUpperCase()
-        remainingLetters = tag.substring(1)
-        tag = firstLetter + remainingLetters
-
-    
-        // increase count for tag in tagCounts because results[i] includes this tag or set it to 1 if it is not in tagCounts
-        if (tag in tagCounts) {
-          tagCounts[tag] = tagCounts[tag] + 1;
-        }  else  {
-          tagCounts[tag] = 1;
-        }       
+          // increase count for tag in tagCounts because results[i] includes this tag or set it to 1 if it is not in tagCounts
+          if (tag in tagCounts) {
+            tagCounts[tag] = tagCounts[tag] + 1;
+          } else {
+            tagCounts[tag] = 1;
+          }
+        }
       }
-    }
 
-    // Create an array from the map to sort by value  eg. [['academic', 4], ['fun', 6]]
-    var items = Object.keys(tagCounts).map(function(key) {
-      return [key, tagCounts[key]];
+      // Create an array from the map to sort by value  eg. [['academic', 4], ['fun', 6]]
+      var items = Object.keys(tagCounts).map(function (key) {
+        return [key, tagCounts[key]];
+      });
+
+      // Sort the array based on the second element
+      items.sort(function (first, second) {
+        return second[1] - first[1];
+      });
+
+      // Set the text in the buttons sorted by tag (fixed 6 buttons at most)
+      if (items.length > 0) {
+        document.getElementById("button-tag1").innerText = items[0][0];
+      } else {
+        document.getElementById("button-tag1").innerText = "";
+      }
+      if (items.length > 1) {
+        document.getElementById("button-tag2").innerText = items[1][0];
+      } else {
+        document.getElementById("button-tag2").innerText = "";
+      }
+      if (items.length > 2) {
+        document.getElementById("button-tag3").innerText = items[2][0];
+      } else {
+        document.getElementById("button-tag3").innerText = "";
+      }
+
+      if (items.length > 3) {
+        document.getElementById("drop-button-tag1").innerText = items[3][0];
+      } else {
+        document.getElementById("drop-button-tag1").innerText = "";
+      }
+      if (items.length > 4) {
+        document.getElementById("drop-button-tag2").innerText = items[4][0];
+      } else {
+        document.getElementById("drop-button-tag2").innerText = "";
+      }
+      if (items.length > 5) {
+        document.getElementById("drop-button-tag3").innerText = items[5][0];
+      } else {
+        document.getElementById("drop-button-tag3").innerText = "";
+      }
+      return Promise.resolve(items[val][0]);
+    })
+    .then((res) => {
+      out = res;
     });
-
-    // Sort the array based on the second element
-    items.sort(function(first, second) {
-      return second[1] - first[1];
-    });
-
-    // Set the text in the buttons sorted by tag (fixed 6 buttons at most)
-    if (items.length > 0) {
-      document.getElementById('button-tag1').innerText = items[0][0];
-    } else {
-      document.getElementById('button-tag1').innerText = "";
-    }
-    if (items.length > 1) {
-      document.getElementById('button-tag2').innerText = items[1][0];
-    }  else {
-      document.getElementById('button-tag2').innerText = "";
-    }
-    if (items.length > 2) {
-      document.getElementById('button-tag3').innerText = items[2][0];
-    }  else {
-      document.getElementById('button-tag3').innerText = "";
-    }
-
-    if (items.length > 3) {
-      document.getElementById('drop-button-tag1').innerText = items[3][0];
-    } else {
-      document.getElementById('drop-button-tag1').innerText = "";
-    }
-    if (items.length > 4) {
-      document.getElementById('drop-button-tag2').innerText = items[4][0];
-    }  else {
-      document.getElementById('drop-button-tag2').innerText = "";
-    }
-    if (items.length > 5) {
-      document.getElementById('drop-button-tag3').innerText = items[5][0];
-    }  else {
-      document.getElementById('drop-button-tag3').innerText = "";
-    }
-    return Promise.resolve(items[val][0]);
-  }).then(res => {out = res;});
 }
 
 async function mostUsedTags(val) {
@@ -543,7 +587,6 @@ async function mostUsedTags(val) {
 }
 
 function adminEdit() {
-
   console.log("admin is editing");
   addGeneralDescription = document.getElementById("addGeneralDescription");
   addWebLink = document.getElementById("addWebLink");
@@ -558,9 +601,9 @@ function adminEdit() {
   rowContainer = document.getElementById("rowContainer");
   console.log(rowContainer);
   if (rowContainer != null) {
-    rowContainer.remove()
+    rowContainer.remove();
   } else {
-    console.log("rowContainer not found")
+    console.log("rowContainer not found");
   }
 
   AdminParticipantEdit.style.display = "flex";
@@ -568,13 +611,26 @@ function adminEdit() {
 
   console.log(tagOne);
 
-  tagOne.innerHTML = '<input class="form-control form-control-sm" value='+ tagOne.innerText+'>';
-  tagTwo.innerHTML = '<input class="form-control form-control-sm" value='+ tagTwo.innerText+'>';
-  tagThree.innerHTML = '<input class="form-control form-control-sm" value='+ tagThree.innerText+'>';
-  
-  addGeneralDescription.innerHTML = '<textarea class="form-control" id="floatingTextarea">'+addGeneralDescription.innerText + '</textarea>';
-  addWebLink.innerHTML = '<input class="form-control" value='+addWebLink.innerText+'>';
-  
+  tagOne.innerHTML =
+    '<input class="form-control form-control-sm" value=' +
+    tagOne.innerText +
+    ">";
+  tagTwo.innerHTML =
+    '<input class="form-control form-control-sm" value=' +
+    tagTwo.innerText +
+    ">";
+  tagThree.innerHTML =
+    '<input class="form-control form-control-sm" value=' +
+    tagThree.innerText +
+    ">";
+
+  addGeneralDescription.innerHTML =
+    '<textarea class="form-control" id="floatingTextarea">' +
+    addGeneralDescription.innerText +
+    "</textarea>";
+  addWebLink.innerHTML =
+    '<input class="form-control" value=' + addWebLink.innerText + ">";
+
   rowContainer = document.createElement("div");
   rowContainer.classList.add("container");
   rowContainer.setAttribute("id", "rowContainer");
@@ -583,7 +639,7 @@ function adminEdit() {
   rowContainer.classList.add("contentModal");
   rowContainer.classList.add("contentContainer");
 
-  console.log(currentParticipants.children.length/2);
+  console.log(currentParticipants.children.length / 2);
 
   console.log("editing children");
   rowDiv = document.createElement("div");
@@ -594,20 +650,19 @@ function adminEdit() {
 
   console.log(rowDiv);
 
-      for (var i = 0; i < (currentParticipants.children.length/2); i++) { 
-        
-        empty = document.createElement("p");
-        rowContent = document.createElement("button");
+  for (var i = 0; i < currentParticipants.children.length / 2; i++) {
+    empty = document.createElement("p");
+    rowContent = document.createElement("button");
 
-        rowContent.classList.add("btn-close");
-        //rowContent.classList.add("g-3");
-        rowContent.setAttribute("aria-label", "Close");
-        rowContent.setAttribute("type", "button");
-        rowContent.setAttribute("onClick", `deleteParticipant(${i})`);
+    rowContent.classList.add("btn-close");
+    //rowContent.classList.add("g-3");
+    rowContent.setAttribute("aria-label", "Close");
+    rowContent.setAttribute("type", "button");
+    rowContent.setAttribute("onClick", `deleteParticipant(${i})`);
 
-        rowDiv.appendChild(empty);
-        empty.appendChild(rowContent);
-      }
+    rowDiv.appendChild(empty);
+    empty.appendChild(rowContent);
+  }
   // }
   rowContainer.appendChild(rowDiv);
   AdminParticipantEdit.appendChild(rowContainer);
@@ -615,9 +670,12 @@ function adminEdit() {
   // console.log(rowDiv.children.length);
   // console.log(rowDiv);
 
-  for (var c = 0; c < (commentSection.length); c++) {
+  for (var c = 0; c < commentSection.length; c++) {
     //console.log(commentSection[c].innerText);
-    commentSection[c].innerHTML = '<textarea class="form-control" id="floatingTextarea">'+commentSection[c].innerText + '</textarea>';
+    commentSection[c].innerHTML =
+      '<textarea class="form-control" id="floatingTextarea">' +
+      commentSection[c].innerText +
+      "</textarea>";
   }
 
   if (document.getElementById("doneButton") == null) {
@@ -626,7 +684,7 @@ function adminEdit() {
     doneButton.classList.add("btn-outline-success");
     doneButton.setAttribute("onClick", "exitEdit()");
     doneButton.setAttribute("id", "doneButton");
-    doneButton.setAttribute("data-bs-dismiss","modal");
+    doneButton.setAttribute("data-bs-dismiss", "modal");
     doneButton.innerHTML = "Save Editing";
 
     modalFooter.appendChild(doneButton);
@@ -634,9 +692,7 @@ function adminEdit() {
     doneButton = document.getElementById("doneButton");
     doneButton.style.display = "flex";
   }
-
-  
-};
+}
 
 function buttonChange() {
   editContent = document.getElementById("editContent");
@@ -660,50 +716,55 @@ function exitEdit() {
   existingTagsArray = [];
   existingParticipantsArray = [];
 
-  for (var i = 0; i < updateCommentSection.children.length; i++) { 
+  for (var i = 0; i < updateCommentSection.children.length; i++) {
     if (updateCommentSection.children[i].children[0].value != "") {
-        existingCommentsArray.push(updateCommentSection.children[i].children[0].value);
-      }
-    };
+      existingCommentsArray.push(
+        updateCommentSection.children[i].children[0].value
+      );
+    }
+  }
 
-  for (var i = 0; i < tags.children.length; i++) { 
-     existingTagsArray.push(tags.children[i].children[0].value);
-  };
+  for (var i = 0; i < tags.children.length; i++) {
+    existingTagsArray.push(tags.children[i].children[0].value);
+  }
 
-  for (var i = 0; i < participants.children.length; i += 2) { 
-    existingParticipantsArray.push(participants.children[i].innerHTML + "/" + participants.children[i+1].innerHTML);
- };
+  for (var i = 0; i < participants.children.length; i += 2) {
+    existingParticipantsArray.push(
+      participants.children[i].innerHTML +
+        "/" +
+        participants.children[i + 1].innerHTML
+    );
+  }
 
- console.log(existingCommentsArray);
- console.log(existingTagsArray); 
- console.log("PARTICIPANTS:", existingParticipantsArray); 
+  console.log(existingCommentsArray);
+  console.log(existingTagsArray);
+  console.log("PARTICIPANTS:", existingParticipantsArray);
 
   db.collection("college-counseling-database").doc(campName).update({
     description: addGeneralDescription.children[0].value,
     tags: existingTagsArray,
-    comments: existingCommentsArray, 
+    comments: existingCommentsArray,
     participated: existingParticipantsArray,
-    link: webValue
+    link: webValue,
   });
 
   buttonChange();
 
   content(campName);
-
-};
+}
 
 function deleteParticipant(c) {
   // Remove name and grade from table
   participants = document.getElementById("addParticipants");
   if (participants.hasChildNodes()) {
-    participants.removeChild(participants.children[c*2+1]); // remove grade
-    participants.removeChild(participants.children[c*2]);   // remove name
+    participants.removeChild(participants.children[c * 2 + 1]); // remove grade
+    participants.removeChild(participants.children[c * 2]); // remove name
   }
 
   // Remove last button from "remove button array"
   delContainer = document.getElementById("rowContainer");
   if (delContainer.hasChildNodes()) {
-    delButtons = delContainer.children[0] 
+    delButtons = delContainer.children[0];
     delButtons.removeChild(delButtons.lastElementChild);
   }
 }
