@@ -184,9 +184,6 @@ function content(id) {
       modalTag = document.createElement("p");
       modalTag.classList.add("badge");
       modalTag.classList.add("bg-success");
-      modalTag.setAttribute("id", "tag " + (c + 1));
-      modalTag.setAttribute("onmouseover", "handleMouseOver(this)");
-      modalTag.setAttribute("onmouseout", "handleMouseOut(event, this)");
       modalTag.classList.add("tagBadge");
       modalTag.setAttribute("id", `tag${c}`);
 
@@ -430,9 +427,10 @@ function createReportButton(target) {
 function addReport() {
   campBeingReported = document.getElementById("camp name").innerHTML;
   reportTextArea = document.getElementById("reportTextArea");
+  reportDesc = reportTextArea.value
 
   if (reportTarget == "comments"){
-    reportTextArea.value = ("comment" + commentNumber + " / " + reportTextArea.value)
+    reportDesc = ("comment" + commentNumber + " / " + reportDesc)
   }
 
   //A BUNCH OF FIREBASE STUFF
@@ -445,7 +443,7 @@ function addReport() {
     updatedReportsArray = [];
     existingReportsArray = [];
 
-    updatedReportsArray.push(reportTextArea.value);
+    updatedReportsArray.push(reportDesc);
 
     //makes sure all this happens AFTER it gets the existing reports, otherwise it stores it before it even gets the data
     dbRef.get().then(function(doc) {
@@ -467,6 +465,7 @@ function addReport() {
           db.collection("reports").doc(campBeingReported).update({
             [reportTarget]: updatedReportsArray,
           });
+          alert(reportTarget + " reported!");
         }
       } else {
         db.collection("reports").doc(campBeingReported).set({
@@ -481,6 +480,7 @@ function addReport() {
           db.collection("reports").doc(campBeingReported).update({
             [reportTarget]: updatedReportsArray,
           })
+          alert(reportTarget + "reported!");
         })
         .catch(function(error) {
             console.error("Error writing document: ", error);
