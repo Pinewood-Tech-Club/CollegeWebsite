@@ -465,7 +465,7 @@ function addReport() {
           db.collection("reports").doc(campBeingReported).update({
             [reportTarget]: updatedReportsArray,
           });
-          alert(reportTarget + " reported!");
+          alert("Reported!");
         }
       } else {
         db.collection("reports").doc(campBeingReported).set({
@@ -480,7 +480,7 @@ function addReport() {
           db.collection("reports").doc(campBeingReported).update({
             [reportTarget]: updatedReportsArray,
           })
-          alert(reportTarget + "reported!");
+          alert("Reported!");
         })
         .catch(function(error) {
             console.error("Error writing document: ", error);
@@ -494,7 +494,7 @@ function addReport() {
 //handles when the mouse hovers over description element (spawns report button)
 function handleMouseOver(element) {
   const reportButton = createReportButton(element);
-  if (!element.parentElement.querySelector(".report-button")) {
+  if (!element.parentElement.querySelector(".report-button") && editing == false) {
     element.parentElement.insertBefore(reportButton, element);
   };
 };
@@ -774,8 +774,10 @@ async function mostUsedTags(val) {
   console.log("Out, ", out);
 }
 
+var editing = false
 function adminEdit() {
   console.log("admin is editing");
+  editing = true
   addGeneralDescription = document.getElementById("addGeneralDescription");
   addWebLink = document.getElementById("addWebLink");
   AdminParticipantEdit = document.getElementById("AdminParticipantEdit");
@@ -891,6 +893,7 @@ function buttonChange() {
 }
 
 function exitEdit() {
+  editing = false
   addGeneralDescription = document.getElementById("addGeneralDescription");
   updateCommentSection = document.getElementById("addComments");
   tags = document.getElementById("addTagsModal");
