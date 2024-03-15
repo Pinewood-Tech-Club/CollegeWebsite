@@ -7,6 +7,8 @@ function setPermissions(email) {
     var fullNameAndGrade = document.getElementById("FullNameAndGrade");
     var participantsList = document.getElementById("participantsList");
     var participantNumber = document.getElementById("participantNumber");
+    var report = document.getElementById("report");
+    var history = document.getElementById("history");
 
     db.collection("users").doc(email).get().then(doc => {
         if (doc.exists) {
@@ -23,6 +25,8 @@ function setPermissions(email) {
                     editContentButton.style.display = "none";
                     commentButton.style.display = "none";
                     participationButton.style.display = "none";
+                    report.style.display = "none";
+                    history.style.display = "none";
                     break;
                 case "content creator":
                     fullNameAndGrade.style.display = "none";
@@ -32,6 +36,8 @@ function setPermissions(email) {
                     commentButton.style.display = "flex";
                     participationButton.style.display = "flex";
                     accordion.style.display = "flex";
+                    report.style.display = "none";
+                    history.style.display = "none";
                     break;
                 case "admin":
                     fullNameAndGrade.style.display = "flex";
@@ -41,6 +47,9 @@ function setPermissions(email) {
                     commentButton.style.display = "none";
                     participationButton.style.display = "none";
                     accordion.style.display = "flex";
+                    report.style.display = "flex";
+                    history.style.display = "flex";
+
                 default:
                     break;
             }

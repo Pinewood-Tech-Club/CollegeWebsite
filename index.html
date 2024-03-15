@@ -257,7 +257,6 @@
       </div>
     </div>
 
-    <div id="addContentSeeHistoryDiv">
 
     <!-- Sticky Bottom Add Content Accordion -->
     <div class="sticky-bottom contentContainer accordionContainer" id="mainAccordion">
@@ -297,9 +296,6 @@
       </div>
     </div>
 
-    <button id="historyButton" type="button" class="btn btn-outline-dark" onclick="switchToHistory()">See History</button>
-
-    </div>
     <!-- Report trigger modal -->
   <!-- Modal -->
   <div class="modal fade" id="reportModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -323,10 +319,17 @@
     </div>
   </div>
 
-    </div>
-    <!-- Footer -->
-    <footer class="footer">
-      <div class="footer-copyright ml-auto py-3">©2023 Pinewood Technology Club</div>
+    <footer id="footerButtonDiv" class="footer sticky-bottom">
+      <!-- <div > -->
+        <div id="copyrightFooter" class=" py-3">©2023 Pinewood Technology Club</div>
+
+        <div id="bottomButtons">
+            <button id="report" type="button" class="historyButtons btn btn-outline-warning">See Reports</button>
+            <button id="history" type="button" class="historyButtons btn btn-outline-warning" onclick="switchToHistory()">See History</button>
+        </div>
+      <!-- </div> -->
+      
+      
     </footer>
 
     <!-- Link to Firebase -->

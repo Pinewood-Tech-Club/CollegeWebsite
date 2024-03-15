@@ -14,21 +14,21 @@ fetchData().then((results) => {
   for (var i = 0; i < results.length; i++) {
     e = document.createElement("p");
     e.innerHTML =
-      "Date: " +
+      "<strong> Date: </strong> " +
       results[i].date +
-      ", User: " +
+      ", <strong> User:  </strong>" +
       results[i].user +
-      ", Action: " +
+      ", <strong> Action: </strong> " +
       results[i].action.type;
     if (results[i].action.type == "add summer program") {
-      e.innerHTML += ", Summer camp name: " + results[i].action.summercamp;
+      e.innerHTML += ", <strong> Summer camp name: </strong> " + results[i].action.summercamp;
       div.append(e);
     }
     if (results[i].action.type == "add comment") {
       e.innerHTML +=
-        ", Summer camp: " +
+        ", <strong> Summer camp: </strong>" +
         results[i].action.summercamp +
-        ", Comment content: " +
+        ", <strong> Comment content: </strong>" +
         results[i].action.content;
       div.append(e);
     }
