@@ -5,3 +5,9 @@
     font-size: 2.0rem;
     margin: 1.0rem;
 }
+
+#homeButton {
+    font-weight: bold;
+    color: #1A5D1A;
+    background-color: #fbab1a;
+}

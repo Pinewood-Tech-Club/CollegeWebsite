@@ -110,6 +110,8 @@ li {
 #accordionExample {
     display: flex;
     width: 100% !important;
+    position: relative;
+    bottom: 10px;
     }
 
 #mainAccordion {
@@ -117,7 +119,7 @@ li {
 }
 
 #addContentButton {
-    margin: 2rem .5rem;
+    margin: 3rem .5rem;
 }
 
 #submitNewContent {

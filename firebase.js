@@ -47,6 +47,11 @@ function getReports() {
 function switchToHistory() {
   window.location.href = "./history.html";
 }
+
+function switchToReports() {
+  window.location.href = "./report.html";
+}
+
 //uses results to append into "add-camps" id
 getSummerCamps().then((results) => {
   for (var i = 1; i < results.length; i++) {
@@ -336,6 +341,16 @@ function addParticipant() {
   });
 }
 
+function getDate() {
+  const date = new Date();
+
+  let day = date.getDate();
+  let month = date.getMonth() + 1;
+  let year = date.getFullYear();
+
+  return [day, month, year]
+}
+
 //adding a comment
 function addComment() {
   commentContent = document.getElementById("inputComment");
@@ -360,11 +375,9 @@ function addComment() {
       comments: existingCommentsArray,
     });
   commentContent.value = "";
-  const date = new Date();
+  
+  [day, month, year] = getDate();
 
-  let day = date.getDate();
-  let month = date.getMonth() + 1;
-  let year = date.getFullYear();
   console.log(day);
   db.collection("history")
     .doc(
@@ -430,11 +443,15 @@ function addReport() {
   reportDesc = reportTextArea.value
 
   if (reportTarget == "comments"){
-    reportDesc = ("comment" + commentNumber + " / " + reportDesc)
+    reportDesc = ("comment" + commentNumber + "-" + reportDesc)
   }
+
+
 
   //A BUNCH OF FIREBASE STUFF
   getReports().then(results => { 
+    [day, month, year] = getDate();
+
     nameArray = [];
     //console.log(results)
 
@@ -443,7 +460,11 @@ function addReport() {
     updatedReportsArray = [];
     existingReportsArray = [];
 
-    updatedReportsArray.push(reportDesc);
+    date = month +"/"+ day +"/"+ year
+
+    fullReport = reportDesc +"-"+ date
+
+    updatedReportsArray.push(fullReport);
 
     //makes sure all this happens AFTER it gets the existing reports, otherwise it stores it before it even gets the data
     dbRef.get().then(function(doc) {
@@ -461,7 +482,6 @@ function addReport() {
         }
     
         if (nameArray.includes(campBeingReported)) {
-          //console.log("YO HERE I AM")
           db.collection("reports").doc(campBeingReported).update({
             [reportTarget]: updatedReportsArray,
           });
@@ -656,11 +676,7 @@ function createFromAddContent() {
       console.error("Error writing document: ", error);
     });
 
-  const date = new Date();
-
-  let day = date.getDate();
-  let month = date.getMonth() + 1;
-  let year = date.getFullYear();
+  [day, month, year] = getDate();
 
   let flag = false;
   db.collection("history")
@@ -960,4 +976,6 @@ function deleteParticipant(c) {
   }
 }
 
-//tee hee
+function switchToHome() {
+  window.location.href = "./index.html";
+}
