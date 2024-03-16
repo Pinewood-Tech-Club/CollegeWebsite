@@ -976,6 +976,4 @@ function deleteParticipant(c) {
   }
 }
 
-function switchToHome() {
-  window.location.href = "./index.html";
-}
+//tee hee

@@ -98,29 +98,6 @@ async function fetchData() {
             } 
         }
     }
-
-    
-
-
-    //   e.innerHTML =
-    //     "<strong> Date: </strong> " +
-    //     results[i].date +
-    //     ", <strong> User:  </strong>" +
-    //     results[i].user +
-    //     ", <strong> Action: </strong> " +
-    //     results[i].action.type;
-    //   if (results[i].action.type == "add summer program") {
-    //     e.innerHTML += ", <strong> Summer camp name: </strong> " + results[i].action.summercamp;
-    //     addReports.append(e);
-    //   }
-    //   if (results[i].action.type == "add comment") {
-    //     e.innerHTML +=
-    //       ", <strong> Summer camp: </strong>" +
-    //       results[i].action.summercamp +
-    //       ", <strong> Comment content: </strong>" +
-    //       results[i].action.content;
-    //     addReports.append(e);
-    //   }
     }
   });
   
