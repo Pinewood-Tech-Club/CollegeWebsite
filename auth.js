@@ -9,6 +9,7 @@ function setPermissions(email) {
     var participantNumber = document.getElementById("participantNumber");
     var report = document.getElementById("report");
     var history = document.getElementById("history");
+    var bottomButtons = document.getElementById("bottomButtons");
 
     db.collection("users").doc(email).get().then(doc => {
         if (doc.exists) {
@@ -25,8 +26,7 @@ function setPermissions(email) {
                     editContentButton.style.display = "none";
                     commentButton.style.display = "none";
                     participationButton.style.display = "none";
-                    report.style.display = "none";
-                    history.style.display = "none";
+                    bottomButtons.style.display = "none";
                     break;
                 case "content creator":
                     fullNameAndGrade.style.display = "none";
@@ -36,8 +36,7 @@ function setPermissions(email) {
                     commentButton.style.display = "flex";
                     participationButton.style.display = "flex";
                     accordion.style.display = "flex";
-                    report.style.display = "none";
-                    history.style.display = "none";
+                    bottomButtons.style.display = "none";
                     break;
                 case "admin":
                     fullNameAndGrade.style.display = "flex";
@@ -47,8 +46,7 @@ function setPermissions(email) {
                     commentButton.style.display = "none";
                     participationButton.style.display = "none";
                     accordion.style.display = "flex";
-                    report.style.display = "flex";
-                    history.style.display = "flex";
+                    bottomButtons.style.display = "flex";
 
                 default:
                     break;
@@ -90,6 +88,7 @@ auth.onAuthStateChanged(user => {
 
         // Adjust button visibility based on user state
         signoutButton.style.display = "flex";
+        bottomButtons.style.display = "flex";
         signinButton.style.display = "none";
         signupButton.style.display = "none";
         signedOutContent.style.display = "none";
@@ -107,6 +106,7 @@ auth.onAuthStateChanged(user => {
         });
     } else {
         // Handle signed-out state
+        bottomButtons.style.display = "none";
         signoutButton.style.display = "none";
         signinButton.style.display = "flex";
         signupButton.style.display = "flex";

@@ -360,8 +360,11 @@ function addComment() {
   updateCommentSection = document.getElementById("addComments");
   modalHeader = document.getElementById("modal-header");
 
+  [day, month, year] = getDate();
+  date = month +"/"+ day +"/"+ year
+
   comment = document.createElement("p");
-  comment.innerHTML = commentContent.value;
+  comment.innerHTML = "<i>" + auth.currentUser.email + " on " + date + ":</i> " + commentContent.value;
 
   existingCommentsArray = [];
   updateCommentSection.appendChild(comment);
@@ -378,10 +381,7 @@ function addComment() {
       comments: existingCommentsArray,
     });
   commentContent.value = "";
-  
-  [day, month, year] = getDate();
 
-  console.log(day);
   db.collection("history")
     .doc(
       "comment: " +
