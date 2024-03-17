@@ -190,6 +190,9 @@ function content(id) {
       modalTag.classList.add("badge");
       modalTag.classList.add("bg-success");
       modalTag.classList.add("tagBadge");
+      modalTag.setAttribute("id", "tag " + (c + 1))
+      modalTag.setAttribute("onmouseover", "handleMouseOver(this)");
+      modalTag.setAttribute("onmouseout", "handleMouseOut(event, this)");
       modalTag.setAttribute("id", `tag${c}`);
 
       modalTag.innerHTML = result.tags[c];
@@ -401,6 +404,7 @@ function addComment() {
 //variables for both "createReportButton()" and "addReport()"
 var reportTarget = ""
 var commentNumber = 0
+var tagNumer = 0
 
 //report button
 function createReportButton(target) {
@@ -414,7 +418,13 @@ function createReportButton(target) {
   reportButton.classList.add("report-button", "btn", "btn-outline-danger", "btn-sm");
   reportButton.setAttribute("data-bs-toggle","modal");
   reportButton.setAttribute("data-bs-target","#reportModal");
-  reportButton.style.cssText = "margin-right:10px; margin-left:10px; float:right";
+  if (target.id.startsWith("tag")) {
+    reportButton.style.cssText = "margin-right:10px; margin-left:10px";
+    console.log(target.id)
+  } else {
+    reportButton.style.cssText = "margin-right:10px; margin-left:10px; float:right";
+    console.log("skibidi toilet")
+  };
 
   reportButton.setAttribute("onmouseout", "handleMouseOut(event, this)");
   reportTarget = target.id;
@@ -422,6 +432,11 @@ function createReportButton(target) {
     commentNumber = reportTarget.substring(8)
     reportTarget = "comments"
     //console.log("COMMENT DETECTED, OPINION REJECTED")
+  }
+  if (reportTarget.includes("tag")) {
+    tagNumber = reportTarget.substring(3)
+    reportTarget = "tags"
+    //console.log(tagNumber)
   }
 
   reportModalLabel.innerHTML = ("Report " + campBeingReported + "'s " + reportTarget + ":");
@@ -443,10 +458,12 @@ function addReport() {
   reportDesc = reportTextArea.value
 
   if (reportTarget == "comments"){
-    reportDesc = ("comment" + commentNumber + "-" + reportDesc)
+    reportDesc = ("comment" + commentNumber + " - " + reportDesc)
   }
 
-
+  if (reportTarget == "tags"){
+    reportDesc = ("tag" + tagNumber + " - " + reportDesc)
+  }
 
   //A BUNCH OF FIREBASE STUFF
   getReports().then(results => { 
@@ -462,7 +479,7 @@ function addReport() {
 
     date = month +"/"+ day +"/"+ year
 
-    fullReport = reportDesc +"-"+ date
+    fullReport = reportDesc +" - "+ date
 
     updatedReportsArray.push(fullReport);
 
@@ -515,7 +532,11 @@ function addReport() {
 function handleMouseOver(element) {
   const reportButton = createReportButton(element);
   if (!element.parentElement.querySelector(".report-button") && editing == false) {
-    element.parentElement.insertBefore(reportButton, element);
+    if (element.id.startsWith("tag")) {
+      element.parentElement.insertBefore(reportButton, element.parentElement.firstChild);
+    } else {
+      element.parentElement.insertBefore(reportButton, element);
+    }
   };
 };
 
