@@ -60,11 +60,11 @@ function setPermissions(email) {
 }
 // Listen for auth state changes
 auth.onAuthStateChanged(user => {
-
     // Select elements outside the condition to avoid repetition
     var signoutButton = document.querySelector('#signout-button');
     var buttons = document.querySelectorAll("#nav-link");
     var signedOutContent = document.getElementById('signedOutContent');
+    var bottomButtons = document.getElementById('bottomButtons'); // Ensure this element exists in your HTML
     var signinButton = null;
     var signupButton = null;
 
@@ -77,45 +77,58 @@ auth.onAuthStateChanged(user => {
         }
     });
 
-    if (user) {
-        // Simplified user check
-        let toastMessage = document.getElementById("toastMessage");
-        toastMessage.classList.add("show");
-
-        let toastBody = document.getElementById("toastBody");
-        toastBody.innerHTML = "Welcome (back) " + user.email;
-        console.log(user.email);
-
-        // Adjust button visibility based on user state
-        signoutButton.style.display = "flex";
-        bottomButtons.style.display = "flex";
-        signinButton.style.display = "none";
-        signupButton.style.display = "none";
-        signedOutContent.style.display = "none";
-
-        // Fetch user data or set permissions
-        db.collection("users").doc(user.email).get().then(doc => {
-            if (doc.exists) {
-                let accountType = returnPermissions(user.email);
-                console.log("Setting account type:", accountType);
-                // User data exists, handle accordingly
-                console.log("Document data:", doc.data());
+    // Ensure we have all necessary elements before proceeding
+    if (signoutButton && signinButton && signupButton && signedOutContent && bottomButtons) {
+        if (user && user.emailVerified) {
+            // User is signed in and email is verified
+            console.log("User verified:", user.emailVerified);
+            let toastMessage = document.getElementById("toastMessage");
+            let toastBody = document.getElementById("toastBody");
+            
+            if (toastMessage && toastBody) {
+                toastMessage.classList.add("show");
+                toastBody.innerHTML = "Welcome (back) " + user.email;
             }
-        }).catch(error => {
-            console.error("Error getting user data:", error);
-        });
-    } else {
-        // Handle signed-out state
-        bottomButtons.style.display = "none";
-        signoutButton.style.display = "none";
-        signinButton.style.display = "flex";
-        signupButton.style.display = "flex";
-        signedOutContent.style.display = "block";
-        hideContent('contentContainer');
-    }
+            
+            console.log(user.email);
 
-    setPermissions(user.email);
+            // Adjust button visibility based on user state
+            signoutButton.style.display = "flex";
+            bottomButtons.style.display = "flex";
+            signinButton.style.display = "none";
+            signupButton.style.display = "none";
+            signedOutContent.style.display = "none";
+
+            // Fetch user data or set permissions
+            db.collection("users").doc(user.email).get().then(doc => {
+                if (doc.exists) {
+                    let accountType = returnPermissions(user.email);
+                    console.log("Setting account type:", accountType);
+                    // User data exists, handle accordingly
+                    console.log("Document data:", doc.data());
+                }
+            }).catch(error => {
+                console.error("Error getting user data:", error);
+            });
+
+            setPermissions(user.email); // Assuming this is a function to set permissions based on user's email
+        } else {
+            // Handle signed-out state or email not verified
+            bottomButtons.style.display = "none";
+            signoutButton.style.display = "none";
+            signinButton.style.display = "flex";
+            signupButton.style.display = "flex";
+            signedOutContent.style.display = "block";
+
+            if (typeof hideContent === "function") {
+                hideContent('contentContainer'); // Ensure this function is defined and safely callable
+            }
+        }
+    } else {
+        console.error("Some UI elements could not be found.");
+    }
 });
+
 
 // Utility function for hiding content by class
 function hideContent(hiddenClass) {
@@ -149,7 +162,13 @@ signinform.addEventListener('submit', e => {
         .then(cred => {
             // Assuming you want to reset and redirect here
             signinform.reset();
-            window.location.href = "index.html"; // Consider using a more dynamic approach or SPA routing
+            if (cred.user.emailVerified) {
+                setPermissions(email);
+                window.location.href = "index.html"; // Consider using a more dynamic approach or SPA routing
+            }
+            else {
+                console.error("Please verify your email!")
+            }
         })
         .catch(error => {
             alert(error.message);
@@ -167,20 +186,31 @@ signupForm.addEventListener('submit', e => {
     const grade = signupForm['gradeInputSignUp'].value;
 
     auth.createUserWithEmailAndPassword(email, password).then(cred => {
-        // Set user data in Firestore
-        return db.collection("users").doc(email).set({
-            name: fullName,
-            grade: grade,
-            accountType: returnPermissions(email) // Use the returnPermissions function to set account type
+        // Send an email verification to the newly created user
+        cred.user.sendEmailVerification().then(() => {
+            // Email sent.
+            console.log("Verification email sent.");
+        }).catch(verificationError => {
+            // Handle Errors here.
+            console.error("Error sending verification email:", verificationError);
         });
+
+        // Set user data in Firestore
+        if (cred.user.emailVerified) {
+            return db.collection("users").doc(email).set({
+                name: fullName,
+                grade: grade,
+                accountType: returnPermissions(email) // Use the returnPermissions function to set account type
+            });
+        }
     }).then(() => {
-        window.location.href = "index.html";
-        alert("Sign Up Successful!");
-        setPermissions(email);
+        //window.location.href = "index.html";
+        alert("Sign Up Successful! Please verify your email before logging in.");
     }).catch(error => {
         alert(error.message);
     });
 });
+
 
 // Sign-Out Event Listener
 const signout = document.querySelector('#signout-button');
