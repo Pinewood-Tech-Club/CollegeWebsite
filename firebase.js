@@ -122,7 +122,7 @@ function formatData(i) {
 }
 
 //get, format and export all contentModal content
-function content(id) {
+function content(id) { 
   getSummerCamps().then((results) => {
     var result = null;
 
@@ -218,17 +218,31 @@ function content(id) {
     participantNumber.innerHTML =
       "Pinewood Participants: " + result.participated.length;
 
+
+
     //adding comments
     for (var c = 0; c < result.comments.length; c++) {
+      commentDiv = document.createElement("div");
+      commentDiv.classList.add("userComment");
+      commentDiv.setAttribute("id", "comment " + (c + 1))
+
+      email = result.comments[c].email;
+      date = result.comments[c].date;
+
       comment = document.createElement("p");
-      comment.classList.add("userComment");
-      comment.setAttribute("id", "comment " + (c + 1))
+      comment.innerHTML = result.comments[c].comment;
 
-      comment.innerHTML = result.comments[c];
-      comment.setAttribute("onmouseover", "handleMouseOver(this)");
-      comment.setAttribute("onmouseout", "handleMouseOut(event, this)");
+      userAndDate = document.createElement("p");
+      userAndDate.classList.add("smallTextNameAndDate");
+      userAndDate.innerHTML = "<i>" + email + ", " + date + "</i>";
 
-      addComments.appendChild(comment);
+      commentDiv.appendChild(comment);
+      commentDiv.appendChild(userAndDate);
+      
+      commentDiv.setAttribute("onmouseover", "handleMouseOver(this)");
+      commentDiv.setAttribute("onmouseout", "handleMouseOut(event, this)");
+
+      addComments.appendChild(commentDiv);
     }
 
     //making description element
@@ -359,46 +373,56 @@ function addComment() {
   commentContent = document.getElementById("inputComment");
   updateCommentSection = document.getElementById("addComments");
   modalHeader = document.getElementById("modal-header");
+  div = document.createElement("div");
 
   [day, month, year] = getDate();
-  date = month +"/"+ day +"/"+ year
+  currentDate = month +"/"+ day +"/"+ year;
 
   comment = document.createElement("p");
-  comment.innerHTML = "<i>" + auth.currentUser.email + " on " + date + ":</i> " + commentContent.value;
+  comment.innerHTML = commentContent.value;
+
+  nameAndDate = document.createElement("p");
+  nameAndDate.classList.add("smallTextNameAndDate");
+  nameAndDate.innerHTML = "<i>" + auth.currentUser.email + ", " + currentDate + "</i>";
+
+  div.appendChild(comment);
+  div.appendChild(nameAndDate);
 
   existingCommentsArray = [];
-  updateCommentSection.appendChild(comment);
+  nestedList = {
+    comment: commentContent.value,
+    email: auth.currentUser.email,
+    date: currentDate};
+
+  updateCommentSection.appendChild(div);
 
   for (var i = 0; i < updateCommentSection.children.length; i++) {
     existingCommentsArray.push(updateCommentSection.children[i].textContent);
-  }
-
-  console.log(modalHeader.children[0].textContent);
+  };
 
   db.collection("college-counseling-database")
     .doc(modalHeader.children[0].textContent)
     .update({
-      comments: existingCommentsArray,
+      comments: firebase.firestore.FieldValue.arrayUnion(nestedList),
     });
+    
   commentContent.value = "";
 
   db.collection("history")
     .doc(
       "comment: " +
         modalHeader.children[0].textContent +
-        " " +
-        toString(updateCommentSection.length)
+        " " + date
     )
     .set({
       action: {
         type: "add comment",
         summercamp: modalHeader.children[0].textContent,
-        content: comment.innerHTML,
+        content: commentContent.value,
       },
       date: month.toString() + "/" + day.toString() + "/" + year.toString(),
       user: auth.currentUser.email,
     });
-  //console.log(commentContent.value);
 }
 
 //variables for both "createReportButton()" and "addReport()"
