@@ -1,21 +1,36 @@
-var div = document.getElementById('add')
+async function fetchData() {
+  var snap = await db.collection("history").get();
 
-var dbRef = db.collection("history")
-
-var dbPromise = dbRef.get();
-dbPromise.then(function(querySnapshot) {
   var results = [];
-  querySnapshot.forEach(function(doc) {
+  snap.forEach((doc) => {
     results.push(doc.data());
   });
-  console.log(results)
-  for (var i = 0; i < results.length; i++){
-    var e = document.createElement('p')
-    e.innerHTML = "Date: " + results[i].date + ", User: " + results[i].user + ", Action: " + results[i].action["type"]
-    div.append(e);
+
+  return results;
+}
+
+fetchData().then((results) => {
+  var div = document.getElementById("add");
+  for (var i = 0; i < results.length; i++) {
+    e = document.createElement("p");
+    e.innerHTML =
+      "<strong> Date: </strong> " +
+      results[i].date +
+      ", <strong> User:  </strong>" +
+      results[i].user +
+      ", <strong> Action: </strong> " +
+      results[i].action.type;
+    if (results[i].action.type == "add summer program") {
+      e.innerHTML += ", <strong> Summer camp name: </strong> " + results[i].action.summercamp;
+      div.append(e);
+    }
+    if (results[i].action.type == "add comment") {
+      e.innerHTML +=
+        ", <strong> Summer camp: </strong>" +
+        results[i].action.summercamp +
+        ", <strong> Comment content: </strong>" +
+        results[i].action.content;
+      div.append(e);
+    }
   }
-  return Promise.all(results);
-})
-.catch(function(error) {
-  console.log("error getting documents: ", error);
 });
