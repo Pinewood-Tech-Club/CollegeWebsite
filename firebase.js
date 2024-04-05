@@ -699,6 +699,17 @@ function createFromAddContent() {
   let tagDiv = document.getElementById("tagDiv");
   let children = tagDiv.children;
   let descriptionInput = document.getElementById("descriptionInput");
+  let sixteenAndUpTag = children[4].children[0].checked;  
+  let under16Tag = children[4].children[2].checked;
+
+  // Check which radio button is checked to add appropriate tag
+  let ageRestriction = "";
+  if ( under16Tag ) {
+    ageRestriction = "Under 16";
+  }
+  if ( sixteenAndUpTag ) {
+    ageRestriction = "16 and up";
+  }
 
   console.log(children[1].value);
 
@@ -707,7 +718,7 @@ function createFromAddContent() {
     description: descriptionInput.value,
     organization: organization.value, 
     link: link.value,
-    tags: [children[1].value, children[2].value, children[3].value],
+    tags: [children[1].value, children[2].value, children[3].value, ageRestriction],
     participated:[], 
     comments:[],
     reports:[],
@@ -718,8 +729,8 @@ function createFromAddContent() {
     autoRefresh();
   })
   .catch(function(error) {
-      console.error("Error writing document: ", error);
-    });
+      alert("Error saving new camp", error);
+  });
 
   [day, month, year] = getDate();
 

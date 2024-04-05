@@ -58,6 +58,10 @@ function setPermissions(email) {
         console.error("Error getting user data:", error);
     })
 }
+
+function setAgeRestriction() {
+
+}
 // Listen for auth state changes
 auth.onAuthStateChanged(user => {
     // Select elements outside the condition to avoid repetition
@@ -139,17 +143,22 @@ function hideContent(hiddenClass) {
 }
 
 // Function to determine user permissions
-function returnPermissions(email) {
+function returnPermissions(email, age) {
     if (email.endsWith("@pinewood.edu")) {
         if (/^[^\d]/.test(email)) {
             return "admin";
         } else {
-            return "content creator";
+            if (age < 16) {
+                return "under_16";
+            } else {
+                return "content_creator";
+            }
         }
     } else {
         return "viewer";
     }
 }
+
 
 // Sign-In Form Event Listener
 const signinform = document.querySelector('#signin-form');
@@ -232,3 +241,17 @@ signout.addEventListener('click', e => {
 //         alert(error.message);
 //     });
 // });
+
+document.addEventListener("DOMContentLoaded", function() {
+    var ageRestrictionInput = document.getElementById("ageRestriction");
+    if (ageRestrictionInput) {
+        ageRestrictionInput.addEventListener("input", function() {
+            var ageRestrictionValue = ageRestrictionInput.value;
+            console.log("Age restriction:", ageRestrictionValue);
+        });
+    } else {
+        console.error("Element with id 'ageRestriction' not found.");
+    }
+});
+
+

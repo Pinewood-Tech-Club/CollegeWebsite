@@ -279,14 +279,20 @@
                 <input id="org" type="text" class="form-control" placeholder="Organization" aria-label="Username" aria-describedby="basic-addon1">
               </div>
               <div class="input-group mb-3">
-                <input id="link" type="text" class="form-control" placeholder="link" aria-label="link" aria-describedby="basic-addon1">
+                <input id="link" type="text" class="form-control" placeholder="Required link" aria-label="link" aria-describedby="basic-addon1">
               </div>
               <div id="tagDiv" class="input-group">
                 <span class="input-group-text">Tags</span>
-                <input type="text" class="form-control" placeholder="Academic">
-                <input type="text" class="form-control" placeholder="Fun">
-                <input type="text" class="form-control" placeholder="California">
-                <input type="text" class="form-control" placeholder = "Age-restriction">
+                <input type="text" class="form-control" placeholder="Academic"/>
+                <input type="text" class="form-control" placeholder="Fun"/>
+                <input type="text" class="form-control" placeholder="California"/>
+
+                <div>
+                  <input type="radio" id="age-restriction" name="Age Restriction" value="16 and up" />
+                  <label for="huey">16 and up</label>
+                  <input type="radio" id="age-restriction" name="Age Restriction" value="Under 16" />
+                  <label for="dewey">Under 16</label>
+                </div>
               </div>
               <button class="btn btn-outline-dark" id="submitNewContent">
                 Submit
