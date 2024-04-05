@@ -241,17 +241,3 @@ signout.addEventListener('click', e => {
 //         alert(error.message);
 //     });
 // });
-
-document.addEventListener("DOMContentLoaded", function() {
-    var ageRestrictionInput = document.getElementById("ageRestriction");
-    if (ageRestrictionInput) {
-        ageRestrictionInput.addEventListener("input", function() {
-            var ageRestrictionValue = ageRestrictionInput.value;
-            console.log("Age restriction:", ageRestrictionValue);
-        });
-    } else {
-        console.error("Element with id 'ageRestriction' not found.");
-    }
-});
-
-

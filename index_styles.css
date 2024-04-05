@@ -264,3 +264,11 @@ li {
     text-align: end;
     font-size: small;
 }
+
+.authDate {
+    display: inline-block;
+}
+
+.authEmail {
+    display: inline-block;
+}
