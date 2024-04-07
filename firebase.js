@@ -244,6 +244,8 @@ function content(id) {
       addComments.appendChild(commentDiv);
     }
 
+    setPermissions(email);
+
     //making description element
     genDescription = document.createElement("p");
     genDescription.setAttribute("id", "description")

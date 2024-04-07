@@ -10,6 +10,12 @@ function setPermissions(email) {
     var report = document.getElementById("report");
     var history = document.getElementById("history");
     var bottomButtons = document.getElementById("bottomButtons");
+    var smallTextNameAndDate = document.querySelectorAll(".smallTextNameAndDate");
+
+    //defeat = comment not anonymous :)
+    smallTextNameAndDate.forEach(element => {
+        element.style.display = "flex";
+    });
 
     db.collection("users").doc(email).get().then(doc => {
         if (doc.exists) {
@@ -27,6 +33,9 @@ function setPermissions(email) {
                     commentButton.style.display = "none";
                     participationButton.style.display = "none";
                     bottomButtons.style.display = "none";
+                    smallTextNameAndDate.forEach(element => {
+                        element.style.display = "none";
+                    });
                     break;
                 case "content creator":
                     fullNameAndGrade.style.display = "none";
