@@ -1,3 +1,24 @@
+function sortingElementsByDate() {
+    var paragraphs = document.querySelectorAll("p");
+
+    const paragraphsWithDates = [];
+
+    paragraphs.forEach(paragraph => {
+        const dateStr = paragraph.id;
+        const date = new Date(dateStr);
+
+        paragraphsWithDates.push({ element: paragraph, date: date });
+    });
+
+    //sort the array by date
+    paragraphsWithDates.sort((a, b) => b.date - a.date);
+
+    
+    paragraphsWithDates.forEach(item => {
+        document.body.appendChild(item.element);
+    });
+}
+
 async function fetchData() {
     var snap = await db.collection("reports").get();
   
@@ -21,12 +42,15 @@ async function fetchData() {
                 reports = document.createElement("p");
                 str = results[i].comments[c];
                 stringArray = str.split('-');
+                date = stringArray[stringArray.length - 1];
+
+                reports.setAttribute("id", date);
 
                 reports.innerHTML = 
                 "<strong>" + 
                 stringArray[0][0].toUpperCase() + stringArray[0].slice(1) +
                 " Reported " + 
-                stringArray[stringArray.length - 1] + 
+                date + 
                 " </strong> " +
                 results[i].name +
                 ".          <strong> Report content: </strong> " +
@@ -36,6 +60,7 @@ async function fetchData() {
                 addReports.append(reports);
 
             }
+        }
 
         if (results[i].description != "") {
 
@@ -43,10 +68,13 @@ async function fetchData() {
                 reports = document.createElement("p");
                 str = results[i].description[c];
                 stringArray = str.split('-');
+                date = stringArray[stringArray.length - 1];
+
+                reports.setAttribute("id", date);
 
                 reports.innerHTML = 
                 "<strong> Description Reported " + 
-                stringArray[stringArray.length - 1] + 
+                date + 
                 " </strong> " +
                 results[i].name +
                 ".          <strong> Report content: </strong> " +
@@ -63,10 +91,13 @@ async function fetchData() {
                 reports = document.createElement("p");
                 str = results[i].link[c];
                 stringArray = str.split('-');
+                date = stringArray[stringArray.length - 1];
+
+                reports.setAttribute("id", date);
 
                 reports.innerHTML = 
                 "<strong> Link Reported " + 
-                stringArray[stringArray.length - 1] + 
+                date + 
                 " </strong> " +
                 results[i].name +
                 ".          <strong> Report content: </strong> " +
@@ -76,6 +107,7 @@ async function fetchData() {
                 addReports.append(reports);
             } 
         }
+
         if (results[i].tags != "") {
 
             for (var c = 0; c < results[i].tags.length; c++) {
@@ -83,11 +115,15 @@ async function fetchData() {
                 str = results[i].tags[c];
                 stringArray = str.split('-');
 
+                date = stringArray[stringArray.length - 1];
+
+                reports.setAttribute("id", date);
+
                 reports.innerHTML = 
                 "<strong>" + 
                 stringArray[0][0].toUpperCase() + stringArray[0].slice(1) +
                 " Reported " + 
-                stringArray[stringArray.length - 1] + 
+                date + 
                 " </strong> " +
                 results[i].name +
                 ".          <strong> Report content: </strong> " +
@@ -98,6 +134,8 @@ async function fetchData() {
             } 
         }
     }
+
+    sortingElementsByDate();
     }
-  });
-  
+  );
+

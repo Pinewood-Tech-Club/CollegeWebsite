@@ -1,3 +1,24 @@
+function sortingElementsByDate() {
+  var paragraphs = document.querySelectorAll("p");
+
+  const paragraphsWithDates = [];
+
+  paragraphs.forEach(paragraph => {
+      const dateStr = paragraph.id;
+      const date = new Date(dateStr);
+
+      paragraphsWithDates.push({ element: paragraph, date: date });
+  });
+
+  //sort the array by date
+  paragraphsWithDates.sort((a, b) => b.date - a.date);
+
+  
+  paragraphsWithDates.forEach(item => {
+      document.body.appendChild(item.element);
+  });
+}
+
 async function fetchData() {
   var snap = await db.collection("history").get();
 
@@ -13,6 +34,8 @@ fetchData().then((results) => {
   var div = document.getElementById("add");
   for (var i = 0; i < results.length; i++) {
     e = document.createElement("p");
+    e.setAttribute("id", results[i].date);
+
     e.innerHTML =
       "<strong> Date: </strong> " +
       results[i].date +
@@ -33,4 +56,7 @@ fetchData().then((results) => {
       div.append(e);
     }
   }
+
+  sortingElementsByDate();
+
 });

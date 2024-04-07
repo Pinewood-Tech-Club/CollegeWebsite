@@ -433,20 +433,24 @@ function addComment() {
 //variables for both "createReportButton()" and "addReport()"
 var reportTarget = ""
 var commentNumber = 0
-var tagNumer = 0
+var tagNumber = 0
 
 //report button
 function createReportButton(target) {
   const reportButton = document.createElement("button");
   reportModal = document.getElementById("reportModal")
   reportModalLabel = document.getElementById("reportModalLabel");
-  reportTextArea = document.getElementById("reportTextArea")
+  reportTextArea = document.getElementById("reportTextArea");
+  tagGroup = document.getElementById("tagGroup");
+  tagGroup.style.display = "none";
+
   campBeingReported = document.getElementById("camp name").innerHTML;
   reportButton.textContent = "Report";
 
   reportButton.classList.add("report-button", "btn", "btn-outline-danger", "btn-sm");
   reportButton.setAttribute("data-bs-toggle","modal");
   reportButton.setAttribute("data-bs-target","#reportModal");
+
 if (target.id.startsWith("tag")) {
     reportButton.style.cssText = "margin-right:10px; margin-left:10px";
   } else {
@@ -455,12 +459,13 @@ if (target.id.startsWith("tag")) {
 
   reportButton.setAttribute("onmouseout", "handleMouseOut(event, this)");
   reportTarget = target.id;
+
   if (reportTarget.includes("comment")) {
     commentNumber = reportTarget.substring(8)
     reportTarget = "comments"
   }
 if (reportTarget.includes("tag")) {
-    tagNumber = reportTarget.substring(3)
+    tagGroup.style.display = "flex";
     reportTarget = "tags"
   }
 
@@ -472,6 +477,7 @@ if (reportTarget.includes("tag")) {
     };
   });
 
+
   return reportButton;
 };
 
@@ -479,11 +485,24 @@ if (reportTarget.includes("tag")) {
 function addReport() {
   campBeingReported = document.getElementById("camp name").innerHTML;
   reportTextArea = document.getElementById("reportTextArea");
+  btntag1 = document.getElementById("btntag1");
+  btntag2 = document.getElementById("btntag2");
+  btntag3 = document.getElementById("btntag3");
+
   reportDesc = reportTextArea.value
 
   if (reportTarget == "comments"){
     reportDesc = ("comment" + commentNumber + "-" + reportDesc)
   }
+
+  if (btntag1.checked == true) {
+    tagNumber = 1
+  } else if (btntag2.checked == true) {
+    tagNumber = 2
+  } else {
+    tagNumber = 3
+  }
+  console.log(btntag1.checked, btntag2.checked , btntag3.checked);
 
 if (reportTarget == "tags"){
     reportDesc = ("tag" + tagNumber + "-" + reportDesc)
