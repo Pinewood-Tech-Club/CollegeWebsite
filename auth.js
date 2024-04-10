@@ -68,9 +68,9 @@ function setPermissions(email) {
     })
 }
 
-function setAgeRestriction() {
+// function setAgeRestriction() {
 
-}
+// }
 // Listen for auth state changes
 auth.onAuthStateChanged(user => {
     // Select elements outside the condition to avoid repetition
@@ -120,9 +120,9 @@ auth.onAuthStateChanged(user => {
                     // User data exists, handle accordingly
                     console.log("Document data:", doc.data());
                 }
-            }).catch(error => {
-                console.error("Error getting user data:", error);
-            });
+                }).catch(error => {
+                    console.error("Error getting user data:", error);
+                });
 
             setPermissions(user.email); // Assuming this is a function to set permissions based on user's email
         } else {
@@ -152,16 +152,13 @@ function hideContent(hiddenClass) {
 }
 
 // Function to determine user permissions
-function returnPermissions(email, age) {
+function returnPermissions(email) {
     if (email.endsWith("@pinewood.edu")) {
         if (/^[^\d]/.test(email)) {
             return "admin";
         } else {
-            if (age < 16) {
-                return "under_16";
-            } else {
-                return "content_creator";
-            }
+            return "content creator";
+
         }
     } else {
         return "viewer";
@@ -214,13 +211,12 @@ signupForm.addEventListener('submit', e => {
         });
 
         // Set user data in Firestore
-        if (cred.user.emailVerified) {
-            return db.collection("users").doc(email).set({
-                name: fullName,
-                grade: grade,
-                accountType: returnPermissions(email) // Use the returnPermissions function to set account type
-            });
-        }
+        return db.collection("users").doc(email).set({
+            name: fullName,
+            grade: grade,
+            accountType: returnPermissions(email) // Use the returnPermissions function to set account type
+        });
+        
     }).then(() => {
         //window.location.href = "index.html";
         alert("Sign Up Successful! Please verify your email before logging in.");
