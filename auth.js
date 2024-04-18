@@ -14,7 +14,7 @@ function setPermissions(email) {
 
     //defeat = comment not anonymous :)
     smallTextNameAndDate.forEach(element => {
-        element.style.display = "flex";
+        element.style.display = "block";
     });
 
     db.collection("users").doc(email).get().then(doc => {
