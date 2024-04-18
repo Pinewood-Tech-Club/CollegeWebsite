@@ -244,7 +244,7 @@ function content(id) {
       addComments.appendChild(commentDiv);
     }
 
-    setPermissions(email);
+    //setPermissions(email);
 
     //making description element
     genDescription = document.createElement("p");
@@ -414,7 +414,7 @@ function addComment() {
     .doc(
       "comment: " +
         modalHeader.children[0].textContent +
-        " " + date
+        " " + currentDate
     )
     .set({
       action: {
@@ -714,24 +714,24 @@ function createFromAddContent() {
   let tagDiv = document.getElementById("tagDiv");
   let children = tagDiv.children;
   let descriptionInput = document.getElementById("descriptionInput");
-  let sixteenAndUpTag = children[4].children[0].checked;  
-  let under16Tag = children[4].children[2].checked;
+  // let sixteenAndUpTag = children[4].children[0].checked;  
+  // let under16Tag = children[4].children[2].checked;
 
-  // Check which radio button is checked to add appropriate tag
-  let ageRestriction = "";
-  if ( under16Tag ) {
-    ageRestriction = "Under 16";
-  }
-  if ( sixteenAndUpTag ) {
-    ageRestriction = "16 and up";
-  }
+  // // Check which radio button is checked to add appropriate tag
+  // let ageRestriction = "";
+  // if ( under16Tag ) {
+  //   ageRestriction = "Under 16";
+  // }
+  // if ( sixteenAndUpTag ) {
+  //   ageRestriction = "16 and up";
+  // }
 
   db.collection("college-counseling-database").doc(nameOfSummerCamp.value).set({
     name: nameOfSummerCamp.value, 
     description: descriptionInput.value,
     organization: organization.value, 
     link: link.value,
-    tags: [children[1].value, children[2].value, children[3].value, ageRestriction],
+    tags: [children[1].value, children[2].value, children[3].value],
     participated:[], 
     comments:[],
     reports:[],
