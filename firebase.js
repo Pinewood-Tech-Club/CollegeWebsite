@@ -47,6 +47,11 @@ function getReports() {
 function switchToHistory() {
   window.location.href = "./history.html";
 }
+
+function switchToReports() {
+  window.location.href = "./report.html";
+}
+
 //uses results to append into "add-camps" id
 getSummerCamps().then((results) => {
   for (var i = 1; i < results.length; i++) {
@@ -85,7 +90,6 @@ getSummerCamps().then((results) => {
 
 //simplifies prev. function code
 function formatData(i) {
-  //console.log(i)
   element = document.getElementById("add-camps"); //where database will be added
 
   div1 = document.createElement("div"); //creating col div
@@ -117,7 +121,7 @@ function formatData(i) {
 }
 
 //get, format and export all contentModal content
-function content(id) {
+function content(id) { 
   getSummerCamps().then((results) => {
     var result = null;
 
@@ -185,6 +189,9 @@ function content(id) {
       modalTag.classList.add("badge");
       modalTag.classList.add("bg-success");
       modalTag.classList.add("tagBadge");
+      modalTag.setAttribute("id", "tag " + (c + 1))
+      modalTag.setAttribute("onmouseover", "handleMouseOver(this)");
+      modalTag.setAttribute("onmouseout", "handleMouseOut(event, this)");
       modalTag.setAttribute("id", `tag${c}`);
 
       modalTag.innerHTML = result.tags[c];
@@ -206,22 +213,38 @@ function content(id) {
       addParticipants.appendChild(participantTwo);
     }
 
-    console.log(result.participated);
     participantNumber.innerHTML =
       "Pinewood Participants: " + result.participated.length;
 
+
+
     //adding comments
     for (var c = 0; c < result.comments.length; c++) {
+      commentDiv = document.createElement("div");
+      commentDiv.classList.add("userComment");
+      commentDiv.setAttribute("id", "comment " + (c + 1))
+
+      email = result.comments[c].email;
+      date = result.comments[c].date;
+
       comment = document.createElement("p");
-      comment.classList.add("userComment");
-      comment.setAttribute("id", "comment " + (c + 1))
+      comment.classList.add("commentContent");
+      comment.innerHTML = result.comments[c].comment;
 
-      comment.innerHTML = result.comments[c];
-      comment.setAttribute("onmouseover", "handleMouseOver(this)");
-      comment.setAttribute("onmouseout", "handleMouseOut(event, this)");
+      userAndDate = document.createElement("p");
+      userAndDate.classList.add("smallTextNameAndDate");
+      userAndDate.innerHTML = "<i> <div class='authEmail'>" + email + "</div>, <div class='authDate'>" + date + "</div> </i>";
 
-      addComments.appendChild(comment);
+      commentDiv.appendChild(comment);
+      commentDiv.appendChild(userAndDate);
+      
+      commentDiv.setAttribute("onmouseover", "handleMouseOver(this)");
+      commentDiv.setAttribute("onmouseout", "handleMouseOut(event, this)");
+
+      addComments.appendChild(commentDiv);
     }
+
+    //setPermissions(email);
 
     //making description element
     genDescription = document.createElement("p");
@@ -278,7 +301,6 @@ function addParticipant() {
   //getting toastBody to get user email #lifeHack
   toastBody = document.getElementById("toastBody");
   const email = toastBody.textContent.split(" ")[2].toLowerCase();
-  console.log(email);
 
   //creating elements for participants
   participantName = document.createElement("p");
@@ -311,8 +333,6 @@ function addParticipant() {
         updatedParticipantsArray.push(addParticipants.children[i].textContent);
       }
 
-      console.log(updatedParticipantsArray);
-
       convertArray = [];
 
       for (var i = 0; i < updatedParticipantsArray.length; i += 2) {
@@ -320,8 +340,6 @@ function addParticipant() {
           updatedParticipantsArray[i] + "/" + updatedParticipantsArray[i + 1]
         );
       }
-
-      console.log(convertArray);
 
       var participantNumber = document.getElementById("participantNumber");
       participantNumber.innerHTML =
@@ -331,9 +349,22 @@ function addParticipant() {
         .doc(modalHeader.children[0].textContent)
         .update({
           participated: convertArray,
+        })
+        .catch(function (error) {
+          console.error("Error writing document: ", error);
         });
     }
   });
+}
+
+function getDate() {
+  const date = new Date();
+
+  let day = date.getDate();
+  let month = date.getMonth() + 1;
+  let year = date.getFullYear();
+
+  return [day, month, year]
 }
 
 //adding a comment
@@ -341,74 +372,101 @@ function addComment() {
   commentContent = document.getElementById("inputComment");
   updateCommentSection = document.getElementById("addComments");
   modalHeader = document.getElementById("modal-header");
+  div = document.createElement("div");
+
+  [day, month, year] = getDate();
+  currentDate = month +"/"+ day +"/"+ year;
 
   comment = document.createElement("p");
   comment.innerHTML = commentContent.value;
 
+  nameAndDate = document.createElement("p");
+  nameAndDate.classList.add("smallTextNameAndDate");
+  nameAndDate.innerHTML = "<i> <div class='authEmail'>" + auth.currentUser.email + "</div>, <div class='authDate'>" + currentDate + "</div> </i>";
+
+  div.appendChild(comment);
+  div.appendChild(nameAndDate);
+
   existingCommentsArray = [];
-  updateCommentSection.appendChild(comment);
+  nestedList = {
+    comment: commentContent.value,
+    email: auth.currentUser.email,
+    date: currentDate};
+
+  updateCommentSection.appendChild(div);
 
   for (var i = 0; i < updateCommentSection.children.length; i++) {
     existingCommentsArray.push(updateCommentSection.children[i].textContent);
-  }
-
-  console.log(modalHeader.children[0].textContent);
+  };
 
   db.collection("college-counseling-database")
     .doc(modalHeader.children[0].textContent)
     .update({
-      comments: existingCommentsArray,
+      comments: firebase.firestore.FieldValue.arrayUnion(nestedList),
+    })
+    .catch(function (error) {
+      console.error("Error writing document: ", error);
     });
+    
   commentContent.value = "";
-  const date = new Date();
 
-  let day = date.getDate();
-  let month = date.getMonth() + 1;
-  let year = date.getFullYear();
-  console.log(day);
   db.collection("history")
     .doc(
       "comment: " +
         modalHeader.children[0].textContent +
-        " " +
-        toString(updateCommentSection.length)
+        " " + currentDate
     )
     .set({
       action: {
         type: "add comment",
         summercamp: modalHeader.children[0].textContent,
-        content: comment.innerHTML,
+        content: commentContent.value,
       },
       date: month.toString() + "/" + day.toString() + "/" + year.toString(),
       user: auth.currentUser.email,
+    })
+    .catch(function (error) {
+      console.error("Error writing document: ", error);
     });
-  //console.log(commentContent.value);
 }
 
 //variables for both "createReportButton()" and "addReport()"
 var reportTarget = ""
 var commentNumber = 0
+var tagNumber = 0
 
 //report button
 function createReportButton(target) {
   const reportButton = document.createElement("button");
   reportModal = document.getElementById("reportModal")
   reportModalLabel = document.getElementById("reportModalLabel");
-  reportTextArea = document.getElementById("reportTextArea")
+  reportTextArea = document.getElementById("reportTextArea");
+  tagGroup = document.getElementById("tagGroup");
+  tagGroup.style.display = "none";
+
   campBeingReported = document.getElementById("camp name").innerHTML;
   reportButton.textContent = "Report";
 
   reportButton.classList.add("report-button", "btn", "btn-outline-danger", "btn-sm");
   reportButton.setAttribute("data-bs-toggle","modal");
   reportButton.setAttribute("data-bs-target","#reportModal");
+
+if (target.id.startsWith("tag")) {
+    reportButton.style.cssText = "margin-right:10px; margin-left:10px";
+  } else {
   reportButton.style.cssText = "margin-right:10px; margin-left:10px; float:right";
+  };
 
   reportButton.setAttribute("onmouseout", "handleMouseOut(event, this)");
   reportTarget = target.id;
+
   if (reportTarget.includes("comment")) {
     commentNumber = reportTarget.substring(8)
     reportTarget = "comments"
-    //console.log("COMMENT DETECTED, OPINION REJECTED")
+  }
+if (reportTarget.includes("tag")) {
+    tagGroup.style.display = "flex";
+    reportTarget = "tags"
   }
 
   reportModalLabel.innerHTML = ("Report " + campBeingReported + "'s " + reportTarget + ":");
@@ -417,8 +475,8 @@ function createReportButton(target) {
     if (!reportTextArea.value == "") {
       reportTextArea.value = "";
     };
-    //console.log("BYE BYE 🤫🧏‍♂️") lmao it always says bye bye 10-100 times 💀 idk why but it works so who cares :D
   });
+
 
   return reportButton;
 };
@@ -427,29 +485,50 @@ function createReportButton(target) {
 function addReport() {
   campBeingReported = document.getElementById("camp name").innerHTML;
   reportTextArea = document.getElementById("reportTextArea");
+  btntag1 = document.getElementById("btntag1");
+  btntag2 = document.getElementById("btntag2");
+  btntag3 = document.getElementById("btntag3");
+
   reportDesc = reportTextArea.value
 
   if (reportTarget == "comments"){
-    reportDesc = ("comment" + commentNumber + " / " + reportDesc)
+    reportDesc = ("comment" + commentNumber + "-" + reportDesc)
+  }
+
+  if (btntag1.checked == true) {
+    tagNumber = 1
+  } else if (btntag2.checked == true) {
+    tagNumber = 2
+  } else {
+    tagNumber = 3
+  }
+  console.log(btntag1.checked, btntag2.checked , btntag3.checked);
+
+if (reportTarget == "tags"){
+    reportDesc = ("tag" + tagNumber + "-" + reportDesc)
   }
 
   //A BUNCH OF FIREBASE STUFF
   getReports().then(results => { 
+    [day, month, year] = getDate();
+
     nameArray = [];
-    //console.log(results)
 
     //creating two arrays that merge and get put into firebase (updates the existing firebase list of reports)
     dbRef = db.collection("reports").doc(campBeingReported);
     updatedReportsArray = [];
     existingReportsArray = [];
 
-    updatedReportsArray.push(reportDesc);
+    date = month +"/"+ day +"/"+ year
+
+    fullReport = reportDesc +"-"+ date
+
+    updatedReportsArray.push(fullReport);
 
     //makes sure all this happens AFTER it gets the existing reports, otherwise it stores it before it even gets the data
     dbRef.get().then(function(doc) {
       if (doc.exists) {
         existingReportsArray = doc.data()[reportTarget] || [];
-        //console.log("Field value:", existingReportsArray);
        
         for (var i = 0; i < existingReportsArray.length; i++) { 
           updatedReportsArray.push(existingReportsArray[i]);
@@ -461,7 +540,6 @@ function addReport() {
         }
     
         if (nameArray.includes(campBeingReported)) {
-          //console.log("YO HERE I AM")
           db.collection("reports").doc(campBeingReported).update({
             [reportTarget]: updatedReportsArray,
           });
@@ -476,7 +554,6 @@ function addReport() {
           comments: [],
         })
         .then(function() {
-          //console.log("Document successfully written!");   🤓
           db.collection("reports").doc(campBeingReported).update({
             [reportTarget]: updatedReportsArray,
           })
@@ -495,7 +572,11 @@ function addReport() {
 function handleMouseOver(element) {
   const reportButton = createReportButton(element);
   if (!element.parentElement.querySelector(".report-button") && editing == false) {
+if (element.id.startsWith("tag")) {
+      element.parentElement.insertBefore(reportButton, element.parentElement.firstChild);
+    } else {
     element.parentElement.insertBefore(reportButton, element);
+}
   };
 };
 
@@ -573,7 +654,6 @@ function setUpFirebaseDatabase() {
 
 function showTag(tag) {
   getSummerCamps().then((results) => {
-    console.log("in");
     element = document.getElementById("add-camps");
 
     while (element.hasChildNodes()) {
@@ -634,8 +714,17 @@ function createFromAddContent() {
   let tagDiv = document.getElementById("tagDiv");
   let children = tagDiv.children;
   let descriptionInput = document.getElementById("descriptionInput");
+  // let sixteenAndUpTag = children[4].children[0].checked;  
+  // let under16Tag = children[4].children[2].checked;
 
-  console.log(children[1].value);
+  // // Check which radio button is checked to add appropriate tag
+  // let ageRestriction = "";
+  // if ( under16Tag ) {
+  //   ageRestriction = "Under 16";
+  // }
+  // if ( sixteenAndUpTag ) {
+  //   ageRestriction = "16 and up";
+  // }
 
   db.collection("college-counseling-database").doc(nameOfSummerCamp.value).set({
     name: nameOfSummerCamp.value, 
@@ -653,14 +742,10 @@ function createFromAddContent() {
     autoRefresh();
   })
   .catch(function(error) {
-      console.error("Error writing document: ", error);
-    });
+      alert("Error saving new camp", error);
+  });
 
-  const date = new Date();
-
-  let day = date.getDate();
-  let month = date.getMonth() + 1;
-  let year = date.getFullYear();
+  [day, month, year] = getDate();
 
   let flag = false;
   db.collection("history")
@@ -776,20 +861,19 @@ async function mostUsedTags(val) {
 
 var editing = false
 function adminEdit() {
-  console.log("admin is editing");
   editing = true
   addGeneralDescription = document.getElementById("addGeneralDescription");
   addWebLink = document.getElementById("addWebLink");
   AdminParticipantEdit = document.getElementById("AdminParticipantEdit");
   currentParticipants = document.getElementById("addParticipants");
-  commentSection = document.getElementsByClassName("userComment");
+  commentContent = document.getElementsByClassName("commentContent");
   modalFooter = document.getElementById("modalFooter");
   editContent = document.getElementById("editContent");
   tagOne = document.getElementById("tag0");
   tagTwo = document.getElementById("tag1");
   tagThree = document.getElementById("tag2");
   rowContainer = document.getElementById("rowContainer");
-  console.log(rowContainer);
+  
   if (rowContainer != null) {
     rowContainer.remove();
   } else {
@@ -829,23 +913,17 @@ function adminEdit() {
   rowContainer.classList.add("contentModal");
   rowContainer.classList.add("contentContainer");
 
-  console.log(currentParticipants.children.length / 2);
-
-  console.log("editing children");
   rowDiv = document.createElement("div");
   rowDiv.classList.add("row");
   rowDiv.classList.add("gx-3");
   rowDiv.classList.add("row-cols-1");
   rowDiv.classList.add("g-3");
 
-  console.log(rowDiv);
-
   for (var i = 0; i < currentParticipants.children.length / 2; i++) {
     empty = document.createElement("p");
     rowContent = document.createElement("button");
 
     rowContent.classList.add("btn-close");
-    //rowContent.classList.add("g-3");
     rowContent.setAttribute("aria-label", "Close");
     rowContent.setAttribute("type", "button");
     rowContent.setAttribute("onClick", `deleteParticipant(${i})`);
@@ -857,14 +935,10 @@ function adminEdit() {
   rowContainer.appendChild(rowDiv);
   AdminParticipantEdit.appendChild(rowContainer);
 
-  // console.log(rowDiv.children.length);
-  // console.log(rowDiv);
-
-  for (var c = 0; c < commentSection.length; c++) {
-    //console.log(commentSection[c].innerText);
-    commentSection[c].innerHTML =
+  for (var c = 0; c < commentContent.length; c++) {
+    commentContent[c].innerHTML =
       '<textarea class="form-control" id="floatingTextarea">' +
-      commentSection[c].innerText +
+      commentContent[c].innerText +
       "</textarea>";
   }
 
@@ -895,7 +969,7 @@ function buttonChange() {
 function exitEdit() {
   editing = false
   addGeneralDescription = document.getElementById("addGeneralDescription");
-  updateCommentSection = document.getElementById("addComments");
+  updateCommentSection = document.getElementsByClassName("commentContent");
   tags = document.getElementById("addTagsModal");
   participants = document.getElementById("addParticipants");
   webLink = document.getElementById("addWebLink");
@@ -907,11 +981,19 @@ function exitEdit() {
   existingTagsArray = [];
   existingParticipantsArray = [];
 
-  for (var i = 0; i < updateCommentSection.children.length; i++) {
-    if (updateCommentSection.children[i].children[0].value != "") {
-      existingCommentsArray.push(
-        updateCommentSection.children[i].children[0].value
-      );
+  authEmail = document.getElementsByClassName("authEmail");
+  authDate = document.getElementsByClassName("authDate");
+
+  for (var i = 0; i < updateCommentSection.length; i++) {
+    if (updateCommentSection[i].children[0].value != "") {
+
+      nestedDictionary = {
+        comment: updateCommentSection[i].children[0].value,
+        date: authDate[i].textContent,
+        email: authEmail[i].textContent,
+      }
+
+      existingCommentsArray.push(nestedDictionary);
     }
   }
 
@@ -927,16 +1009,15 @@ function exitEdit() {
     );
   }
 
-  console.log(existingCommentsArray);
-  console.log(existingTagsArray);
-  console.log("PARTICIPANTS:", existingParticipantsArray);
-
   db.collection("college-counseling-database").doc(campName).update({
     description: addGeneralDescription.children[0].value,
     tags: existingTagsArray,
     comments: existingCommentsArray,
     participated: existingParticipantsArray,
     link: webValue,
+  })
+  .catch(function (error) {
+    console.error("Error writing document: ", error);
   });
 
   buttonChange();
@@ -959,5 +1040,3 @@ function deleteParticipant(c) {
     delButtons.removeChild(delButtons.lastElementChild);
   }
 }
-
-//tee hee

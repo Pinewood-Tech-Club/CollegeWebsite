@@ -84,7 +84,19 @@
                           <p>Email</p>
                           <input id="emailInputSignUp" class="formsContent">
                           <p>Grade</p>
-                          <input id="gradeInputSignUp" class="formsContent">
+                          <br>
+                          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                          <select id="gradeInputSignUp" name="cars">
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                            <option value="9">9</option>
+                            <option value="10">10</option>
+                            <option value="11">11</option>
+                            <option value="12">12</option>
+                            <option value="Staff">Staff</option>
+                            <option value="Other">Other</option>
+                          </select>
+                          <br><br>
                           <p>Password</p>
                           <input type="password" id="passwordInputSignUp" class="formsContent">
                           <hr>
@@ -168,7 +180,7 @@
       </div>
     </div>
     <div class="container px-3 text-center contentContainer" id="add-camps-container"> 
-      <div class="row gx-3 row-cols-3 g-3" id="add-camps">
+      <div class="row gx-3 row-cols-3 g-3 mb-3" id="add-camps">
           <!-- Data -->
       </div>
     </div>
@@ -257,7 +269,6 @@
       </div>
     </div>
 
-    <div id="addContentSeeHistoryDiv">
 
     <!-- Sticky Bottom Add Content Accordion -->
     <div class="sticky-bottom contentContainer accordionContainer" id="mainAccordion">
@@ -280,13 +291,20 @@
                 <input id="org" type="text" class="form-control" placeholder="Organization" aria-label="Username" aria-describedby="basic-addon1">
               </div>
               <div class="input-group mb-3">
-                <input id="link" type="text" class="form-control" placeholder="link" aria-label="link" aria-describedby="basic-addon1">
+                <input id="link" type="text" class="form-control" placeholder="Required link" aria-label="link" aria-describedby="basic-addon1">
               </div>
               <div id="tagDiv" class="input-group">
                 <span class="input-group-text">Tags</span>
-                <input type="text" aria-label="First name" class="form-control" placeholder="Academic">
-                <input type="text" aria-label="Last name" class="form-control" placeholder="Fun">
-                <input type="text" aria-label="Last name" class="form-control" placeholder="California">
+                <input type="text" class="form-control" placeholder="Academic"/>
+                <input type="text" class="form-control" placeholder="Fun"/>
+                <input type="text" class="form-control" placeholder="California"/>
+
+                <!-- <div>
+                  <input type="radio" id="age-restriction" name="Age Restriction" value="16 and up" />
+                  <label for="huey">16 and up</label>
+                  <input type="radio" id="age-restriction" name="Age Restriction" value="Under 16" />
+                  <label for="dewey">Under 16</label>
+                </div> -->
               </div>
               <button class="btn btn-outline-dark" id="submitNewContent">
                 Submit
@@ -297,9 +315,6 @@
       </div>
     </div>
 
-    <button id="historyButton" type="button" class="btn btn-outline-dark" onclick="switchToHistory()">See History</button>
-
-    </div>
     <!-- Report trigger modal -->
   <!-- Modal -->
   <div class="modal fade" id="reportModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -310,6 +325,16 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
+          <div class="btn-group" id="tagGroup" role="group" aria-label="Basic radio toggle button group">
+            <input type="radio" class="btn-check" name="btntag" id="btntag1" autocomplete="off">
+            <label class="btn btn-outline-success" for="btntag1">Tag 1</label>
+          
+            <input type="radio" class="btn-check" name="btntag" id="btntag2" autocomplete="off">
+            <label class="btn btn-outline-success" for="btntag2">Tag 2</label>
+          
+            <input type="radio" class="btn-check" name="btntag" id="btntag3" autocomplete="off">
+            <label class="btn btn-outline-success" for="btntag3">Tag 3</label>
+          </div>
           <div class="form-floating">
             <textarea class="form-control" placeholder="Describe your report here" id="reportTextArea" style="height: 100px"></textarea>
             <label for="reportTextArea">Report Description</label>
@@ -323,10 +348,17 @@
     </div>
   </div>
 
-    </div>
-    <!-- Footer -->
-    <footer class="footer">
-      <div class="footer-copyright ml-auto py-3">©2023 Pinewood Technology Club</div>
+    <footer id="footerButtonDiv" class="footer sticky-bottom">
+      <!-- <div > -->
+        <div id="copyrightFooter" class=" py-3">©2024 Pinewood Technology Club</div>
+
+        <div id="bottomButtons">
+            <button id="report" type="button" class="historyButtons btn btn-outline-warning" onclick="switchToReports()">See Reports</button>
+            <button id="history" type="button" class="historyButtons btn btn-outline-warning" onclick="switchToHistory()">See History</button>
+        </div>
+      <!-- </div> -->
+      
+      
     </footer>
 
     <!-- Link to Firebase -->

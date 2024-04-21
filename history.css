@@ -1,0 +1,17 @@
+#historyHeader {
+    display: flex;
+    justify-content: center;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 2.0rem;
+    margin: 1.0rem;
+}
+
+#homeButton {
+    font-weight: bold;
+    color: #1A5D1A;
+    background-color: #fbab1a;
+}
+
+#addReports {
+    margin: 0px 15px;
+}

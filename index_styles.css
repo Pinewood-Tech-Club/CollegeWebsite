@@ -85,6 +85,7 @@ ul#add-camps {
 li {
     margin-bottom: 10px;
 }
+
 #copyright {
     position: absolute;
     bottom: 0;
@@ -109,6 +110,8 @@ li {
 #accordionExample {
     display: flex;
     width: 100% !important;
+    position: relative;
+    bottom: 10px;
     }
 
 #mainAccordion {
@@ -116,7 +119,7 @@ li {
 }
 
 #addContentButton {
-    margin: 2rem .5rem;
+    margin: 3rem .5rem;
 }
 
 #submitNewContent {
@@ -205,32 +208,49 @@ li {
     pointer-events: auto;
 }
 
+.historyButtons {
+    height: 40px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    margin-right: 0.5rem;
+    font-weight: bold !important;
+    color: #1A5D1A !important;
+    background-color: #fbab1a;
+    position: relative;
+    top: 5px;
+}
+
+#copyrightFooter {
+    margin-left: 10px;
+
+}
+
+#footerButtonDiv {
+    display: flex;
+    justify-content: space-between
+}
+
+.historyButtons {
+    display: inline !important;
+    height: 40px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    margin-right: 0.5rem;
+    font-weight: bold !important;
+    color: #1A5D1A !important;
+    background-color: #fbab1a;
+    position: relative;
+    top: 5px;
+}
+
+#copyrightFooter {
+    margin-left: 10px;
+}
+
 #addContentSeeHistoryDiv {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-}
-
-#historyButton.btn.btn-outline-dark {
-    margin-top: 2rem;
-    margin-right: 0.5rem;
-    display: flex;
-    flex-direction: row;
-    height: 50%;
-}
-
-#addContentSeeHistoryDiv {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-}
-
-#historyButton.btn.btn-outline-dark {
-    margin-top: 2rem;
-    margin-right: 0.5rem;
-    display: flex;
-    flex-direction: row;
-    height: 50%;
 }
 
 .btn-sm {
@@ -238,4 +258,17 @@ li {
     padding: .25em !important;
     margin-left: .1em;
     margin-right: .1em;
+}
+
+.smallTextNameAndDate {
+    text-align: end;
+    font-size: small;
+}
+
+.authDate {
+    display: inline-block;
+}
+
+.authEmail {
+    display: inline-block;
 }
