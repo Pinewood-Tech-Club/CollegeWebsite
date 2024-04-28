@@ -155,8 +155,7 @@ li {
 
 .tagBadge {
     margin-right: 5px;
-    height: 25px;
-    width: 100px;
+    width: (100%/3);
     display: flex;
     justify-content: center;
 }
@@ -271,4 +270,115 @@ li {
 
 .authEmail {
     display: inline-block;
+}
+
+.btn, p.badge {
+    white-space: normal !important;
+}
+
+div.col{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#program {
+    margin-bottom: 0px;
+}
+
+#AdminParticipantEdit {
+    justify-content: center;
+}
+
+
+@media only screen and (min-width: 400px) {
+    #mobileUIButtons {
+        display: none;
+    }
+
+    #UIButtons {
+        display: flex;
+    }
+}
+
+@media only screen and (max-width: 400px) {
+    #mobileUIButtons {
+        display: flex;
+    }
+
+    #UIButtons {
+        display: none;
+    }
+    #navbarNavAltMarkup {
+        display: inline-block;
+    }
+
+    ul.navbar-nav {
+        margin-top: 20px;
+        align-items: end;
+    }
+
+    .toast {
+        max-width: 40% !important;
+    }
+
+    #toastBody {
+        font-size: x-small;
+    }
+    
+    #pwtechclubcopyright {
+        display: none;
+    }
+
+    #techclubpantherlogo {
+        max-height: 5vh;
+    }
+
+    .toast-header {
+        justify-content: space-between;
+    }
+
+    button {
+        font-size: small !important;
+    }
+
+    #headerRow {
+        display: flex;
+        font-size: small;
+        justify-content: center;
+    }
+
+    #add-camps-container {
+        font-size: small;
+    }
+
+    #addContentButton {
+        margin-bottom: 70px ; 
+    }
+
+    div#addContentButton.accordion-item, h2.accordion-header, button#addContentModal {
+        width: 100%;
+    }
+
+    .accordion-item {
+        display: block !important;
+    }
+
+    #webLink {
+        display: block;
+    }
+
+    #addWebLink {
+        text-align: center;
+    }
+
+    ul.dropdown-menu.show {
+        width: 75vw;
+    }
+
+    #inputComment {
+        width: 68vw;
+    }
+
+
 }

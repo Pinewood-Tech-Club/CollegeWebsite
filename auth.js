@@ -49,7 +49,7 @@ function setPermissions(email) {
                     break;
                 case "admin":
                     fullNameAndGrade.style.display = "flex";
-                    participantsList.style.display = "flex";
+                    participantsList.style.display = "block";
                     participantNumber.style.display = "block";
                     editContentButton.style.display = "flex";
                     commentButton.style.display = "none";
