@@ -31,7 +31,18 @@ async function fetchData() {
   }
   
   fetchData().then((results) => {
-    console.log(results);
+    console.log(results.length == 0);
+
+    if (results.length == 0) {
+        addReports = document.getElementById("addReports");
+
+        noData = document.createElement("p");
+        noData.setAttribute("style", "text-align : center");
+        noData.innerHTML = "No Reports Yet <br> Reports will appear here once added";
+
+        addReports.append(noData);
+    }
+    else {
     for (var i = 0; i < results.length; i++) {
       
       addReports = document.getElementById("addReports");
@@ -133,7 +144,7 @@ async function fetchData() {
                 addReports.append(reports);
             } 
         }
-    }
+    }}
 
     sortingElementsByDate();
     }

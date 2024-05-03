@@ -18,10 +18,12 @@
         <!-- toast user sign in  -->
       <div id="toastMessage" class="toast fade" role="alert" aria-live="assertive" aria-atomic="true">
         <div class="toast-header">
-          <img src="TechClubPantherLogo.png" class="rounded me-2 toastLogo" alt="panther face logo black">
-          <strong class="me-auto">Pinewood Technology Club</strong>
+          <img id="techclubpantherlogo" src="TechClubPantherLogo.png" class="rounded me-2 toastLogo" alt="panther face logo black">
+          <strong id="pwtechclubcopyright" class="me-auto">Pinewood Technology Club</strong>
+          <div>
           <small class="text-body-secondary">Now</small>
           <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+          </div>
         </div>
         <div id = "toastBody" class="toast-body">
           ;alkdjf;lksadjf
@@ -30,11 +32,11 @@
 
       <!-- navbar -->
       <div class="container-fluid">
-        <nav class="navbar navbar-expand-md">
+        <nav id="navbarHeader" class="navbar navbar-expand-md">
           <a class="navbar-brand">
             <img src="Logo.png" width="60">
           </a>
-          <a class="navbar-brand">Pinewood School <br> Summer College Counseling Database </a>
+          <a class="navbar-brand">Pinewood School <br>  College Counseling Database </a>
           
           <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <ul class="navbar-nav ml-auto">
@@ -84,7 +86,19 @@
                           <p>Email</p>
                           <input id="emailInputSignUp" class="formsContent">
                           <p>Grade</p>
-                          <input id="gradeInputSignUp" class="formsContent">
+                          <br>
+                          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                          <select id="gradeInputSignUp" name="cars">
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                            <option value="9">9</option>
+                            <option value="10">10</option>
+                            <option value="11">11</option>
+                            <option value="12">12</option>
+                            <option value="Staff">Staff</option>
+                            <option value="Other">Other</option>
+                          </select>
+                          <br><br>
                           <p>Password</p>
                           <input type="password" id="passwordInputSignUp" class="formsContent">
                           <hr>
@@ -147,17 +161,10 @@
       </div>
     </section>
 
-    <!---
-    <script>
-      let btn = document.getElementById("button-tag1"); 
-      btn.textContent = mostUSedTags(0);
-    </script>
-    -->
-
     <div class="container px-3 text-center contentContainer" id="headerRow">
       <div class="row gx-3 row-cols-3 g-3">
         <div class="col">
-         <p class="p-3" >Summer Camp Name</p>
+         <p id="program" class="p-3" >Program</p>
         </div>
         <div class="col">
           <div class="p-3">Organization</div>
@@ -188,7 +195,7 @@
               <div id="addGeneralDescription" class="contentModal">Coming soon
               </div>
               </div>
-              <div class="oneLineDiv">
+              <div id="webLink" class="oneLineDiv">
                 <h4>Website Link</h4>
                 <div class="form-floating">
                 <div id="addWebLink"></div>
@@ -213,7 +220,7 @@
                   </div>
                 </section>
                 <!-- <button type="button" class="btn-close" aria-label="Close"></button> -->
-              <section>
+              <section id="sectionNameGrade">
               <div id="FullNameAndGrade" class="container row px-3 text-center contentContainer">
                 <div class="row gx-3 row-cols-2 g-3">
                 <p class="col">Full Name</p>
@@ -341,8 +348,21 @@
         <div id="copyrightFooter" class=" py-3">©2024 Pinewood Technology Club</div>
 
         <div id="bottomButtons">
+          <div id="mobileUIButtons" class="col dropup">
+            <button class="btn historyButtons btn-outline-warning dropdown-toggle tag" data-bs-toggle="dropdown" role="button" aria-expanded="false">Admin</button>
+            <div class="dropdown-menu">
+              <div class="dropdown-item">
+                <button id="report" type="button" class=" btn btn-outline-dark" onclick="switchToReports()">See Reports</button>
+              </div>
+              <div class="dropdown-item">
+                <button id="history" type="button" class=" btn btn-outline-dark" onclick="switchToHistory()">See History</button>
+              </div>
+            </div>
+          </div>
+          <div id="UIButtons">
             <button id="report" type="button" class="historyButtons btn btn-outline-warning" onclick="switchToReports()">See Reports</button>
             <button id="history" type="button" class="historyButtons btn btn-outline-warning" onclick="switchToHistory()">See History</button>
+          </div>
         </div>
       <!-- </div> -->
       
