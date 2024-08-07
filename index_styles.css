@@ -13,11 +13,22 @@ footer {
     vertical-align: bottom;
 }
 
+/* Divider stuff for the Pinewood School Banner */
+.divider {
+    height: 50px;
+    border-left: 3px solid rgb(255, 255, 255); /* Adjust thickness and color as needed */
+    margin-right: 5px; 
+}
+
 .navbar-brand{
     color: rgb(255, 255, 255);
     font-family: 'Open Sans', sans-serif;
     font-size: 6.5rem;
     font-weight: bold;
+}
+.brandSubtitle {
+    font-size: 1rem;
+    color: lightgray;
 }
 
 .nav-item {
